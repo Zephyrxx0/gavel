@@ -9,13 +9,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### File Ingestion & Pre-Processing (INGEST)
 
-- [ ] **INGEST-01**: User can upload PDF, DOCX, JPG, and PNG documents up to 10MB via drag-and-drop or file picker with client-side type and size validation.
-- [ ] **INGEST-02**: Client-side canvas downsamples image files exceeding 4MB to prevent HTTP 413 payload errors on serverless endpoints.
-- [ ] **INGEST-03**: Server extracts clean text from uploaded PDF files in-memory using `pdf-parse` without writing to disk.
-- [ ] **INGEST-04**: Server extracts plain text from uploaded DOCX files in-memory using `mammoth` preserving paragraph hierarchy.
-- [ ] **INGEST-05**: Server converts document images (JPG/PNG) into base64 payload blocks for direct multimodal interpretation via Claude 3.5 Sonnet Vision.
-- [ ] **INGEST-06**: Ingestion pipeline cleans extracted text by normalizing whitespace, stripping non-printable characters, and removing header/footer noise.
-- [ ] **INGEST-07**: User sees clear, actionable error states with a fallback manual text paste textarea when a file is corrupt, password-protected, or yields empty text.
+- [x] **INGEST-01**: User can upload PDF, DOCX, JPG, and PNG documents up to 10MB via drag-and-drop or file picker with client-side type and size validation.
+- [x] **INGEST-02**: Client-side canvas downsamples image files exceeding 4MB to prevent HTTP 413 payload errors on serverless endpoints.
+- [x] **INGEST-03**: Server extracts clean text from uploaded PDF files in-memory using `pdf-parse` without writing to disk.
+- [x] **INGEST-04**: Server extracts plain text from uploaded DOCX files in-memory using `mammoth` preserving paragraph hierarchy.
+- [x] **INGEST-05**: Server converts document images (JPG/PNG) into base64 payload blocks for direct multimodal interpretation via Claude 3.5 Sonnet Vision.
+- [x] **INGEST-06**: Ingestion pipeline cleans extracted text by normalizing whitespace, stripping non-printable characters, and removing header/footer noise.
+- [x] **INGEST-07**: User sees clear, actionable error states with a fallback manual text paste textarea when a file is corrupt, password-protected, or yields empty text.
 
 ### Mode 1: Document Decoder (DECODE)
 
@@ -53,24 +53,27 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design, Compliance & Utilities (CORE)
 
-- [ ] **CORE-01**: UI implements dark-mode legal aesthetic with typography (DM Serif Display, DM Sans, JetBrains Mono) and gold accents using Tailwind CSS and Radix UI/shadcn.
-- [ ] **CORE-02**: Mandatory non-dismissible legal disclaimer is present on all analysis screens, chat drawers, and page footers.
+- [x] **CORE-01**: UI implements dark-mode legal aesthetic with typography (DM Serif Display, DM Sans, JetBrains Mono) and gold accents using Tailwind CSS and Radix UI/shadcn.
+- [x] **CORE-02**: Mandatory non-dismissible legal disclaimer is present on all analysis screens, chat drawers, and page footers.
 - [ ] **CORE-03**: Universal export tools allow one-click copy of the complete structured report to clipboard and formatted plain-text download.
-- [ ] **CORE-04**: Ephemeral in-memory processing guarantees zero server-side file or database persistence and zero collection of PII.
+- [x] **CORE-04**: Ephemeral in-memory processing guarantees zero server-side file or database persistence and zero collection of PII.
 
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
 
 ### Multi-Language Support
+
 - **LANG-01**: Non-English document input and translation of analysis outputs into regional Indian languages (Hindi, Tamil, Telugu, Marathi).
 - **LANG-02**: Audio/voice input for describing legal situations.
 
 ### User Persistence & History
+
 - **HIST-01**: Optional client-side encrypted document history using browser IndexedDB.
 - **HIST-02**: Shareable read-only link generation with client-side decryption key in URL hash.
 
 ### Document Interaction & Redlining
+
 - **REDL-01**: Interactive PDF markup overlay highlighting risky clauses directly on the original document page.
 - **REDL-02**: Guided negotiation email drafting assistant based on negotiation checklist items.
 
@@ -94,13 +97,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INGEST-01 | Phase 1 | Pending |
-| INGEST-02 | Phase 1 | Pending |
-| INGEST-03 | Phase 1 | Pending |
-| INGEST-04 | Phase 1 | Pending |
-| INGEST-05 | Phase 1 | Pending |
-| INGEST-06 | Phase 1 | Pending |
-| INGEST-07 | Phase 1 | Pending |
+| INGEST-01 | Phase 1 | Complete |
+| INGEST-02 | Phase 1 | Complete |
+| INGEST-03 | Phase 1 | Complete |
+| INGEST-04 | Phase 1 | Complete |
+| INGEST-05 | Phase 1 | Complete |
+| INGEST-06 | Phase 1 | Complete |
+| INGEST-07 | Phase 1 | Complete |
 | DECODE-01 | Phase 2 | Pending |
 | DECODE-02 | Phase 2 | Pending |
 | DECODE-03 | Phase 2 | Pending |
@@ -123,12 +126,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAT-01 | Phase 5 | Pending |
 | CHAT-02 | Phase 5 | Pending |
 | CHAT-03 | Phase 5 | Pending |
-| CORE-01 | Phase 1 | Pending |
-| CORE-02 | Phase 1 | Pending |
+| CORE-01 | Phase 1 | Complete |
+| CORE-02 | Phase 1 | Complete |
 | CORE-03 | Phase 5 | Pending |
-| CORE-04 | Phase 1 | Pending |
+| CORE-04 | Phase 1 | Complete |
 
 **Coverage:**
+
 - v1 requirements: 33 total
 - Mapped to phases: 33
 - Unmapped: 0 ✓
@@ -136,4 +140,3 @@ Which phases cover which requirements. Updated during roadmap creation.
 ---
 *Requirements defined: 2026-09-21*  
 *Last updated: 2026-09-21 after initial definition*
-
