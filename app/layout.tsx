@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Serif_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import { LegalDisclaimerBanner } from '@/components/shared/LegalDisclaimer';
 
 const dmSerif = DM_Serif_Display({
   weight: '400',
@@ -40,6 +41,7 @@ export default function RootLayout({
     >
       <body className="bg-background text-foreground font-sans min-h-screen flex flex-col antialiased">
         <div className="flex-1 pb-16">{children}</div>
+        <LegalDisclaimerBanner />
         <Toaster />
       </body>
     </html>
