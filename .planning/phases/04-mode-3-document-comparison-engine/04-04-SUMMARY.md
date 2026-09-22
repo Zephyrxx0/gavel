@@ -25,3 +25,4 @@
 - `tests/comparison-integration.test.ts`: 2 passed.
 - Entire project test suite: 14 test files, 165 tests passed (100% green).
 - Next.js production build: clean exit 0.
+

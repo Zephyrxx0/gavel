@@ -28,3 +28,4 @@
 - `tests/schemas.test.ts`: 15 passed
 - `tests/analyze-compare-route.test.ts`: 10 passed
 - Overall Wave 1 suite: 25 tests passed (100% green).
+

@@ -31,3 +31,4 @@
 - `tests/comparison-components.test.ts`: 7 passed.
 - Wave 2 total: 14 tests passed (100% green).
 - Full regression suite: 39 tests passed.
+
