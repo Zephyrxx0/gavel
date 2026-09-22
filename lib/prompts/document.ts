@@ -44,3 +44,4 @@ export function buildDocumentUserPrompt(text: string): string {
 ${text}
 </document_to_analyze>`;
 }
+

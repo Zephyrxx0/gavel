@@ -217,3 +217,4 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
     expect(body.message).toContain('Anthropic rate limit exceeded');
   });
 });
+
