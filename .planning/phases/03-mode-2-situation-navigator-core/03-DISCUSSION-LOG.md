@@ -194,3 +194,4 @@
 
 - Voice/Audio dispute intake (LANG-02 in REQUIREMENTS.md for v2).
 - Formal legal notice generator or email drafting assistant (REDL-02 for v2).
+
