@@ -27,6 +27,9 @@ import {
   FavorabilityEnum,
   ClauseDiffSchema,
   InconsistencyItemSchema,
+  NegotiationCardSchema,
+  NegotiationGuideSchema,
+  FavorabilityMetricsSchema,
   ComparisonSchema,
 } from '@/lib/schemas';
 
@@ -372,6 +375,11 @@ describe('Domain-Modular Zod Schemas', () => {
       const comparison = {
         favorabilityVerdict: 'docA',
         verdictRationale: 'Document A offers broader liability caps and mutual indemnification.',
+        favorabilityMetrics: {
+          clausesFavoringDocA: 1,
+          clausesFavoringDocB: 0,
+          criticalInconsistencies: 0,
+        },
         differences: [
           {
             category: 'Indemnification',
@@ -389,17 +397,46 @@ describe('Domain-Modular Zod Schemas', () => {
             severity: 'notable',
           },
         ],
-        negotiationGuide: [
-          'Propose adopting Doc A mutual indemnification structure.',
-          'Reconcile Section 12 termination clause with 30-day notice requirement.',
-        ],
+        negotiationGuide: {
+          pushBack: [
+            {
+              clauseTitle: 'Unilateral Indemnification',
+              rationale: 'Shifts unlimited third-party exposure exclusively onto vendor.',
+              suggestedAlternative: 'Mutual indemnification capped at aggregate annual fees.',
+            },
+          ],
+          acceptAsIs: [
+            {
+              clauseTitle: 'Governing Law',
+              rationale: 'Standard commercial jurisdiction without prejudicial forum clauses.',
+            },
+          ],
+          flagForLawyer: [
+            {
+              clauseTitle: 'IP Assignment Scope',
+              rationale: 'Ambiguous wording could inadvertently assign pre-existing background IP.',
+            },
+          ],
+          recommendation: 'Prioritize bilateral indemnification revision before executing revised contract.',
+        },
       };
 
       const parsed = ComparisonSchema.parse(comparison);
       expect(parsed.favorabilityVerdict).toBe('docA');
+      expect(parsed.favorabilityMetrics.clausesFavoringDocA).toBe(1);
       expect(parsed.differences).toHaveLength(1);
       expect(parsed.inconsistencies[0].severity).toBe('notable');
-      expect(parsed.negotiationGuide).toHaveLength(2);
+      expect(parsed.negotiationGuide.pushBack).toHaveLength(1);
+      expect(parsed.negotiationGuide.acceptAsIs).toHaveLength(1);
+      expect(parsed.negotiationGuide.flagForLawyer).toHaveLength(1);
+
+      // Verify flat string array is rejected
+      expect(() =>
+        ComparisonSchema.parse({
+          ...comparison,
+          negotiationGuide: ['Flat string talking point'],
+        })
+      ).toThrow();
     });
   });
 });
