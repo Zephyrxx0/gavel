@@ -1,9 +1,9 @@
 ---
 phase: 2
 slug: mode-1-document-decoder-core
-status: ready
+status: complete
 nyquist_compliant: true
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-09-22
 ---
 
@@ -38,14 +38,14 @@ created: 2026-09-22
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 02-01-01 | 01 | 1 | DECODE-01 | T-02-01 | Input validation & non-UPL system prompt enforcement | unit | `npx vitest run tests/analyze-document-route.test.ts` | ❌ W0 | ⬜ pending |
-| 02-01-02 | 01 | 1 | DECODE-01 | T-02-02 | Multimodal base64 vision payload construction | unit | `npx vitest run tests/analyze-document-route.test.ts` | ❌ W0 | ⬜ pending |
-| 02-02-01 | 02 | 2 | DECODE-02 | T-02-03 | Executive summary & party metadata rendering | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-02-02 | 02 | 2 | DECODE-03 | T-02-04 | 3-tier risk filtering, sorting, & accordion text | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-03-01 | 03 | 2 | DECODE-04 | T-02-05 | Checklist chronological groups & check-off state | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-03-02 | 03 | 2 | DECODE-05 | T-02-06 | Lawyer question cards, copy action & clause link | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-04-01 | 04 | 3 | DECODE-01..05 | T-02-07 | StickyNav, progress loader & error card | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-04-02 | 04 | 3 | DECODE-01..05 | T-02-08 | End-to-end page integration & reset controls | smoke | `npm test -- --run && npm run build` | ✅ | ⬜ pending |
+| 02-01-01 | 01 | 1 | DECODE-01 | T-02-01 | Input validation & non-UPL system prompt enforcement | unit | `npx vitest run tests/analyze-document-route.test.ts` | ✅ | ✅ green |
+| 02-01-02 | 01 | 1 | DECODE-01 | T-02-02 | Multimodal base64 vision payload construction | unit | `npx vitest run tests/analyze-document-route.test.ts` | ✅ | ✅ green |
+| 02-02-01 | 02 | 2 | DECODE-02 | T-02-03 | Executive summary & party metadata rendering | unit | `npx vitest run tests/decoder-components.test.ts` | ✅ | ✅ green |
+| 02-02-02 | 02 | 2 | DECODE-03 | T-02-04 | 3-tier risk filtering, sorting, & accordion text | unit | `npx vitest run tests/decoder-components.test.ts` | ✅ | ✅ green |
+| 02-03-01 | 03 | 2 | DECODE-04 | T-02-05 | Checklist chronological groups & check-off state | unit | `npx vitest run tests/decoder-components.test.ts` | ✅ | ✅ green |
+| 02-03-02 | 03 | 2 | DECODE-05 | T-02-06 | Lawyer question cards, copy action & clause link | unit | `npx vitest run tests/decoder-components.test.ts` | ✅ | ✅ green |
+| 02-04-01 | 04 | 3 | DECODE-01..05 | T-02-07 | StickyNav, progress loader & error card | unit | `npx vitest run tests/decoder-components.test.ts` | ✅ | ✅ green |
+| 02-04-02 | 04 | 3 | DECODE-01..05 | T-02-08 | End-to-end page integration & reset controls | smoke | `npm test -- --run && npm run build` | ✅ | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -53,8 +53,8 @@ created: 2026-09-22
 
 ## Wave 0 Requirements
 
-- [ ] `tests/analyze-document-route.test.ts` — route handler unit & mock tests for text and image analysis
-- [ ] `tests/decoder-components.test.ts` — client component contract tests for scorecard, checklist, and questions
+- [x] `tests/analyze-document-route.test.ts` — route handler unit & mock tests for text and image analysis
+- [x] `tests/decoder-components.test.ts` — client component contract tests for scorecard, checklist, and questions
 
 ---
 

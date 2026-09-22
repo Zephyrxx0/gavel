@@ -14,7 +14,7 @@ Gavel is an ephemeral, privacy-first GenAI legal assistance platform that empowe
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation, Schemas, & Ingestion Pipeline** - Establish core Next.js app, dark legal design system, Zod schemas, disclaimers, and ephemeral in-memory multi-format file extraction. (completed 2026-09-22)
-- [ ] **Phase 2: Mode 1 — Document Decoder Core** - Deliver document breakdown pipeline and UI with executive summaries, 3-tier risk scorecards, action checklists, and lawyer prep guides.
+- [x] **Phase 2: Mode 1 — Document Decoder Core** - Deliver document breakdown pipeline and UI with executive summaries, 3-tier risk scorecards, action checklists, and lawyer prep guides. (completed 2026-09-22)
 - [ ] **Phase 3: Mode 2 — Situation Navigator Core** - Deliver no-document conversational intake, automatic category detection, statutory rights accordions, and urgency roadmaps.
 - [ ] **Phase 4: Mode 3 — Document Comparison Engine** - Deliver dual-document upload, side-by-side diff table, favorability verdict, inconsistency flags, and negotiation guides with large-doc handling.
 - [ ] **Phase 5: Mode 4 — Contextual Q&A, Export Tools, & Universal Polish** - Deliver grounded streaming SSE chat drawer, one-click export/clipboard tools, performance audits, and mobile responsiveness.
@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. User is presented with clear error states and an inline fallback manual text paste textarea when an uploaded document is unreadable, corrupt, or password-protected.
   5. Application renders with the authoritative dark legal theme (DM Serif Display, DM Sans, JetBrains Mono, gold accents) and prominent universal legal disclaimers.
 
-**Plans**: TBD
+**Plans**: 01-01, 01-02, 01-03 (completed 2026-09-22)
 
 ### Phase 2: Mode 1 — Document Decoder Core
 
@@ -51,7 +51,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Actionable Checklist categorizes recommendations by timing (*Immediate*, *Before Signing*, *After Signing*) with clear action badges (*Negotiate*, *Verify*, *Refuse*, *Accept*).
   5. Tailored Lawyer Preparation Guide generates 5–8 high-leverage consultation questions directly grounded in verbatim clauses.
 
-**Plans**: TBD
+**Plans**: 02-01, 02-02, 02-03, 02-04 (completed 2026-09-22)
 
 ### Phase 3: Mode 2 — Situation Navigator Core
 
