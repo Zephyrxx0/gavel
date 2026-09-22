@@ -100,3 +100,4 @@ Result: **PASS**
 | **SIT-05** | Urgency-coded next steps roadmap (4 tiers) with self-service indicators | **PASS** | `NextStepsRoadmap.tsx` (Immediate, 7 Days, 30 Days, When Ready) with "Doable Solo" vs "Counsel Recommended" badges; verified in `tests/situation-components.test.ts`. |
 | **SIT-06** | Interactive evidence checklist, attorney escalation guidance & resolution horizon | **PASS** | `EvidenceChecklist.tsx` ({ document, why } cards, progress bar), `CounselTriggersCard.tsx` thresholds, resolution timeline panel; verified in `tests/situation-components.test.ts`. |
 | **SIT-07** | Time-sensitive critical deadline & limitation period warnings | **PASS** | `DeadlineAlertBanner.tsx` top crimson alert banner with clock/warning icons; verified in `tests/situation-components.test.ts`. |
+

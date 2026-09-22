@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation, Schemas, & Ingestion Pipeline** - Establish core Next.js app, dark legal design system, Zod schemas, disclaimers, and ephemeral in-memory multi-format file extraction. (completed 2026-09-22)
 - [x] **Phase 2: Mode 1 — Document Decoder Core** - Deliver document breakdown pipeline and UI with executive summaries, 3-tier risk scorecards, action checklists, and lawyer prep guides. (completed 2026-09-22)
-- [x] **Phase 3: Mode 2 — Situation Navigator Core** - Deliver no-document conversational intake, automatic category detection, statutory rights accordions, and urgency roadmaps. (completed 2026-09-22)
+- [ ] **Phase 3: Mode 2 — Situation Navigator Core** - Deliver no-document conversational intake, automatic category detection, statutory rights accordions, and urgency roadmaps.
 - [ ] **Phase 4: Mode 3 — Document Comparison Engine** - Deliver dual-document upload, side-by-side diff table, favorability verdict, inconsistency flags, and negotiation guides with large-doc handling.
 - [ ] **Phase 5: Mode 4 — Contextual Q&A, Export Tools, & Universal Polish** - Deliver grounded streaming SSE chat drawer, one-click export/clipboard tools, performance audits, and mobile responsiveness.
 
