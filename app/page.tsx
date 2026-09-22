@@ -7,7 +7,7 @@ import { DocumentDropzone } from '@/components/upload/DocumentDropzone';
 import { FilePreviewCard } from '@/components/upload/FilePreviewCard';
 import { ManualPasteArea } from '@/components/upload/ManualPasteArea';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { UploadCloud, FileText, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { UploadCloud, FileText, ArrowRight, ShieldCheck, Zap, ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { UploadData } from '@/lib/schemas/upload';
@@ -43,32 +43,64 @@ export default function HomePage() {
         {/* Prominent Statutory Legal Disclaimer Card placed directly above analysis viewports per D-05 */}
         <LegalDisclaimerCard />
 
-        {/* Mode 2: Situation Navigator Discovery Card */}
-        <div className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-r from-[#111827] via-[#161f30] to-[#111827] p-6 sm:p-7 shadow-xl backdrop-blur-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <div className="space-y-1.5 max-w-xl">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
-                Mode 2 · Situation Navigator
-              </span>
-              <span className="text-xs text-slate-400">No document needed</span>
+        {/* Mode Discovery Grid: Mode 2 & Mode 3 Side-by-Side */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Mode 2: Situation Navigator Discovery Card */}
+          <div className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-r from-[#111827] via-[#161f30] to-[#111827] p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between gap-5 transition-all hover:border-[#D4AF37]/50">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
+                  Mode 2 · Situation Navigator
+                </span>
+                <span className="text-xs text-slate-400">No document needed</span>
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
+                I have a legal situation
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                Describe an ongoing dispute or legal dilemma in plain English to evaluate your rights, next steps, and evidence.
+              </p>
             </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
-              I have a legal situation
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-              Describe an ongoing dispute or legal dilemma in plain English to evaluate your rights, next steps, and evidence.
-            </p>
+
+            <Link href="/analyze/situation" className="w-full">
+              <Button
+                size="default"
+                className="w-full bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-10 px-4 text-xs shadow-lg transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>Situation Navigator</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
 
-          <Link href="/analyze/situation" className="shrink-0 w-full sm:w-auto">
-            <Button
-              size="default"
-              className="w-full sm:w-auto bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-11 px-5 text-sm shadow-lg transition-all"
-            >
-              <span>Situation Navigator</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
+          {/* Mode 3: Document Comparison Discovery Card */}
+          <div className="rounded-2xl border border-[#1E293B] bg-gradient-to-r from-[#111827] via-[#151c2c] to-[#111827] p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between gap-5 transition-all hover:border-[#D4AF37]/40">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
+                  Mode 3 · Compare Agreements
+                </span>
+                <ArrowLeftRight className="w-4 h-4 text-[#D4AF37]" />
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
+                Compare Two Contracts
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                Upload two contract versions to detect clause discrepancies, favorability shifts, and negotiation leverage.
+              </p>
+            </div>
+
+            <Link href="/analyze/compare" className="w-full">
+              <Button
+                size="default"
+                variant="outline"
+                className="w-full border-[#D4AF37]/40 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white font-semibold h-10 px-4 text-xs transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>Compare Documents</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Ingestion & Document Intake Container */}
