@@ -101,3 +101,4 @@ Result: **PASS** (81 passed, 0 failed, 7 test suites)
 ## 5. Conclusion
 
 Phase 2: Mode 1 — Document Decoder Core is complete, robustly tested, and fully verified.
+

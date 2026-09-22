@@ -39,3 +39,4 @@ Plan 02-02 implemented Layers 1 and 2 of the Document Decoder dossier:
 ## 4. Deviations from Plan
 
 None. Implementation strictly followed `02-02-PLAN.md`.
+

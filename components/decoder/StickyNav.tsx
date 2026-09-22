@@ -70,3 +70,4 @@ export function StickyNav({ activeSection, onNavigate, onReset, counts }: Sticky
     </nav>
   );
 }
+
