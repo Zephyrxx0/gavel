@@ -3,7 +3,7 @@ phase: 4
 slug: mode-3-document-comparison-engine
 status: approved
 nyquist_compliant: true
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-09-22
 ---
 
@@ -38,16 +38,16 @@ created: 2026-09-22
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 04-01-01 | 04-01 | 1 | COMP-02,COMP-06 | T-04-02 | NegotiationGuideSchema rejects flat string arrays | unit | `pnpm vitest run tests/schemas.test.ts` | ✅ | ⬜ pending |
-| 04-01-02 | 04-01 | 1 | COMP-02,COMP-07 | T-04-01 | Prompt builder XML tag containment `<doc_a_to_compare>` | unit | `pnpm vitest run tests/schemas.test.ts` | ❌ W0 | ⬜ pending |
-| 04-01-03 | 04-01 | 1 | COMP-02,COMP-07 | T-04-03 | Single-pass for ≤80k chars; 3 generateObject calls for >80k chars | unit | `pnpm vitest run tests/analyze-compare-route.test.ts` | ❌ W0 | ⬜ pending |
-| 04-02-01 | 04-02 | 2 | COMP-01 | T-04-05 | Presets and single zone upload handling | unit | `pnpm vitest run tests/comparison-intake.test.ts` | ❌ W0 | ⬜ pending |
-| 04-02-02 | 04-02 | 2 | COMP-01 | T-04-07 | Compare button disabled until both zones valid; 4-stage progress | unit | `pnpm vitest run tests/comparison-intake.test.ts` | ❌ W0 | ⬜ pending |
-| 04-03-01 | 04-03 | 2 | COMP-03,COMP-05 | T-04-09 | FavorabilityVerdictCard pill & metrics; InconsistenciesSection severity grouping | unit | `pnpm vitest run tests/comparison-components.test.ts` | ❌ W0 | ⬜ pending |
-| 04-03-02 | 04-03 | 2 | COMP-04,COMP-06 | T-04-08 | ClauseComparisonTable JetBrains Mono & filters; NegotiationGuide 3 buckets | unit | `pnpm vitest run tests/comparison-components.test.ts` | ❌ W0 | ⬜ pending |
-| 04-03-03 | 04-03 | 2 | COMP-03,COMP-04,COMP-05,COMP-06 | T-04-10 | ComparisonStickyNav scroll-spy & reset | unit | `pnpm vitest run tests/comparison-components.test.ts` | ❌ W0 | ⬜ pending |
-| 04-04-01 | 04-04 | 3 | COMP-01,COMP-02,COMP-07 | T-04-11,T-04-12 | Page controller 4-state lifecycle, error handling, scroll-spy | integration | `pnpm vitest run tests/comparison-integration.test.ts` | ❌ W0 | ⬜ pending |
-| 04-04-02 | 04-04 | 3 | COMP-01,COMP-02 | T-04-13 | Homepage Mode 3 card integration & production build | integration | `pnpm vitest run && pnpm run build` | existing | ⬜ pending |
+| 04-01-01 | 04-01 | 1 | COMP-02,COMP-06 | T-04-02 | NegotiationGuideSchema rejects flat string arrays | unit | `pnpm vitest run tests/schemas.test.ts` | ✅ | ✅ green |
+| 04-01-02 | 04-01 | 1 | COMP-02,COMP-07 | T-04-01 | Prompt builder XML tag containment `<doc_a_to_compare>` | unit | `pnpm vitest run tests/schemas.test.ts` | ✅ | ✅ green |
+| 04-01-03 | 04-01 | 1 | COMP-02,COMP-07 | T-04-03 | Single-pass for ≤80k chars; 3 generateObject calls for >80k chars | unit | `pnpm vitest run tests/analyze-compare-route.test.ts` | ✅ | ✅ green |
+| 04-02-01 | 04-02 | 2 | COMP-01 | T-04-05 | Presets and single zone upload handling | unit | `pnpm vitest run tests/comparison-intake.test.ts` | ✅ | ✅ green |
+| 04-02-02 | 04-02 | 2 | COMP-01 | T-04-07 | Compare button disabled until both zones valid; 4-stage progress | unit | `pnpm vitest run tests/comparison-intake.test.ts` | ✅ | ✅ green |
+| 04-03-01 | 04-03 | 2 | COMP-03,COMP-05 | T-04-09 | FavorabilityVerdictCard pill & metrics; InconsistenciesSection severity grouping | unit | `pnpm vitest run tests/comparison-components.test.ts` | ✅ | ✅ green |
+| 04-03-02 | 04-03 | 2 | COMP-04,COMP-06 | T-04-08 | ClauseComparisonTable JetBrains Mono & filters; NegotiationGuide 3 buckets | unit | `pnpm vitest run tests/comparison-components.test.ts` | ✅ | ✅ green |
+| 04-03-03 | 04-03 | 2 | COMP-03,COMP-04,COMP-05,COMP-06 | T-04-10 | ComparisonStickyNav scroll-spy & reset | unit | `pnpm vitest run tests/comparison-components.test.ts` | ✅ | ✅ green |
+| 04-04-01 | 04-04 | 3 | COMP-01,COMP-02,COMP-07 | T-04-11,T-04-12 | Page controller 4-state lifecycle, error handling, scroll-spy | integration | `pnpm vitest run tests/comparison-integration.test.ts` | ✅ | ✅ green |
+| 04-04-02 | 04-04 | 3 | COMP-01,COMP-02 | T-04-13 | Homepage Mode 3 card integration & production build | integration | `pnpm vitest run && pnpm run build` | ✅ | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -55,9 +55,9 @@ created: 2026-09-22
 
 ## Wave 0 Requirements
 
-- [ ] `tests/analyze-compare-route.test.ts` — stubs for COMP-02, COMP-07 (two-pass route)
-- [ ] `tests/comparison-components.test.ts` — stubs for COMP-01, COMP-03, COMP-04, COMP-05, COMP-06
-- [ ] Update `tests/schemas.test.ts` lines ~391–396 — fix negotiationGuide fixture to match new NegotiationGuideSchema shape
+- [x] `tests/analyze-compare-route.test.ts` — stubs for COMP-02, COMP-07 (two-pass route)
+- [x] `tests/comparison-components.test.ts` — stubs for COMP-01, COMP-03, COMP-04, COMP-05, COMP-06
+- [x] Update `tests/schemas.test.ts` lines ~391–396 — fix negotiationGuide fixture to match new NegotiationGuideSchema shape
 
 *Existing vitest infrastructure covers all phase requirements — no new framework install required.*
 

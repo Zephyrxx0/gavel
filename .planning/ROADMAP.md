@@ -83,11 +83,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Inconsistencies section highlights contradictory clauses, unexpected additions, or omitted standard protections with severity tags (Critical, Notable, Minor).
   5. Negotiation Guide segments terms into actionable categories (*Push Back*, *Accept As-Is*, *Flag for Lawyer*), and large combined documents (> 80k chars) are automatically processed via two-pass extraction without token truncation.
 
-**Plans**: 4 plans
-- [ ] 04-01-PLAN.md — Schema Upgrade & Dual-Document Comparison API Pipeline (Wave 1)
-- [ ] 04-02-PLAN.md — Dual Document Intake Experience & Comparison Progress (Wave 2)
-- [ ] 04-03-PLAN.md — Comparison Dossier Presentation Components (Wave 2)
-- [ ] 04-04-PLAN.md — Page Controller Orchestration & Homepage Integration (Wave 3)
+**Plans**: 4 plans (completed 2026-09-22)
+- [x] 04-01-PLAN.md — Schema Upgrade & Dual-Document Comparison API Pipeline (Wave 1)
+- [x] 04-02-PLAN.md — Dual Document Intake Experience & Comparison Progress (Wave 2)
+- [x] 04-03-PLAN.md — Comparison Dossier Presentation Components (Wave 2)
+- [x] 04-04-PLAN.md — Page Controller Orchestration & Homepage Integration (Wave 3)
 
 ### Phase 5: Mode 4 — Contextual Q&A, Export Tools, & Universal Polish
 
