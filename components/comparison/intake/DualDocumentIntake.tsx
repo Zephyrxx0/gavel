@@ -42,11 +42,11 @@ export function DualDocumentIntake({
 
   // Content validation: each zone must have either uploaded text/image or >= 30 chars of manual text
   const hasContentA = Boolean(
-    (uploadedA && (uploadedA.text || uploadedA.imageBase64)) ||
+    (uploadedA && (uploadedA.text || uploadedA.rawBase64)) ||
     manualTextA.trim().length >= 30
   );
   const hasContentB = Boolean(
-    (uploadedB && (uploadedB.text || uploadedB.imageBase64)) ||
+    (uploadedB && (uploadedB.text || uploadedB.rawBase64)) ||
     manualTextB.trim().length >= 30
   );
 
@@ -90,9 +90,9 @@ export function DualDocumentIntake({
       labelB: labelB.trim() || 'Document B',
       docA: uploadedA?.text || manualTextA,
       docB: uploadedB?.text || manualTextB,
-      imageA: uploadedA?.isImage && uploadedA.imageBase64 ? uploadedA.imageBase64 : undefined,
+      imageA: uploadedA?.isImage && uploadedA.rawBase64 ? uploadedA.rawBase64 : undefined,
       mimeTypeA: uploadedA?.mimeType,
-      imageB: uploadedB?.isImage && uploadedB.imageBase64 ? uploadedB.imageBase64 : undefined,
+      imageB: uploadedB?.isImage && uploadedB.rawBase64 ? uploadedB.rawBase64 : undefined,
       mimeTypeB: uploadedB?.mimeType,
     };
 

@@ -85,3 +85,4 @@ export function buildPass1UserPrompt(docText: string, label: string = 'Document'
 ${docText}
 </doc_to_extract>`;
 }
+

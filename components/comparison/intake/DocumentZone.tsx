@@ -132,7 +132,7 @@ export function DocumentZone({
           <div className="w-full">
             <FilePreviewCard
               fileName={uploadedDoc.fileName}
-              sizeBytes={uploadedDoc.fileSize}
+              sizeBytes={uploadedDoc.sizeBytes}
               wordCount={uploadedDoc.wordCount}
               mimeType={uploadedDoc.mimeType}
               isImage={uploadedDoc.isImage}
@@ -189,3 +189,4 @@ export function DocumentZone({
     </div>
   );
 }
+

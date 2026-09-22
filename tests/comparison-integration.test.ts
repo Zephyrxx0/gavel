@@ -36,3 +36,4 @@ describe('ComparePage Integration', () => {
     expect(html).toContain('Mandatory Legal Notice &amp; Statutory Safe Harbor');
   });
 });
+

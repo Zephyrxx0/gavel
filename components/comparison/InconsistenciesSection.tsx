@@ -127,3 +127,4 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
     </section>
   );
 }
+
