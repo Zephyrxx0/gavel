@@ -358,7 +358,8 @@ export function formatComparisonMarkdown(data: Comparison, labelA?: string, labe
   }
 
   sections.push('## Side-by-Side Differences');
-  for (const diff of data.clauseDifferences) {
+  const diffs = data.differences || (data as unknown as { clauseDifferences?: typeof data.differences }).clauseDifferences || [];
+  for (const diff of diffs) {
     const favorLabel = diff.favors === 'docA' ? nameA : diff.favors === 'docB' ? nameB : 'Neutral';
     sections.push(`### ${diff.category} (Risk: ${diff.riskRating.toUpperCase()} | Favors: ${favorLabel})`);
     sections.push(`**Analysis:** ${diff.notes}`);
@@ -438,7 +439,8 @@ export function formatComparisonPlainText(data: Comparison, labelA?: string, lab
 
   sections.push('DIFFERENCES:');
   sections.push('--------------------------------------------------------------------------');
-  for (const diff of data.clauseDifferences) {
+  const plainDiffs = data.differences || (data as unknown as { clauseDifferences?: typeof data.differences }).clauseDifferences || [];
+  for (const diff of plainDiffs) {
     const favorLabel = diff.favors === 'docA' ? nameA : diff.favors === 'docB' ? nameB : 'Neutral';
     sections.push(`[${diff.category}] Risk: ${diff.riskRating.toUpperCase()} | Favors: ${favorLabel}`);
     sections.push(`Notes: ${diff.notes}`);

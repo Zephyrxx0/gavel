@@ -176,8 +176,65 @@ describe('Chat and Export Components Test Suite', () => {
           data: null,
         })
       );
-
       expect(html).toBe('');
+    });
+  });
+
+  describe('StickyNav Components (Chat & Export Integration)', () => {
+    it('renders Ask Gavel and Export buttons when onOpenChat and onExport are passed to StickyNav', async () => {
+      const { StickyNav } = await import('@/components/decoder/StickyNav');
+      const html = renderToString(
+        React.createElement(StickyNav, {
+          activeSection: 'summary-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          onOpenChat: vi.fn(),
+          onExport: vi.fn(),
+          counts: { risks: 2, checklist: 3, lawyerQuestions: 4 },
+        })
+      );
+
+      expect(html).toContain('Ask Gavel');
+      expect(html).toContain('Export');
+      expect(html).toContain('Analyze Another Document');
+    });
+
+    it('renders Ask Gavel and Export buttons when onOpenChat and onExport are passed to SituationStickyNav', async () => {
+      const { SituationStickyNav } = await import('@/components/situation/SituationStickyNav');
+      const html = renderToString(
+        React.createElement(SituationStickyNav, {
+          activeSection: 'summary-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          onOpenChat: vi.fn(),
+          onExport: vi.fn(),
+          counts: { rights: 3, roadmap: 4, evidence: 2, counsel: 1 },
+        })
+      );
+
+      expect(html).toContain('Ask Gavel');
+      expect(html).toContain('Export');
+      expect(html).toContain('Start New Situation');
+    });
+
+    it('renders mobile top nav bar and desktop sidebar for ComparisonStickyNav', async () => {
+      const { ComparisonStickyNav } = await import('@/components/comparison/ComparisonStickyNav');
+      const html = renderToString(
+        React.createElement(ComparisonStickyNav, {
+          activeSection: 'verdict-section',
+          onSelectSection: vi.fn(),
+          onReset: vi.fn(),
+          onOpenChat: vi.fn(),
+          onExport: vi.fn(),
+          counts: { differences: 5, inconsistencies: 2, negotiation: 4 },
+        })
+      );
+
+      expect(html).toContain('lg:hidden'); // mobile top bar
+      expect(html).toContain('hidden lg:flex'); // desktop sidebar
+      expect(html).toContain('Ask Gavel');
+      expect(html).toContain('Export');
+      expect(html).toContain('Compare Another Pair');
     });
   });
 });

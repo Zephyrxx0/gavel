@@ -20,6 +20,9 @@ import { ActionChecklist } from '@/components/decoder/ActionChecklist';
 import { LawyerPrepGuide } from '@/components/decoder/LawyerPrepGuide';
 import { AnalysisProgress } from '@/components/decoder/AnalysisProgress';
 import { AnalysisErrorCard } from '@/components/decoder/AnalysisErrorCard';
+import { ChatPanel } from '@/components/chat/ChatPanel';
+import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
+import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 
 type AnalysisState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
@@ -33,6 +36,7 @@ export default function DocumentDecoderPage() {
   const [analysisData, setAnalysisData] = useState<DocumentAnalysis | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [activeSection, setActiveSection] = useState<string>('summary-section');
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleStartAnalysis = useCallback(async () => {
     setAnalysisState('analyzing');
@@ -112,6 +116,11 @@ export default function DocumentDecoderPage() {
           activeSection={activeSection}
           onNavigate={handleNavigateSection}
           onReset={handleReset}
+          onOpenChat={() => setIsChatOpen(true)}
+          onExport={() => {
+            const el = document.getElementById('export-dossier-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
           counts={{
             risks: analysisData.clauses.length,
             checklist: analysisData.checklist.length,
@@ -241,6 +250,29 @@ export default function DocumentDecoderPage() {
             <LawyerPrepGuide
               lawyerQuestions={analysisData.lawyerQuestions}
               onClauseCrossReference={handleClauseCrossReference}
+            />
+
+            <div id="export-dossier-section">
+              <ExportDossierCard
+                mode="document"
+                data={analysisData}
+                metadata={{ fileName: uploadedDoc?.fileName || 'document.txt' }}
+              />
+            </div>
+
+            <ChatTriggerButton
+              onClick={() => setIsChatOpen(true)}
+              isOpen={isChatOpen}
+            />
+
+            <ChatPanel
+              isOpen={isChatOpen}
+              onClose={() => setIsChatOpen(false)}
+              mode="document"
+              text={uploadedDoc?.text || manualText}
+              analysis={analysisData}
+              documentType={analysisData.documentType}
+              parties={analysisData.parties}
             />
           </div>
         )}

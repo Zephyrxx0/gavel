@@ -14,6 +14,9 @@ import { ComparisonErrorCard } from '@/components/comparison/ComparisonErrorCard
 import { Comparison } from '@/lib/schemas/comparison';
 import { AlertTriangle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ChatPanel } from '@/components/chat/ChatPanel';
+import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
+import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 
 export type ComparisonPageState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
@@ -27,6 +30,7 @@ export default function ComparePage() {
   const [labelA, setLabelA] = useState('Original Document');
   const [labelB, setLabelB] = useState('Revised Document');
   const [activeSection, setActiveSection] = useState('verdict-section');
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleStartComparison = async (payload: ComparisonPayload) => {
     setLastPayload(payload);
@@ -187,11 +191,16 @@ export default function ComparePage() {
             <LegalDisclaimerCard className="mb-6" />
 
             {/* Layout: Sticky Left Nav + Content Sections */}
-            <div className="flex items-start gap-8">
+            <div className="flex flex-col lg:flex-row items-start gap-8">
               <ComparisonStickyNav
                 activeSection={activeSection}
                 onSelectSection={handleSelectSection}
                 onReset={handleReset}
+                onOpenChat={() => setIsChatOpen(true)}
+                onExport={() => {
+                  const el = document.getElementById('export-dossier-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
                 counts={{
                   differences: comparisonResult.differences.length,
                   inconsistencies: comparisonResult.inconsistencies.length,
@@ -202,7 +211,7 @@ export default function ComparePage() {
                 }}
               />
 
-              <div className="flex-1 min-w-0 space-y-8">
+              <div className="flex-1 min-w-0 space-y-8 w-full">
                 <FavorabilityVerdictCard
                   verdict={comparisonResult.favorabilityVerdict}
                   rationale={comparisonResult.verdictRationale}
@@ -227,6 +236,14 @@ export default function ComparePage() {
                   labelB={labelB}
                 />
 
+                <div id="export-dossier-section">
+                  <ExportDossierCard
+                    mode="compare"
+                    data={comparisonResult}
+                    metadata={{ labelA, labelB }}
+                  />
+                </div>
+
                 {/* Bottom Reset Callout per D-15 */}
                 <div className="p-6 rounded-2xl border border-[#1E293B] bg-[#111827] flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
@@ -242,6 +259,24 @@ export default function ComparePage() {
                     Compare Another Pair
                   </Button>
                 </div>
+
+                <ChatTriggerButton
+                  onClick={() => setIsChatOpen(true)}
+                  isOpen={isChatOpen}
+                />
+
+                <ChatPanel
+                  isOpen={isChatOpen}
+                  onClose={() => setIsChatOpen(false)}
+                  mode="compare"
+                  text={
+                    lastPayload?.docA
+                      ? `=== Document A: ${labelA} ===\n${lastPayload.docA}\n\n=== Document B: ${labelB} ===\n${lastPayload.docB}`
+                      : undefined
+                  }
+                  analysis={comparisonResult}
+                  documentType="Contract Comparison"
+                />
               </div>
             </div>
           </div>

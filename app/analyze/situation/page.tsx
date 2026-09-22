@@ -15,6 +15,9 @@ import { RightsAccordion } from '@/components/situation/RightsAccordion';
 import { NextStepsRoadmap } from '@/components/situation/NextStepsRoadmap';
 import { EvidenceChecklist } from '@/components/situation/EvidenceChecklist';
 import { CounselTriggersCard } from '@/components/situation/CounselTriggersCard';
+import { ChatPanel } from '@/components/chat/ChatPanel';
+import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
+import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 
 type AnalysisState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
@@ -25,6 +28,7 @@ export default function SituationNavigatorPage() {
   const [submittedCategory, setSubmittedCategory] = useState<DisputeCategory | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [activeSection, setActiveSection] = useState<string>('summary-section');
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleAnalyze = useCallback(async (description: string, category?: DisputeCategory) => {
     setAnalysisState('analyzing');
@@ -138,6 +142,11 @@ export default function SituationNavigatorPage() {
           activeSection={activeSection}
           onNavigate={handleNavigateSection}
           onReset={handleReset}
+          onOpenChat={() => setIsChatOpen(true)}
+          onExport={() => {
+            const el = document.getElementById('export-dossier-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
           hasDeadlines={Boolean(analysisData.deadlineFlags && analysisData.deadlineFlags.length > 0)}
           counts={{
             rights: analysisData.rights.length,
@@ -209,6 +218,28 @@ export default function SituationNavigatorPage() {
 
             {/* Layer 6: Attorney Escalation Triggers (SIT-06, D-08) */}
             <CounselTriggersCard whenToCallLawyer={analysisData.whenToCallLawyer} />
+
+            <div id="export-dossier-section">
+              <ExportDossierCard
+                mode="situation"
+                data={analysisData}
+                metadata={{ description: submittedDescription }}
+              />
+            </div>
+
+            <ChatTriggerButton
+              onClick={() => setIsChatOpen(true)}
+              isOpen={isChatOpen}
+            />
+
+            <ChatPanel
+              isOpen={isChatOpen}
+              onClose={() => setIsChatOpen(false)}
+              mode="situation"
+              text={submittedDescription}
+              analysis={analysisData}
+              documentType={analysisData.disputeCategory}
+            />
           </div>
         )}
       </main>

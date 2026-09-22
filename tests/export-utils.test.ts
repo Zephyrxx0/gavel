@@ -121,7 +121,7 @@ const sampleComparison: Comparison = {
     clausesFavoringDocB: 4,
     criticalInconsistencies: 1,
   },
-  clauseDifferences: [
+  differences: [
     {
       category: 'Limitation of Liability',
       textDocA: 'Vendor liability is unlimited for indirect damages.',
