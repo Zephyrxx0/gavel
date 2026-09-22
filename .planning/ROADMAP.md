@@ -102,7 +102,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can copy the complete structured analysis report to clipboard or download formatted text/markdown with one click, with legal disclaimers preserved in export payloads.
   4. Entire platform operates responsively across mobile and desktop devices with complete disclaimer coverage and zero data persistence.
 
-**Plans**: TBD
+**Plans**: 4 plans
+- [x] 05-01-PLAN.md — Streaming Chat API Route & Unit Tests (Wave 1)
+- [x] 05-02-PLAN.md — Universal Export Engines, Dossier Card & Formatters (Wave 1)
+- [x] 05-03-PLAN.md — Universal Slide-in ChatPanel Drawer, Citations & Trigger FAB (Wave 2)
+- [x] 05-04-PLAN.md — StickyNav Upgrades, Mode Integration, Mobile Polish & Verification Gate (Wave 3)
 
 ## Progress
 
@@ -111,8 +115,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation, Schemas, & Ingestion Pipeline | 3/3 | Complete    | 2026-09-22 |
-| 2. Mode 1 — Document Decoder Core | 4/4 | Complete    | 2026-09-22 |
-| 3. Mode 2 — Situation Navigator Core | 4/4 | Complete    | 2026-09-22 |
-| 4. Mode 3 — Document Comparison Engine | 0/TBD | Not started | - |
-| 5. Mode 4 — Contextual Q&A, Export Tools, & Universal Polish | 0/TBD | Not started | - |
+| 1. Foundation, Schemas, & Ingestion Pipeline | 3/3 | Complete | 2026-09-22 |
+| 2. Mode 1 — Document Decoder Core | 4/4 | Complete | 2026-09-22 |
+| 3. Mode 2 — Situation Navigator Core | 4/4 | Complete | 2026-09-22 |
+| 4. Mode 3 — Document Comparison Engine | 4/4 | Complete | 2026-09-22 |
+| 5. Mode 4 — Contextual Q&A, Export Tools, & Universal Polish | 4/4 | Complete | 2026-09-22 |
