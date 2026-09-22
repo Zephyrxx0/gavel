@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
+import { POST } from '@/app/api/analyze/situation/route';
 import { generateObject } from 'ai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { SituationAnalysisSchema } from '@/lib/schemas/situation';
@@ -65,15 +66,12 @@ describe('Situation Prompt Module (lib/prompts/situation.ts)', () => {
   });
 });
 
-describe.skip('Analyze Situation Route Handler (/api/analyze/situation)', () => {
+describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
   const originalEnv = process.env;
-  let POST: (req: NextRequest) => Promise<Response>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.clearAllMocks();
     process.env = { ...originalEnv, ANTHROPIC_API_KEY: 'sk-ant-test-key-456' };
-    const routeModule = await import('@/app/api/analyze/situation/route');
-    POST = routeModule.POST;
   });
 
   it('rejects requests when ANTHROPIC_API_KEY is missing (500 CONFIG_ERROR)', async () => {
