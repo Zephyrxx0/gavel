@@ -27,13 +27,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Mode 2: Situation Navigator (SIT)
 
-- [ ] **SIT-01**: Situation intake interface accepts free-text dispute descriptions and provides an inline prompt if input is < 20 words before submitting.
-- [ ] **SIT-02**: Situation API (`/api/analyze/situation`) generates typed, schema-validated `SituationAnalysis` using `generateObject` and Claude 3.5 Sonnet.
-- [ ] **SIT-03**: System auto-detects and displays dispute category (Tenancy, Employment, Consumer, Civil, Family, Property, Financial, Other) with user confirmation badge.
-- [ ] **SIT-04**: "Your Rights" section renders expandable accordion cards explaining statutory rights and protections in plain English.
-- [ ] **SIT-05**: Next Steps Roadmap renders an urgency-coded timeline (*Immediate*, *Within 7 Days*, *Within 30 Days*, *When Ready*) with "doable without a lawyer" indicators.
-- [ ] **SIT-06**: Situation output displays an interactive "Documents to Gather" checklist with explanations, an estimated dispute resolution timeline, and "When to Call a Lawyer" guidance.
-- [ ] **SIT-07**: Time-sensitive warning flags render prominently for urgent limitation deadlines or critical legal notice windows.
+- [x] **SIT-01**: Situation intake interface accepts free-text dispute descriptions and provides an inline prompt if input is < 20 words before submitting.
+- [x] **SIT-02**: Situation API (`/api/analyze/situation`) generates typed, schema-validated `SituationAnalysis` using `generateObject` and Claude 3.5 Sonnet.
+- [x] **SIT-03**: System auto-detects and displays dispute category (Tenancy, Employment, Consumer, Civil, Family, Property, Financial, Other) with user confirmation badge.
+- [x] **SIT-04**: "Your Rights" section renders expandable accordion cards explaining statutory rights and protections in plain English.
+- [x] **SIT-05**: Next Steps Roadmap renders an urgency-coded timeline (*Immediate*, *Within 7 Days*, *Within 30 Days*, *When Ready*) with "doable without a lawyer" indicators.
+- [x] **SIT-06**: Situation output displays an interactive "Documents to Gather" checklist with explanations, an estimated dispute resolution timeline, and "When to Call a Lawyer" guidance.
+- [x] **SIT-07**: Time-sensitive warning flags render prominently for urgent limitation deadlines or critical legal notice windows.
 
 ### Mode 3: Document Comparison (COMP)
 
@@ -109,13 +109,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DECODE-03 | Phase 2 | Pending |
 | DECODE-04 | Phase 2 | Pending |
 | DECODE-05 | Phase 2 | Pending |
-| SIT-01 | Phase 3 | Pending |
-| SIT-02 | Phase 3 | Pending |
-| SIT-03 | Phase 3 | Pending |
-| SIT-04 | Phase 3 | Pending |
-| SIT-05 | Phase 3 | Pending |
-| SIT-06 | Phase 3 | Pending |
-| SIT-07 | Phase 3 | Pending |
+| SIT-01 | Phase 3 | Complete |
+| SIT-02 | Phase 3 | Complete |
+| SIT-03 | Phase 3 | Complete |
+| SIT-04 | Phase 3 | Complete |
+| SIT-05 | Phase 3 | Complete |
+| SIT-06 | Phase 3 | Complete |
+| SIT-07 | Phase 3 | Complete |
 | COMP-01 | Phase 4 | Pending |
 | COMP-02 | Phase 4 | Pending |
 | COMP-03 | Phase 4 | Pending |
