@@ -5,6 +5,9 @@ import { DeadlineAlertBanner } from '@/components/situation/DeadlineAlertBanner'
 import { SituationSummaryCard } from '@/components/situation/SituationSummaryCard';
 import { RightsAccordion } from '@/components/situation/RightsAccordion';
 import { NextStepsRoadmap } from '@/components/situation/NextStepsRoadmap';
+import { EvidenceChecklist } from '@/components/situation/EvidenceChecklist';
+import { CounselTriggersCard } from '@/components/situation/CounselTriggersCard';
+import { SituationStickyNav } from '@/components/situation/SituationStickyNav';
 
 describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => {
   describe('DeadlineAlertBanner (SIT-07, D-10)', () => {
@@ -100,7 +103,6 @@ describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => 
         })
       );
 
-      // Radix Accordion renders open state for defaultValue="right-0"
       expect(html).toContain('data-state="open"');
       expect(html).toContain('Landlords are legally required to provide an itemized statement within 21 days.');
     });
@@ -192,6 +194,140 @@ describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => 
     it('returns null when roadmap is empty or undefined', () => {
       expect(renderToString(React.createElement(NextStepsRoadmap, { roadmap: [] }))).toBe('');
       expect(renderToString(React.createElement(NextStepsRoadmap, { roadmap: undefined as unknown as [] }))).toBe('');
+    });
+  });
+
+  describe('EvidenceChecklist (SIT-06, D-06, D-12)', () => {
+    const mockEvidence = [
+      {
+        document: 'Signed Lease Agreement',
+        why: 'Establishes the initial deposit amount and terms of tenancy surrender.',
+      },
+      {
+        document: 'Move-Out Inspection Photos',
+        why: 'Demonstrates clean physical condition and rebuts wear-and-tear deductions.',
+      },
+    ];
+
+    it('renders document item cards with why rationale and progress counter', () => {
+      const html = renderToString(
+        React.createElement(EvidenceChecklist, {
+          documentsToGather: mockEvidence,
+        })
+      );
+
+      expect(html).toContain('id="evidence-section"');
+      expect(html).toContain('Documents to Gather');
+      expect(html).toContain('Signed Lease Agreement');
+      expect(html).toContain('Establishes the initial deposit amount');
+      expect(html).toContain('Move-Out Inspection Photos');
+      expect(html).toContain('Demonstrates clean physical condition');
+      expect(html).toContain('Why This Matters');
+      expect(html).toContain('Collected 0 of 2 evidentiary items (0%)');
+    });
+
+    it('renders documented empty state fallback when evidence list is empty', () => {
+      const html = renderToString(
+        React.createElement(EvidenceChecklist, {
+          documentsToGather: [],
+        })
+      );
+
+      expect(html).toContain('id="evidence-section"');
+      expect(html).toContain('No mandatory evidentiary documents identified for this dispute.');
+    });
+  });
+
+  describe('CounselTriggersCard (SIT-06, D-08)', () => {
+    const mockTriggers = [
+      'If the counterparty serves a formal eviction summons or unlawful detainer.',
+      'If alleged damages exceed the statutory small claims monetary threshold ($10,000).',
+    ];
+
+    it('renders attorney escalation cards with trigger descriptions', () => {
+      const html = renderToString(
+        React.createElement(CounselTriggersCard, {
+          whenToCallLawyer: mockTriggers,
+        })
+      );
+
+      expect(html).toContain('id="counsel-section"');
+      expect(html).toContain('When to Consult Professional Counsel');
+      expect(html).toContain('Escalation Trigger 01');
+      expect(html).toContain('If the counterparty serves a formal eviction summons');
+      expect(html).toContain('Escalation Trigger 02');
+      expect(html).toContain('If alleged damages exceed the statutory small claims monetary threshold');
+    });
+
+    it('returns null when whenToCallLawyer is empty or undefined', () => {
+      expect(renderToString(React.createElement(CounselTriggersCard, { whenToCallLawyer: [] }))).toBe('');
+      expect(renderToString(React.createElement(CounselTriggersCard, { whenToCallLawyer: undefined as unknown as [] }))).toBe('');
+    });
+  });
+
+  describe('SituationStickyNav (D-09)', () => {
+    it('renders 5 section targets and counter badges', () => {
+      const html = renderToString(
+        React.createElement(SituationStickyNav, {
+          activeSection: 'summary-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          counts: {
+            rights: 3,
+            roadmap: 4,
+            evidence: 5,
+            counselTriggers: 2,
+          },
+        })
+      );
+
+      expect(html).toContain('Summary');
+      expect(html).toContain('Your Rights');
+      expect(html).toContain('[3]');
+      expect(html).toContain('Roadmap');
+      expect(html).toContain('[4]');
+      expect(html).toContain('Evidence');
+      expect(html).toContain('[5]');
+      expect(html).toContain('Counsel Triggers');
+      expect(html).toContain('[2]');
+      expect(html).toContain('Start New Situation');
+    });
+
+    it('supports counts.counsel alias for counselTriggers', () => {
+      const html = renderToString(
+        React.createElement(SituationStickyNav, {
+          activeSection: 'rights-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          counts: {
+            rights: 2,
+            roadmap: 3,
+            evidence: 4,
+            counsel: 1,
+          },
+        })
+      );
+
+      expect(html).toContain('[1]');
+    });
+
+    it('renders deadline navigation button when hasDeadlines is true', () => {
+      const html = renderToString(
+        React.createElement(SituationStickyNav, {
+          activeSection: 'deadline-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          hasDeadlines: true,
+          counts: {
+            rights: 1,
+            roadmap: 1,
+            evidence: 1,
+            counselTriggers: 1,
+          },
+        })
+      );
+
+      expect(html).toContain('Deadlines');
     });
   });
 });
