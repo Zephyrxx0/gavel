@@ -1,8 +1,8 @@
 ---
 phase: 2
 slug: mode-1-document-decoder-core
-status: draft
-nyquist_compliant: false
+status: ready
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-09-22
 ---
@@ -44,7 +44,8 @@ created: 2026-09-22
 | 02-02-02 | 02 | 2 | DECODE-03 | T-02-04 | 3-tier risk filtering, sorting, & accordion text | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
 | 02-03-01 | 03 | 2 | DECODE-04 | T-02-05 | Checklist chronological groups & check-off state | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
 | 02-03-02 | 03 | 2 | DECODE-05 | T-02-06 | Lawyer question cards, copy action & clause link | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
-| 02-04-01 | 04 | 3 | DECODE-01..05 | T-02-07 | End-to-end page integration & reset controls | smoke | `npm test -- --run` | ✅ | ⬜ pending |
+| 02-04-01 | 04 | 3 | DECODE-01..05 | T-02-07 | StickyNav, progress loader & error card | unit | `npx vitest run tests/decoder-components.test.ts` | ❌ W0 | ⬜ pending |
+| 02-04-02 | 04 | 3 | DECODE-01..05 | T-02-08 | End-to-end page integration & reset controls | smoke | `npm test -- --run && npm run build` | ✅ | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -68,11 +69,12 @@ created: 2026-09-22
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 10s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or Wave 0 dependencies
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] Wave 0 covers all MISSING references
+- [x] No watch-mode flags
+- [x] Feedback latency < 10s
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Approval:** pending 2026-09-22
+**Approval:** approved 2026-09-22
+
