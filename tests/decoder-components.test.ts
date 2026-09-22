@@ -6,6 +6,9 @@ import { ClauseCard } from '@/components/decoder/ClauseCard';
 import { RiskScorecard } from '@/components/decoder/RiskScorecard';
 import { ActionChecklist } from '@/components/decoder/ActionChecklist';
 import { LawyerPrepGuide } from '@/components/decoder/LawyerPrepGuide';
+import { StickyNav } from '@/components/decoder/StickyNav';
+import { AnalysisProgress } from '@/components/decoder/AnalysisProgress';
+import { AnalysisErrorCard } from '@/components/decoder/AnalysisErrorCard';
 import { Clause, ActionItem, LawyerQuestion } from '@/lib/schemas/document';
 import { toast } from 'sonner';
 
@@ -309,6 +312,59 @@ describe('Decoder Components Test Suite (Wave 2: DECODE-02..05)', () => {
       expect(html).toContain('Signer is subject to unlimited third-party claims without contributory negligence defenses.');
       expect(html).toContain('Copy Question');
       expect(html).toContain('Re: clause-4');
+    });
+  });
+
+  describe('StickyNav', () => {
+    it('renders navigation bar with section items, counters, and reset trigger', () => {
+      const html = renderToString(
+        React.createElement(StickyNav, {
+          activeSection: 'risks-section',
+          onNavigate: vi.fn(),
+          onReset: vi.fn(),
+          counts: { risks: 5, checklist: 4, lawyerQuestions: 7 },
+        })
+      );
+
+      expect(html).toContain('Summary');
+      expect(html).toContain('Risks');
+      expect(html).toContain('5');
+      expect(html).toContain('Checklist');
+      expect(html).toContain('4');
+      expect(html).toContain('Lawyer Prep');
+      expect(html).toContain('7');
+      expect(html).toContain('Analyze Another Document');
+    });
+  });
+
+  describe('AnalysisProgress', () => {
+    it('renders analyzing document title and milestone stages', () => {
+      const html = renderToString(React.createElement(AnalysisProgress));
+
+      expect(html).toContain('Analyzing Legal Document');
+      expect(html).toContain('Elapsed time:');
+      expect(html).toContain('Deconstructing document structure &amp; contracting parties...');
+      expect(html).toContain('Evaluating clause risks &amp; obligation asymmetry...');
+      expect(html).toContain('Formulating actionable checklist &amp; counsel prep guide...');
+      expect(html).toContain('Zero-retention volatile processing in progress');
+    });
+  });
+
+  describe('AnalysisErrorCard', () => {
+    it('renders error message, retry trigger, and adjust input trigger', () => {
+      const html = renderToString(
+        React.createElement(AnalysisErrorCard, {
+          errorMessage: 'Anthropic rate limit reached',
+          onRetry: vi.fn(),
+          onAdjustInput: vi.fn(),
+        })
+      );
+
+      expect(html).toContain('Analysis Encountered an Issue');
+      expect(html).toContain('Anthropic rate limit reached');
+      expect(html).toContain('Your document was processed ephemerally and has been cleared from volatile memory.');
+      expect(html).toContain('Adjust Input Text');
+      expect(html).toContain('Retry Analysis');
     });
   });
 });

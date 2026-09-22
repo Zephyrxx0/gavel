@@ -9,6 +9,7 @@ import { ManualPasteArea } from '@/components/upload/ManualPasteArea';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { UploadCloud, FileText, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { UploadData } from '@/lib/schemas/upload';
 import { DownsampleResult } from '@/lib/image-utils';
 
@@ -101,14 +102,16 @@ export default function HomePage() {
                     <span>
                       Extracted <strong className="text-slate-200">{uploadedDoc.wordCount.toLocaleString()} words</strong> across volatile memory buffers.
                     </span>
-                    <Button
-                      size="sm"
-                      className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-8 text-xs px-3 self-end sm:self-auto"
-                    >
-                      <Zap className="w-3.5 h-3.5 mr-1 text-black" />
-                      Begin Mode 1 Analysis
-                      <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                    </Button>
+                    <Link href="/analyze/document">
+                      <Button
+                        size="sm"
+                        className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-8 text-xs px-3 self-end sm:self-auto"
+                      >
+                        <Zap className="w-3.5 h-3.5 mr-1 text-black" />
+                        Begin Mode 1 Analysis
+                        <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               ) : (
@@ -128,14 +131,16 @@ export default function HomePage() {
               />
               {manualText.trim().length >= 50 && (
                 <div className="flex justify-end pt-2">
-                  <Button
-                    size="sm"
-                    className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-9 text-xs px-4"
-                  >
-                    <Zap className="w-3.5 h-3.5 mr-1 text-black" />
-                    Begin Mode 1 Analysis
-                    <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                  </Button>
+                  <Link href="/analyze/document">
+                    <Button
+                      size="sm"
+                      className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-9 text-xs px-4"
+                    >
+                      <Zap className="w-3.5 h-3.5 mr-1 text-black" />
+                      Begin Mode 1 Analysis
+                      <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                    </Button>
+                  </Link>
                 </div>
               )}
             </TabsContent>
