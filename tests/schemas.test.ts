@@ -21,6 +21,7 @@ import {
   RoadmapUrgencyEnum,
   StatutoryRightSchema,
   RoadmapStepSchema,
+  DocumentEvidenceSchema,
   SituationAnalysisSchema,
   // Comparison (Mode 3)
   FavorabilityEnum,
@@ -289,9 +290,23 @@ describe('Domain-Modular Zod Schemas', () => {
       expect(() => DisputeCategoryEnum.parse('criminal_defense')).toThrow();
 
       expect(RoadmapUrgencyEnum.parse('immediate')).toBe('immediate');
-      expect(RoadmapUrgencyEnum.parse('soon')).toBe('soon');
-      expect(RoadmapUrgencyEnum.parse('informational')).toBe('informational');
+      expect(RoadmapUrgencyEnum.parse('within-7-days')).toBe('within-7-days');
+      expect(RoadmapUrgencyEnum.parse('within-30-days')).toBe('within-30-days');
+      expect(RoadmapUrgencyEnum.parse('when-ready')).toBe('when-ready');
+      expect(() => RoadmapUrgencyEnum.parse('soon')).toThrow();
+      expect(() => RoadmapUrgencyEnum.parse('informational')).toThrow();
       expect(() => RoadmapUrgencyEnum.parse('low')).toThrow();
+
+      expect(
+        DocumentEvidenceSchema.parse({
+          document: 'Move-in inspection checklist',
+          why: 'Establishes baseline condition of the rental unit',
+        })
+      ).toEqual({
+        document: 'Move-in inspection checklist',
+        why: 'Establishes baseline condition of the rental unit',
+      });
+      expect(() => DocumentEvidenceSchema.parse({ document: 'Missing why' })).toThrow();
     });
 
     it('validates SituationAnalysisSchema composite structure', () => {
@@ -313,16 +328,33 @@ describe('Domain-Modular Zod Schemas', () => {
             doableWithoutLawyer: true,
           },
         ],
-        documentsToGather: ['Move-in inspection checklist', 'Move-out photographs', 'Bank transfer receipt'],
+        documentsToGather: [
+          {
+            document: 'Move-in inspection checklist',
+            why: 'Establishes baseline condition of the rental unit',
+          },
+          {
+            document: 'Move-out photographs',
+            why: 'Provides visual proof of apartment condition upon surrender',
+          },
+          {
+            document: 'Bank transfer receipt',
+            why: 'Confirms original security deposit payment amount and date',
+          },
+        ],
         whenToCallLawyer: ['If landlord files small claims counterclaim exceeding deposit amount'],
         deadlineFlags: ['21 days from surrender of premises for return of security deposit'],
+        estimatedTimeline: 'Typically 1–3 months via formal demand letter, or 6–12 months in small claims forum',
       };
 
       const parsed = SituationAnalysisSchema.parse(situation);
       expect(parsed.disputeCategory).toBe('tenancy');
       expect(parsed.rights).toHaveLength(1);
       expect(parsed.roadmap[0].doableWithoutLawyer).toBe(true);
+      expect(parsed.documentsToGather).toHaveLength(3);
+      expect(parsed.documentsToGather[0].why).toContain('baseline condition');
       expect(parsed.deadlineFlags).toHaveLength(1);
+      expect(parsed.estimatedTimeline).toContain('Typically 1–3 months');
     });
   });
 
