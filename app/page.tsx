@@ -43,6 +43,34 @@ export default function HomePage() {
         {/* Prominent Statutory Legal Disclaimer Card placed directly above analysis viewports per D-05 */}
         <LegalDisclaimerCard />
 
+        {/* Mode 2: Situation Navigator Discovery Card */}
+        <div className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-r from-[#111827] via-[#161f30] to-[#111827] p-6 sm:p-7 shadow-xl backdrop-blur-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+          <div className="space-y-1.5 max-w-xl">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
+                Mode 2 · Situation Navigator
+              </span>
+              <span className="text-xs text-slate-400">No document needed</span>
+            </div>
+            <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
+              I have a legal situation
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+              Describe an ongoing dispute or legal dilemma in plain English to evaluate your rights, next steps, and evidence.
+            </p>
+          </div>
+
+          <Link href="/analyze/situation" className="shrink-0 w-full sm:w-auto">
+            <Button
+              size="default"
+              className="w-full sm:w-auto bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-11 px-5 text-sm shadow-lg transition-all"
+            >
+              <span>Situation Navigator</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+
         {/* Ingestion & Document Intake Container */}
         <div className="rounded-2xl border border-slate-800 bg-[#111827]/70 p-6 sm:p-8 backdrop-blur-sm shadow-xl space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
