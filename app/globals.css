@@ -4,35 +4,35 @@
 
 @layer base {
   :root {
-    --background: 220 35% 7%; /* #0B0F17 obsidian */
-    --foreground: 210 40% 98%; /* #F8FAFC */
+    --background: 40 20% 97%; /* #FAF9F6 soft warm paper */
+    --foreground: 220 15% 14%; /* #1F2329 deep charcoal ink */
 
-    --card: 222 39% 11%; /* #111827 */
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%; /* #FFFFFF pure clean card */
+    --card-foreground: 220 15% 14%;
 
-    --popover: 222 39% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 14%;
 
-    --primary: 46 65% 52%; /* #D4AF37 legal gold */
-    --primary-foreground: 220 35% 7%; /* obsidian text on gold button */
+    --primary: 220 16% 16%; /* #222730 dark graphite */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 33% 17%; /* #1E293B slate */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 40 14% 93%; /* #EFECE6 soft stone */
+    --secondary-foreground: 220 15% 14%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%; /* #94A3B8 */
+    --muted: 40 14% 93%;
+    --muted-foreground: 220 10% 46%; /* #666F7D */
 
-    --accent: 39 49% 56%; /* #C5A059 muted gold */
-    --accent-foreground: 220 35% 7%;
+    --accent: 140 20% 93%; /* #EBF3EE soft sage */
+    --accent-foreground: 145 35% 24%; /* #274D36 */
 
-    --destructive: 0 84% 60%; /* #EF4444 high risk */
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217 33% 17%; /* #1E293B */
-    --input: 217 33% 17%;
-    --ring: 46 65% 52%; /* #D4AF37 */
+    --border: 40 12% 89%; /* #E5E2DC */
+    --input: 40 12% 89%;
+    --ring: 220 16% 25%;
 
-    --radius: 0.5rem;
+    --radius: 0.875rem;
   }
 }
 
@@ -41,7 +41,25 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased min-h-screen;
+    @apply bg-background text-foreground antialiased min-h-screen selection:bg-stone-200 selection:text-stone-900;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: #FAF9F6;
+    background-image: radial-gradient(circle at 50% 0%, rgba(235, 243, 238, 0.4), transparent 60%);
+  }
+
+  /* Refined subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF9F6;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D5D2CB;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #BAB6AD;
   }
 }

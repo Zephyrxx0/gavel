@@ -15,10 +15,10 @@ const badgeVariants = cva(
         destructive:
           'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
         outline: 'text-foreground border-border',
-        gold: 'border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37]',
-        high: 'border-red-500/40 bg-red-950/40 text-red-400 font-mono',
-        caution: 'border-amber-500/40 bg-amber-950/40 text-amber-400 font-mono',
-        standard: 'border-emerald-500/40 bg-emerald-950/40 text-emerald-400 font-mono',
+        gold: 'border-stone-200 bg-stone-100 text-stone-800 font-mono',
+        high: 'border-rose-200 bg-rose-50 text-rose-700 font-mono',
+        caution: 'border-amber-200 bg-amber-50 text-amber-800 font-mono',
+        standard: 'border-emerald-200 bg-emerald-50 text-emerald-800 font-mono',
       },
     },
     defaultVariants: {

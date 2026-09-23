@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable} dark`}
+      className={`${dmSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-background text-foreground font-sans min-h-screen flex flex-col antialiased">
         <div className="flex-1 pb-16">{children}</div>
