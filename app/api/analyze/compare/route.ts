@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { ComparisonSchema, Pass1ExtractionSchema } from '@/lib/schemas/comparison';
 import {
   COMPARISON_SYSTEM_PROMPT,
@@ -17,9 +17,10 @@ const TWO_PASS_THRESHOLD = 80_000;
 
 export async function POST(req: NextRequest) {
   try {
-    if (!process.env.ANTHROPIC_API_KEY) {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    if (!apiKey) {
       return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Anthropic API key is not configured.' },
+        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
         { status: 500 }
       );
     }
@@ -85,7 +86,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const model = anthropic('claude-3-5-sonnet-20241022');
+    const google = createGoogleGenerativeAI({ apiKey });
+    const model = google('gemini-2.5-flash');
     const isTextPair = typeof docA === 'string' && typeof docB === 'string';
     const combinedLength = isTextPair ? docA.length + docB.length : 0;
     const isLargeDoc = isTextPair && combinedLength > TWO_PASS_THRESHOLD;

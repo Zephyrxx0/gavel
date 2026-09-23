@@ -31,3 +31,6 @@ next-env.d.ts
 
 # prd
 prd.html
+
+*.env
+!.env.example

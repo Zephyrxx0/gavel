@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/chat/route';
 import { streamText, convertToModelMessages } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { buildChatSystemPrompt } from '@/lib/prompts/chat';
 
 vi.mock('ai', () => ({
@@ -10,8 +10,11 @@ vi.mock('ai', () => ({
   convertToModelMessages: vi.fn(async (msgs) => msgs),
 }));
 
-vi.mock('@ai-sdk/anthropic', () => ({
-  anthropic: vi.fn(() => 'mocked-claude-model'),
+const mockModel = 'mocked-gemini-model';
+const mockGoogle = vi.fn(() => mockModel);
+
+vi.mock('@ai-sdk/google', () => ({
+  createGoogleGenerativeAI: vi.fn(() => mockGoogle),
 }));
 
 function createChatRequest(body?: unknown, rawJson?: string): NextRequest {
@@ -27,11 +30,12 @@ describe('Streaming Chat Route Handler (/api/chat)', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = { ...originalEnv, ANTHROPIC_API_KEY: 'sk-ant-test-key-123' };
+    process.env = { ...originalEnv, GEMINI_API_KEY: 'test-gemini-key-123' };
   });
 
-  it('rejects requests when ANTHROPIC_API_KEY is missing (500 CONFIG_ERROR)', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it('rejects requests when Gemini API key is missing (500 CONFIG_ERROR)', async () => {
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     const req = createChatRequest({
       messages: [{ id: '1', role: 'user', content: 'What are the termination terms?' }],
     });
@@ -124,7 +128,7 @@ describe('Streaming Chat Route Handler (/api/chat)', () => {
 
     const res = await POST(req);
 
-    expect(anthropic).toHaveBeenCalledWith('claude-3-5-sonnet-20241022');
+    expect(mockGoogle).toHaveBeenCalledWith('gemini-2.5-flash');
     expect(streamText).toHaveBeenCalled();
     const streamCallArgs = (streamText as unknown as ReturnType<typeof vi.fn>).mock.calls[0][0];
     expect(streamCallArgs.system).toContain('Total liability is capped at $10,000');

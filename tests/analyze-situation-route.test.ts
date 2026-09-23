@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/analyze/situation/route';
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { SituationAnalysisSchema } from '@/lib/schemas/situation';
 import { SITUATION_SYSTEM_PROMPT, buildSituationUserPrompt } from '@/lib/prompts/situation';
 
@@ -10,8 +10,11 @@ vi.mock('ai', () => ({
   generateObject: vi.fn(),
 }));
 
-vi.mock('@ai-sdk/anthropic', () => ({
-  anthropic: vi.fn(() => 'mocked-claude-model'),
+const mockModel = 'mocked-gemini-model';
+const mockGoogle = vi.fn(() => mockModel);
+
+vi.mock('@ai-sdk/google', () => ({
+  createGoogleGenerativeAI: vi.fn(() => mockGoogle),
 }));
 
 function createAnalyzeRequest(body?: unknown, rawJson?: string): NextRequest {
@@ -71,11 +74,12 @@ describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = { ...originalEnv, ANTHROPIC_API_KEY: 'sk-ant-test-key-456' };
+    process.env = { ...originalEnv, GEMINI_API_KEY: 'test-gemini-key-456' };
   });
 
-  it('rejects requests when ANTHROPIC_API_KEY is missing (500 CONFIG_ERROR)', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it('rejects requests when Gemini API key is missing (500 CONFIG_ERROR)', async () => {
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     const req = createAnalyzeRequest({
       description: 'My landlord withheld my security deposit of $2,400 without providing an itemized statement within 21 days.',
     });
@@ -84,7 +88,7 @@ describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
 
     expect(res.status).toBe(500);
     expect(body.error).toBe('CONFIG_ERROR');
-    expect(body.message).toContain('Anthropic API key is not configured');
+    expect(body.message).toContain('API key is not configured');
   });
 
   it('rejects malformed JSON payload (400 INVALID_REQUEST)', async () => {
@@ -179,9 +183,9 @@ describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
     expect(body.data.documentsToGather[0].why).toContain('initial condition');
     expect(body.data.estimatedTimeline).toContain('Typically 1–3 months');
 
-    expect(anthropic).toHaveBeenCalledWith('claude-3-5-sonnet-20241022');
+    expect(mockGoogle).toHaveBeenCalledWith('gemini-2.5-flash');
     expect(generateObject).toHaveBeenCalledWith({
-      model: 'mocked-claude-model',
+      model: 'mocked-gemini-model',
       schema: SituationAnalysisSchema,
       system: SITUATION_SYSTEM_PROMPT,
       prompt: buildSituationUserPrompt(disputeText, 'tenancy'),

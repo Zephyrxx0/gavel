@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/analyze/compare/route';
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import {
   COMPARISON_SYSTEM_PROMPT,
   buildComparisonPrompt,
@@ -15,8 +15,11 @@ vi.mock('ai', () => ({
   generateObject: vi.fn(),
 }));
 
-vi.mock('@ai-sdk/anthropic', () => ({
-  anthropic: vi.fn(() => 'mocked-claude-model'),
+const mockModel = 'mocked-gemini-model';
+const mockGoogle = vi.fn(() => mockModel);
+
+vi.mock('@ai-sdk/google', () => ({
+  createGoogleGenerativeAI: vi.fn(() => mockGoogle),
 }));
 
 function createCompareRequest(body?: unknown, rawJson?: string): NextRequest {
@@ -91,11 +94,12 @@ describe('Compare API Route (app/api/analyze/compare/route.ts)', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = { ...originalEnv, ANTHROPIC_API_KEY: 'test-api-key' };
+    process.env = { ...originalEnv, GEMINI_API_KEY: 'test-api-key' };
   });
 
-  it('returns 500 CONFIG_ERROR when ANTHROPIC_API_KEY is missing', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it('returns 500 CONFIG_ERROR when Gemini API key is missing', async () => {
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     const req = createCompareRequest({
       docA: 'Valid document text with sufficient length for testing.',
       docB: 'Another valid document text with sufficient length for testing.',

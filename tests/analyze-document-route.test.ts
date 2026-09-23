@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/analyze/document/route';
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { DocumentAnalysisSchema } from '@/lib/schemas/document';
 import { DOCUMENT_SYSTEM_PROMPT, buildDocumentUserPrompt } from '@/lib/prompts/document';
 
@@ -10,8 +10,11 @@ vi.mock('ai', () => ({
   generateObject: vi.fn(),
 }));
 
-vi.mock('@ai-sdk/anthropic', () => ({
-  anthropic: vi.fn(() => 'mocked-claude-model'),
+const mockModel = 'mocked-gemini-model';
+const mockGoogle = vi.fn(() => mockModel);
+
+vi.mock('@ai-sdk/google', () => ({
+  createGoogleGenerativeAI: vi.fn(() => mockGoogle),
 }));
 
 function createAnalyzeRequest(body?: unknown, rawJson?: string): NextRequest {
@@ -27,11 +30,12 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env = { ...originalEnv, ANTHROPIC_API_KEY: 'sk-ant-test-key-123' };
+    process.env = { ...originalEnv, GEMINI_API_KEY: 'test-gemini-key-123' };
   });
 
-  it('rejects requests when ANTHROPIC_API_KEY is missing (500 CONFIG_ERROR)', async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+  it('rejects requests when Gemini API key is missing (500 CONFIG_ERROR)', async () => {
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
     const req = createAnalyzeRequest({ text: 'Valid legal agreement with sufficient length to analyze.' });
     const res = await POST(req);
     const body = await res.json();
@@ -119,9 +123,9 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
     expect(body.data.checklist).toHaveLength(1);
     expect(body.data.lawyerQuestions).toHaveLength(1);
 
-    expect(anthropic).toHaveBeenCalledWith('claude-3-5-sonnet-20241022');
+    expect(mockGoogle).toHaveBeenCalledWith('gemini-2.5-flash');
     expect(generateObject).toHaveBeenCalledWith({
-      model: 'mocked-claude-model',
+      model: 'mocked-gemini-model',
       schema: DocumentAnalysisSchema,
       system: DOCUMENT_SYSTEM_PROMPT,
       prompt: buildDocumentUserPrompt(docText),
@@ -182,7 +186,7 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
     expect(body.data.clauses[0].risk).toBe('high');
 
     expect(generateObject).toHaveBeenCalledWith({
-      model: 'mocked-claude-model',
+      model: 'mocked-gemini-model',
       schema: DocumentAnalysisSchema,
       system: DOCUMENT_SYSTEM_PROMPT,
       messages: [

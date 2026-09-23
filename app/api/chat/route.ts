@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { streamText, convertToModelMessages, type UIMessage } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { buildChatSystemPrompt, type ChatPromptOptions } from '@/lib/prompts/chat';
 
 export const runtime = 'nodejs';
@@ -17,9 +17,10 @@ interface ChatContextPayload {
 
 export async function POST(req: NextRequest) {
   try {
-    if (!process.env.ANTHROPIC_API_KEY) {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    if (!apiKey) {
       return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Anthropic API key is not configured.' },
+        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
         { status: 500 }
       );
     }
@@ -67,7 +68,8 @@ export async function POST(req: NextRequest) {
     const systemPrompt = buildChatSystemPrompt(promptOptions);
     const modelMessages = await convertToModelMessages(messages);
 
-    const model = anthropic('claude-3-5-sonnet-20241022');
+    const google = createGoogleGenerativeAI({ apiKey });
+    const model = google('gemini-2.5-flash');
 
     const result = streamText({
       model,

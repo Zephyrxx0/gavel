@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { DocumentAnalysisSchema } from '@/lib/schemas/document';
 import { DOCUMENT_SYSTEM_PROMPT, buildDocumentUserPrompt } from '@/lib/prompts/document';
 
@@ -10,9 +10,10 @@ export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
-    if (!process.env.ANTHROPIC_API_KEY) {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    if (!apiKey) {
       return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Anthropic API key is not configured.' },
+        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
         { status: 500 }
       );
     }
@@ -36,7 +37,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const model = anthropic('claude-3-5-sonnet-20241022');
+    const google = createGoogleGenerativeAI({ apiKey });
+    const model = google('gemini-2.5-flash');
     let analysisResult;
 
     if (typeof imageBase64 === 'string' && imageBase64.length > 0) {
