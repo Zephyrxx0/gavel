@@ -46,7 +46,7 @@ export function CategoryFilterChips({
 }: CategoryFilterChipsProps) {
   return (
     <div className="space-y-2">
-      <label className="text-xs font-mono uppercase tracking-wider text-slate-400 block">
+      <label className="text-xs font-mono uppercase tracking-wider text-stone-500 block">
         Dispute Category (Optional Pre-Filter)
       </label>
       <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Dispute Categories">
@@ -63,10 +63,10 @@ export function CategoryFilterChips({
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
                 isSelected
                   ? 'bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/50 font-semibold shadow-sm'
-                  : 'bg-slate-900/70 text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-slate-800'
+                  : 'bg-white text-stone-600 hover:text-stone-900 hover:bg-stone-50 border border-stone-200/80 shadow-sm'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#D4AF37]' : opt.accentColor}`} />
+              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#D4AF37]' : 'text-stone-500'}`} />
               <span>{opt.label}</span>
             </button>
           );

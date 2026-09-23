@@ -134,7 +134,7 @@ export default function SituationNavigatorPage() {
   }, [analysisState, analysisData]);
 
   return (
-    <div className="min-h-screen bg-legal-obsidian text-foreground flex flex-col">
+    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
       {analysisState === 'dossier' && analysisData && (
@@ -163,12 +163,15 @@ export default function SituationNavigatorPage() {
 
         {/* State 1: Idle / Intake */}
         {analysisState === 'idle' && (
-          <div className="rounded-2xl border border-slate-800 bg-[#111827]/70 p-6 sm:p-8 backdrop-blur-sm shadow-xl space-y-6">
-            <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-white tracking-wide">
-                Situation Intake &amp; Analysis Setup
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-mono tracking-wide uppercase bg-[#FAF0EB] border border-[#F2D8CD] text-[#7D432D]">
+                <span>Mode 2 · Situation Navigator</span>
+              </div>
+              <h1 className="font-serif text-3xl sm:text-4xl font-normal text-stone-900 tracking-tight">
+                Situation Intake &amp; Rights Evaluation
+              </h1>
+              <p className="text-sm text-stone-600 font-sans max-w-2xl leading-relaxed">
                 Describe your legal dispute or dilemma in plain English to evaluate your rights, next steps, and evidence.
               </p>
             </div>

@@ -119,16 +119,16 @@ export function SituationIntakeForm({
         <div className="flex items-center justify-between">
           <label
             htmlFor="situation-narrative"
-            className="text-xs font-mono uppercase tracking-wider text-slate-300"
+            className="text-xs font-mono uppercase tracking-wider text-stone-600"
           >
-            Dispute Narrative & Facts
+            Dispute Narrative &amp; Facts
           </label>
           <span
             data-testid="word-count-badge"
             className={`font-mono text-xs px-2.5 py-0.5 rounded-full transition-colors ${
               words >= 20
-                ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30'
-                : 'text-slate-400 bg-slate-900 border border-slate-800'
+                ? 'text-emerald-400 bg-emerald-50 border border-emerald-200'
+                : 'text-stone-600 bg-stone-100 border border-stone-200'
             }`}
           >
             {words >= 20 ? `${words} words` : `${words} / 20 words minimum`}
@@ -142,7 +142,7 @@ export function SituationIntakeForm({
           onChange={handleChange}
           rows={7}
           placeholder="Describe what happened in your own words. Include who was involved, what agreements or promises were made, key dates, what went wrong, and what resolution you are seeking..."
-          className="w-full min-h-[160px] rounded-xl border border-slate-800 bg-[#0B0F17] p-4 text-sm font-sans text-slate-200 placeholder:text-slate-500 focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] leading-relaxed resize-y"
+          className="w-full min-h-[160px] rounded-2xl border border-stone-200/90 bg-white p-4 text-sm font-sans text-stone-900 placeholder:text-stone-400 focus:border-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-300 leading-relaxed resize-y shadow-sm"
         />
       </div>
 
@@ -150,18 +150,18 @@ export function SituationIntakeForm({
       {mounted && words > 0 && words < 20 && (
         <div
           data-testid="prompt-helper-banner"
-          className="rounded-xl border border-amber-500/40 bg-amber-950/20 p-4 space-y-2 text-xs"
+          className="rounded-2xl border border-[#F2D8CD] bg-[#FAF0EB] p-4 space-y-2 text-xs"
         >
-          <div className="flex items-start gap-2 text-amber-300 font-medium">
-            <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 text-[#7D432D] font-medium">
+            <HelpCircle className="w-4 h-4 text-[#7D432D] shrink-0 mt-0.5" />
             <span className="leading-snug">
               Could you add a bit more detail? For the most accurate legal rights breakdown, consider: Who was involved? What was promised or agreed? Roughly when did this happen?
             </span>
           </div>
-          <p className="text-slate-300 pl-6 leading-relaxed">
+          <p className="text-stone-700 pl-6 leading-relaxed">
             To identify statutory protections, deadlines, and procedural steps, consider providing:
           </p>
-          <ul className="list-disc list-inside text-slate-400 pl-6 space-y-1 font-mono text-[11px]">
+          <ul className="list-disc list-inside text-stone-600 pl-6 space-y-1 font-mono text-[11px]">
             <li>Who was involved? (e.g., landlord, employer, merchant, contractor)</li>
             <li>What was promised or agreed? (e.g., signed contract, verbal agreement, delivery deadline)</li>
             <li>Roughly when did this happen? (e.g., last week, 30 days ago, ongoing)</li>
@@ -170,7 +170,7 @@ export function SituationIntakeForm({
       )}
 
       {/* Actions Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-stone-200/80">
         <Button
           type="button"
           variant="outline"
@@ -178,7 +178,7 @@ export function SituationIntakeForm({
           onClick={handleClear}
           disabled={!description && category === 'auto'}
           data-testid="clear-draft-button"
-          className="text-xs border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white"
+          className="text-xs border-stone-200 bg-white text-stone-600 hover:text-stone-900 hover:bg-stone-50"
         >
           <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
           Clear Draft
@@ -189,22 +189,22 @@ export function SituationIntakeForm({
           size="sm"
           disabled={!isSubmittable || isLoading}
           data-testid="submit-situation-button"
-          className={`h-9 text-xs px-5 font-semibold transition-all ${
+          className={`h-10 text-xs px-5 font-medium rounded-xl transition-all ${
             isSubmittable && !isLoading
-              ? 'bg-[#D4AF37] hover:bg-[#C5A059] text-black shadow-md cursor-pointer'
-              : 'bg-slate-800 text-slate-400 border border-slate-700 cursor-not-allowed opacity-60'
+              ? 'bg-stone-900 hover:bg-stone-800 text-white shadow-sm cursor-pointer'
+              : 'bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed'
           }`}
         >
           {isLoading ? (
             <>
-              <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin text-slate-400" />
+              <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin text-stone-500" />
               <span>Analyzing Situation...</span>
             </>
           ) : isSubmittable ? (
             <>
-              <Sparkles className="w-3.5 h-3.5 mr-1.5 text-black" />
+              <Sparkles className="w-3.5 h-3.5 mr-1.5 text-white" />
               <span>Analyze Situation</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5 text-black" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1.5 text-white" />
             </>
           ) : (
             <span>Analyze Situation (Minimum 20 Words Required)</span>

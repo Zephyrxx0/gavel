@@ -68,19 +68,19 @@ export function SituationSummaryCard({
   return (
     <section
       id="summary-section"
-      className="scroll-mt-28 border border-[#D4AF37]/30 bg-[#111827] rounded-2xl p-6 sm:p-8 shadow-xl backdrop-blur-sm space-y-5"
+      className="scroll-mt-28 border border-stone-200/90 bg-white rounded-2xl p-6 sm:p-8 shadow-card-soft space-y-5"
     >
       {/* Header & Verification Badge */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#FAF0EB] border border-[#F2D8CD] flex items-center justify-center text-[#7D432D] shrink-0">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
+            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
               Dispute Assessment & Summary
             </h2>
-            <p className="text-xs text-slate-400 font-sans">
+            <p className="text-xs text-stone-500 font-sans">
               Plain-English synthesis and statutory domain classification
             </p>
           </div>
@@ -90,7 +90,7 @@ export function SituationSummaryCard({
         <div className="flex items-center gap-2 self-start sm:self-center flex-wrap">
           <Badge
             variant="gold"
-            className="flex items-center gap-1.5 font-mono text-xs px-3 py-1"
+            className="flex items-center gap-1.5 font-mono text-xs px-3 py-1 bg-[#FAF0EB] text-[#7D432D] border-[#F2D8CD]"
           >
             <CategoryIcon className="w-3.5 h-3.5" />
             <span>{`✓ Verified: ${categoryLabel} Dispute`}</span>
@@ -102,7 +102,7 @@ export function SituationSummaryCard({
               size="sm"
               onClick={() => setIsChanging(!isChanging)}
               disabled={isReanalyzing}
-              className="h-7 text-[11px] font-mono border-slate-700 bg-slate-900 text-slate-300 hover:text-white px-2.5"
+              className="h-7 text-[11px] font-mono border-stone-200 bg-white text-stone-700 hover:bg-stone-50 px-2.5 shadow-sm"
             >
               <span>Change Domain</span>
               <ChevronDown className={`w-3 h-3 ml-1 transition-transform duration-200 ${isChanging ? 'rotate-180' : ''}`} />
@@ -113,16 +113,16 @@ export function SituationSummaryCard({
 
       {/* Category Change Selector Dropdown Area */}
       {isChanging && onChangeCategory && (
-        <div className="p-4 rounded-xl border border-slate-700 bg-slate-900/90 space-y-3 animate-in fade-in duration-200">
+        <div className="p-4 rounded-xl border border-stone-200 bg-stone-50 space-y-3 animate-in fade-in duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-slate-300">
+            <span className="text-xs font-mono text-stone-700">
               Re-analyze dispute under a different legal domain:
             </span>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsChanging(false)}
-              className="text-xs text-slate-400 hover:text-white h-6 px-2"
+              className="text-xs text-stone-500 hover:text-stone-900 h-6 px-2"
             >
               Cancel
             </Button>
@@ -139,7 +139,7 @@ export function SituationSummaryCard({
                     setIsChanging(false);
                     onChangeCategory(cat);
                   }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono bg-slate-800 hover:bg-[#D4AF37]/20 hover:text-[#D4AF37] border border-slate-700 hover:border-[#D4AF37]/40 text-slate-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono bg-white hover:bg-[#FAF0EB] hover:text-[#7D432D] border border-stone-200 hover:border-[#F2D8CD] text-stone-700 transition-colors shadow-sm"
                 >
                   <CatIcon className="w-3 h-3" />
                   <span>{catMeta.label}</span>
@@ -152,35 +152,35 @@ export function SituationSummaryCard({
 
       {/* Summary Narrative */}
       <div className="space-y-2">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400">
-          <FileText className="w-3.5 h-3.5 text-[#D4AF37]" />
+        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-stone-500">
+          <FileText className="w-3.5 h-3.5 text-stone-600" />
           <span>Factual Recap</span>
         </div>
-        <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
+        <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans">
           {summary}
         </p>
       </div>
 
       {/* Resolution Horizon & Non-UPL Educational Notice */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800/80">
-        <div className="rounded-xl bg-slate-900/60 border border-slate-800 p-4 space-y-1">
-          <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#D4AF37]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-stone-100">
+        <div className="rounded-xl bg-stone-50 border border-stone-200/80 p-4 space-y-1">
+          <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-stone-600">
             <Clock className="w-3.5 h-3.5" />
             <span>Resolution Horizon</span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-200 font-sans font-medium">
+          <p className="text-xs sm:text-sm text-stone-900 font-sans font-medium">
             {estimatedTimeline}
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/60 border border-slate-800 p-4 space-y-2 flex flex-col justify-center">
-          <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-emerald-400">
+        <div className="rounded-xl bg-stone-50 border border-stone-200/80 p-4 space-y-2 flex flex-col justify-center">
+          <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-emerald-700">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Legal Disclaimer</span>
           </div>
           <div>
-            <span className="border border-slate-700/60 bg-slate-900/60 text-slate-400 font-mono text-[11px] px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-              <ShieldCheck className="w-3 h-3 text-emerald-400 shrink-0" />
+            <span className="border border-stone-200 bg-white text-stone-600 font-mono text-[11px] px-3 py-1 rounded-full inline-flex items-center gap-1.5 shadow-sm">
+              <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
               Educational &amp; Informational Analysis · Not Formal Legal Counsel
             </span>
           </div>

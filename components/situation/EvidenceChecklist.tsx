@@ -49,32 +49,32 @@ export function EvidenceChecklist({ documentsToGather }: EvidenceChecklistProps)
 
   return (
     <section id="evidence-section" className="scroll-mt-28 space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-[#FAF0EB] border border-[#F2D8CD] flex items-center justify-center text-[#7D432D] shrink-0">
             <FolderCheck className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
+            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
               Documents to Gather
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+            <p className="text-xs sm:text-sm text-stone-500 mt-0.5">
               Critical records and communications required to substantiate your dispute
             </p>
           </div>
         </div>
 
         {/* Progress Counter Badge */}
-        <div className="flex items-center gap-2 self-start sm:self-center font-mono text-xs text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full">
+        <div className="flex items-center gap-2 self-start sm:self-center font-mono text-xs text-stone-700 bg-stone-50 border border-stone-200 px-3 py-1.5 rounded-full shadow-sm">
           <span>{`Collected ${checkedCount} of ${totalCount} evidentiary items (${percentage}%)`}</span>
         </div>
       </div>
 
       {/* Progress Bar */}
       <div className="space-y-1.5">
-        <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+        <div className="h-2 w-full bg-stone-200 rounded-full overflow-hidden border border-stone-200">
           <div
-            className="h-full bg-[#D4AF37] transition-all duration-300 rounded-full"
+            className="h-full bg-stone-900 transition-all duration-300 rounded-full"
             style={{ width: `${percentage}%` }}
           />
         </div>
@@ -87,10 +87,10 @@ export function EvidenceChecklist({ documentsToGather }: EvidenceChecklistProps)
           return (
             <div
               key={idx}
-              className={`flex items-start gap-3 p-4 rounded-xl border transition-all duration-200 ${
+              className={`flex items-start gap-3 p-4 rounded-2xl border transition-all duration-200 ${
                 isChecked
-                  ? 'border-slate-800/40 bg-slate-900/20 opacity-65'
-                  : 'border-slate-800 bg-[#111827] hover:border-slate-700'
+                  ? 'border-stone-200 bg-stone-50/40 opacity-60'
+                  : 'border-stone-200/90 bg-white hover:border-stone-400 shadow-card-soft'
               }`}
             >
               <div className="pt-0.5">
@@ -105,18 +105,18 @@ export function EvidenceChecklist({ documentsToGather }: EvidenceChecklistProps)
                 <label
                   htmlFor={`evidence-${idx}`}
                   className={`font-sans text-sm font-semibold cursor-pointer block leading-snug ${
-                    isChecked ? 'line-through text-slate-500' : 'text-slate-100'
+                    isChecked ? 'line-through text-stone-400' : 'text-stone-900'
                   }`}
                 >
                   {item.document}
                 </label>
 
-                <div className="rounded-lg bg-slate-950/80 p-2.5 border border-slate-800/60 text-xs text-slate-400 space-y-0.5">
-                  <div className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-[#D4AF37]">
+                <div className="rounded-xl bg-stone-50 p-2.5 border border-stone-200/80 text-xs text-stone-600 space-y-0.5">
+                  <div className="flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-[#7D432D]">
                     <Sparkles className="w-3 h-3" />
                     <span>Why This Matters</span>
                   </div>
-                  <p className="leading-relaxed font-sans text-slate-300">{item.why}</p>
+                  <p className="leading-relaxed font-sans text-stone-700">{item.why}</p>
                 </div>
               </div>
             </div>

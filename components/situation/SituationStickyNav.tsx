@@ -50,7 +50,7 @@ export function SituationStickyNav({
   ];
 
   return (
-    <nav className="sticky top-16 z-30 w-full border-b border-slate-800/80 bg-[#0B0F17]/95 backdrop-blur shadow-md">
+    <nav className="sticky top-16 z-30 w-full border-b border-stone-200/90 bg-[#FAF9F6]/95 backdrop-blur shadow-sm">
       <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
         <div
           className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-nowrap py-1"
@@ -62,8 +62,8 @@ export function SituationStickyNav({
               onClick={() => onNavigate('deadline-section')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors min-h-[36px] sm:min-h-[40px] ${
                 activeSection === 'deadline-section'
-                  ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-                  : 'text-red-400/80 hover:text-red-300 hover:bg-red-950/30 border border-red-500/20'
+                  ? 'bg-rose-100 text-rose-800 border border-rose-200 font-semibold'
+                  : 'text-rose-700 hover:text-rose-900 hover:bg-rose-50 border border-rose-200'
               }`}
             >
               <AlertTriangle className="w-3.5 h-3.5" />
@@ -81,8 +81,8 @@ export function SituationStickyNav({
                 onClick={() => onNavigate(item.id)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors min-h-[36px] sm:min-h-[40px] ${
                   isActive
-                    ? 'bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/40'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border border-transparent'
+                    ? 'bg-stone-900 text-white shadow-sm'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 border border-transparent'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -90,7 +90,7 @@ export function SituationStickyNav({
                 {item.count !== null && (
                   <span
                     className={`px-1.5 py-0.2 rounded-full font-mono text-[10px] ${
-                      isActive ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-slate-800 text-slate-400'
+                      isActive ? 'bg-white/20 text-white' : 'bg-stone-200 text-stone-700'
                     }`}
                   >
                     {`[${item.count}]`}
@@ -107,9 +107,9 @@ export function SituationStickyNav({
               variant="outline"
               size="sm"
               onClick={onOpenChat}
-              className="text-xs border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37]/20 hover:text-[#D4AF37] h-8 px-2 sm:px-2.5 shrink-0"
+              className="text-xs border-[#F2D8CD] bg-[#FAF0EB] text-[#7D432D] hover:bg-[#FAF0EB]/80 h-8 px-2 sm:px-2.5 shrink-0 shadow-sm"
             >
-              <MessageSquareText className="w-3.5 h-3.5 sm:mr-1.5 text-[#D4AF37]" />
+              <MessageSquareText className="w-3.5 h-3.5 sm:mr-1.5 text-[#7D432D]" />
               <span className="hidden sm:inline">Ask Gavel</span>
             </Button>
           )}
@@ -119,9 +119,9 @@ export function SituationStickyNav({
               variant="ghost"
               size="sm"
               onClick={onExport}
-              className="text-xs text-slate-300 hover:text-white hover:bg-slate-800/60 h-8 px-2 sm:px-2.5 shrink-0"
+              className="text-xs text-stone-700 hover:text-stone-900 hover:bg-stone-100 h-8 px-2 sm:px-2.5 shrink-0"
             >
-              <Download className="w-3.5 h-3.5 sm:mr-1.5 text-slate-400" />
+              <Download className="w-3.5 h-3.5 sm:mr-1.5 text-stone-500" />
               <span className="hidden sm:inline">Export</span>
             </Button>
           )}
@@ -130,7 +130,7 @@ export function SituationStickyNav({
             variant="ghost"
             size="sm"
             onClick={onReset}
-            className="text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 h-8 px-2 sm:px-2.5 shrink-0"
+            className="text-xs text-stone-600 hover:text-stone-900 hover:bg-stone-100 h-8 px-2 sm:px-2.5 shrink-0"
           >
             <RotateCcw className="w-3 h-3 mr-1" />
             <span className="hidden sm:inline">Start New Situation</span>

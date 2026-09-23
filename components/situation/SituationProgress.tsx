@@ -58,23 +58,23 @@ export function SituationProgress({ initialSeconds = 0 }: SituationProgressProps
   return (
     <div
       data-testid="situation-progress"
-      className="rounded-2xl border border-slate-800 bg-[#111827]/90 p-8 text-center space-y-6 max-w-xl mx-auto backdrop-blur-md shadow-2xl"
+      className="rounded-2xl border border-stone-200/90 bg-white p-8 text-center space-y-6 max-w-xl mx-auto shadow-card-soft"
     >
-      {/* Gold Pulsing Clock Halo */}
+      {/* Pulsing Clock Icon */}
       <div className="flex justify-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] animate-pulse">
+        <div className="w-16 h-16 rounded-2xl bg-[#FAF0EB] border border-[#F2D8CD] flex items-center justify-center text-[#7D432D] animate-pulse">
           <Clock className="w-8 h-8 animate-spin" style={{ animationDuration: '8s' }} />
         </div>
       </div>
 
       {/* Header & Elapsed Timer */}
       <div className="space-y-2">
-        <h3 className="font-serif text-xl font-medium text-white tracking-wide">
+        <h3 className="font-serif text-xl font-medium text-stone-900 tracking-tight">
           Evaluating Legal Dispute
         </h3>
-        <p className="text-xs text-slate-400 font-mono" data-testid="elapsed-timer">
+        <p className="text-xs text-stone-500 font-mono" data-testid="elapsed-timer">
           {`Elapsed time: `}
-          <span className="text-[#D4AF37] font-semibold">{`${elapsedSeconds}s`}</span>
+          <span className="text-[#7D432D] font-semibold">{`${elapsedSeconds}s`}</span>
           {` (typically completes in 10–15s)`}
         </p>
       </div>
@@ -100,21 +100,21 @@ export function SituationProgress({ initialSeconds = 0 }: SituationProgressProps
             >
               <div className="shrink-0">
                 {isDone ? (
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 ) : isCurrent ? (
                   <Loader2 className="w-4 h-4 text-[#D4AF37] animate-spin" />
                 ) : (
-                  <StageIcon className="w-4 h-4 text-slate-500" />
+                  <StageIcon className="w-4 h-4 text-stone-400" />
                 )}
               </div>
-              <span className="leading-snug">{stage.label}</span>
+              <span className="leading-snug text-stone-900">{stage.label}</span>
             </div>
           );
         })}
       </div>
 
       {/* Privacy Guarantee Badge */}
-      <div className="pt-2 border-t border-slate-800/80 flex items-center justify-center gap-2 text-[11px] font-mono text-emerald-400">
+      <div className="pt-2 border-t border-stone-100 flex items-center justify-center gap-2 text-[11px] font-mono text-emerald-700">
         <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
         <span>Zero-retention volatile processing in progress</span>
       </div>

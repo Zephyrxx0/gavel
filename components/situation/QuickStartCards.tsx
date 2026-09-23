@@ -68,8 +68,8 @@ export interface QuickStartCardsProps {
 export function QuickStartCards({ onSelectScenario }: QuickStartCardsProps) {
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400">
-        <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-stone-500">
+        <Sparkles className="w-3.5 h-3.5 text-[#7D432D]" />
         <span>Quick-Start Dispute Scenarios</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -80,21 +80,21 @@ export function QuickStartCards({ onSelectScenario }: QuickStartCardsProps) {
               key={preset.id}
               type="button"
               onClick={() => onSelectScenario(preset.description, preset.category)}
-              className="text-left p-3.5 rounded-xl border border-slate-800 bg-[#111827]/80 hover:border-[#D4AF37]/50 hover:bg-slate-900/80 transition-all duration-200 cursor-pointer group flex flex-col justify-between space-y-2.5 shadow-sm"
+              className="text-left p-4 rounded-2xl border border-stone-200/90 bg-white hover:border-stone-400 hover:shadow-card-hover transition-all duration-200 cursor-pointer group flex flex-col justify-between space-y-2.5 shadow-sm"
               data-testid={`quick-start-${preset.id}`}
             >
               <div className="flex items-center justify-between w-full">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-400 group-hover:text-[#D4AF37] transition-colors">
-                  <Icon className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#7D432D] bg-[#FAF0EB] border border-[#F2D8CD] px-2 py-0.5 rounded-full">
+                  <Icon className="w-3 h-3 text-[#7D432D]" />
                   {preset.categoryLabel}
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono">Preset</span>
+                <span className="text-[10px] text-stone-400 font-mono">Preset</span>
               </div>
               <div>
-                <h4 className="font-sans text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
+                <h4 className="font-sans text-sm font-semibold text-stone-900 group-hover:text-stone-950 transition-colors">
                   {preset.title}
                 </h4>
-                <p className="mt-1 text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                <p className="mt-1 text-xs text-stone-600 line-clamp-3 leading-relaxed">
                   {preset.snippet}
                 </p>
               </div>
