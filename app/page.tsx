@@ -1,211 +1,156 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import { Header } from '@/components/shared/Header';
 import { LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
-import { DocumentDropzone } from '@/components/upload/DocumentDropzone';
-import { FilePreviewCard } from '@/components/upload/FilePreviewCard';
-import { ManualPasteArea } from '@/components/upload/ManualPasteArea';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { UploadCloud, FileText, ArrowRight, ShieldCheck, Zap, ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { UploadData } from '@/lib/schemas/upload';
-import { DownsampleResult } from '@/lib/image-utils';
+import { FileSearch, HelpCircle, GitCompare, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState<'upload' | 'manual'>('upload');
-  const [uploadedDoc, setUploadedDoc] = useState<UploadData | null>(null);
-  const [compressionInfo, setCompressionInfo] = useState<DownsampleResult | null>(null);
-  const [manualText, setManualText] = useState<string>('');
-  const [fallbackNotice, setFallbackNotice] = useState<string | null>(null);
-
-  const handleUploadSuccess = (data: UploadData, compression?: DownsampleResult | null) => {
-    setUploadedDoc(data);
-    setCompressionInfo(compression || null);
-    setFallbackNotice(null);
-  };
-
-  const handleFallbackToManual = (reason: string) => {
-    setFallbackNotice(reason);
-    setActiveTab('manual');
-  };
-
-  const handleRemoveFile = () => {
-    setUploadedDoc(null);
-    setCompressionInfo(null);
-  };
-
   return (
-    <div className="min-h-screen bg-legal-obsidian text-foreground flex flex-col">
+    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
-      <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        {/* Prominent Statutory Legal Disclaimer Card placed directly above analysis viewports per D-05 */}
-        <LegalDisclaimerCard />
 
-        {/* Mode Discovery Grid: Mode 2 & Mode 3 Side-by-Side */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Mode 2: Situation Navigator Discovery Card */}
-          <div className="rounded-2xl border border-[#D4AF37]/30 bg-gradient-to-r from-[#111827] via-[#161f30] to-[#111827] p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between gap-5 transition-all hover:border-[#D4AF37]/50">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
-                  Mode 2 · Situation Navigator
-                </span>
-                <span className="text-xs text-slate-400">No document needed</span>
-              </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
-                I have a legal situation
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-                Describe an ongoing dispute or legal dilemma in plain English to evaluate your rights, next steps, and evidence.
-              </p>
-            </div>
-
-            <Link href="/analyze/situation" className="w-full">
-              <Button
-                size="default"
-                className="w-full bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-10 px-4 text-xs shadow-lg transition-all flex items-center justify-center gap-1.5"
-              >
-                <span>Situation Navigator</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+      <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 space-y-14 flex-1">
+        {/* Editorial Hero Section */}
+        <section className="pt-6 sm:pt-12 pb-2 text-center space-y-5 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-xs font-mono tracking-wide uppercase bg-stone-100 border border-stone-200/80 text-stone-700">
+            <Sparkles className="w-3.5 h-3.5 text-stone-600" />
+            <span>Autonomous Legal Intelligence · Ephemeral By Design</span>
           </div>
 
-          {/* Mode 3: Document Comparison Discovery Card */}
-          <div className="rounded-2xl border border-[#1E293B] bg-gradient-to-r from-[#111827] via-[#151c2c] to-[#111827] p-6 shadow-xl backdrop-blur-sm flex flex-col justify-between gap-5 transition-all hover:border-[#D4AF37]/40">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono text-[#D4AF37] uppercase tracking-wider bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-2.5 py-0.5 rounded-full">
-                  Mode 3 · Compare Agreements
-                </span>
-                <ArrowLeftRight className="w-4 h-4 text-[#D4AF37]" />
-              </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-wide">
-                Compare Two Contracts
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-                Upload two contract versions to detect clause discrepancies, favorability shifts, and negotiation leverage.
-              </p>
-            </div>
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-stone-900 tracking-tight leading-[1.12]">
+            Demystifying complex contracts with{' '}
+            <span className="italic text-stone-700 font-normal">
+              plain-English clarity.
+            </span>
+          </h1>
 
-            <Link href="/analyze/compare" className="w-full">
-              <Button
-                size="default"
-                variant="outline"
-                className="w-full border-[#D4AF37]/40 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white font-semibold h-10 px-4 text-xs transition-all flex items-center justify-center gap-1.5"
-              >
-                <span>Compare Documents</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+          <p className="text-base sm:text-lg text-stone-600 font-sans max-w-2xl mx-auto leading-relaxed">
+            Translate opaque legal agreements, evaluate active disputes, and benchmark contract revisions into actionable risk breakdowns.
+          </p>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-stone-500 font-mono">
+            <span className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-full px-3.5 py-1 shadow-sm">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              100% Volatile RAM
+            </span>
+            <span className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-full px-3.5 py-1 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-stone-600" />
+              Claude 3.5 Sonnet Reasoning
+            </span>
+            <span className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-full px-3.5 py-1 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+              Traffic-Light Risk Scoring
+            </span>
           </div>
-        </div>
+        </section>
 
-        {/* Ingestion & Document Intake Container */}
-        <div className="rounded-2xl border border-slate-800 bg-[#111827]/70 p-6 sm:p-8 backdrop-blur-sm shadow-xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
-            <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-white tracking-wide">
-                Document Intake & Analysis Setup
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                Upload a lease, contract, or notice — or paste clause text directly for instant evaluation.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3 self-start sm:self-center">
-              <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono bg-emerald-950/30 border border-emerald-500/30 px-2.5 py-1 rounded-full">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                Zero Disk Retention
-              </span>
-            </div>
+        {/* 3 Core Action Gateways: Clean Soft Pastel Editorial Cards */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between px-1">
+            <h2 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
+              Choose an Intelligence Mode
+            </h2>
+            <span className="text-xs text-stone-500 font-mono">3 Specialized Engines</span>
           </div>
 
-          {/* Mode Switch Tabs (Radix) */}
-          <Tabs
-            value={activeTab}
-            onValueChange={(val) => setActiveTab(val as 'upload' | 'manual')}
-            className="w-full space-y-5"
-          >
-            <TabsList className="grid w-full grid-cols-2 max-w-md bg-slate-900 border-slate-800">
-              <TabsTrigger
-                value="upload"
-                className="flex items-center gap-2 data-[state=active]:bg-[#0B0F17] data-[state=active]:text-[#D4AF37]"
-              >
-                <UploadCloud className="w-4 h-4" />
-                Upload Document
-              </TabsTrigger>
-              <TabsTrigger
-                value="manual"
-                className="flex items-center gap-2 data-[state=active]:bg-[#0B0F17] data-[state=active]:text-[#D4AF37]"
-              >
-                <FileText className="w-4 h-4" />
-                Paste Text
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="upload" className="space-y-4 focus-visible:outline-none">
-              {uploadedDoc ? (
-                <div className="space-y-4">
-                  <FilePreviewCard
-                    fileName={uploadedDoc.fileName}
-                    sizeBytes={uploadedDoc.sizeBytes}
-                    wordCount={uploadedDoc.wordCount}
-                    mimeType={uploadedDoc.mimeType}
-                    isImage={uploadedDoc.isImage}
-                    compressionInfo={compressionInfo}
-                    onRemove={handleRemoveFile}
-                  />
-                  <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                    <span>
-                      Extracted <strong className="text-slate-200">{uploadedDoc.wordCount.toLocaleString()} words</strong> across volatile memory buffers.
-                    </span>
-                    <Link href="/analyze/document">
-                      <Button
-                        size="sm"
-                        className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-8 text-xs px-3 self-end sm:self-auto"
-                      >
-                        <Zap className="w-3.5 h-3.5 mr-1 text-black" />
-                        Begin Mode 1 Analysis
-                        <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                      </Button>
-                    </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Mode 1: Document Decoder */}
+            <div className="rounded-2xl border border-[#D0E2D6] bg-[#EBF3EE]/80 p-6 sm:p-7 flex flex-col justify-between gap-6 transition-all duration-200 hover:bg-[#EBF3EE] hover:shadow-card-hover group">
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="h-8 inline-flex items-center gap-2 rounded-full bg-white border border-[#D0E2D6] px-3.5 text-xs font-mono font-medium text-[#264D34] shadow-xs">
+                    <FileSearch className="w-3.5 h-3.5 shrink-0 text-[#264D34]" />
+                    <span className="whitespace-nowrap tracking-wide">Mode 1 · Document Decoder</span>
                   </div>
                 </div>
-              ) : (
-                <DocumentDropzone
-                  onUploadSuccess={handleUploadSuccess}
-                  onFallbackToManual={handleFallbackToManual}
-                />
-              )}
-            </TabsContent>
 
-            <TabsContent value="manual" className="space-y-4 focus-visible:outline-none">
-              <ManualPasteArea
-                value={manualText}
-                onChange={setManualText}
-                fallbackNotice={fallbackNotice}
-                onClearFallbackNotice={() => setFallbackNotice(null)}
-              />
-              {manualText.trim().length >= 50 && (
-                <div className="flex justify-end pt-2">
-                  <Link href="/analyze/document">
-                    <Button
-                      size="sm"
-                      className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-9 text-xs px-4"
-                    >
-                      <Zap className="w-3.5 h-3.5 mr-1 text-black" />
-                      Begin Mode 1 Analysis
-                      <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                    </Button>
-                  </Link>
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
+                  Decode a Contract
+                </h3>
+
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                  Upload or paste a lease, NDA, employment offer, or vendor agreement for instant plain-English summaries, clause risk triage, and counsel checklists.
+                </p>
+              </div>
+
+              <Link href="/analyze/document" className="w-full pt-2">
+                <Button
+                  size="default"
+                  className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
+                >
+                  <span>Decode Document</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mode 2: Situation Navigator */}
+            <div className="rounded-2xl border border-[#F2D8CD] bg-[#FAF0EB]/80 p-6 sm:p-7 flex flex-col justify-between gap-6 transition-all duration-200 hover:bg-[#FAF0EB] hover:shadow-card-hover group">
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="h-8 inline-flex items-center gap-2 rounded-full bg-white border border-[#F2D8CD] px-3.5 text-xs font-mono font-medium text-[#7D432D] shadow-xs">
+                    <HelpCircle className="w-3.5 h-3.5 shrink-0 text-[#7D432D]" />
+                    <span className="whitespace-nowrap tracking-wide">Mode 2 · Situation Navigator</span>
+                  </div>
                 </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
+                  I have a legal situation
+                </h3>
+
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                  Describe an ongoing dispute or legal dilemma in plain English to evaluate your rights, next steps, and evidence.
+                </p>
+              </div>
+
+              <Link href="/analyze/situation" className="w-full pt-2">
+                <Button
+                  size="default"
+                  className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
+                >
+                  <span>Situation Navigator</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mode 3: Compare Agreements */}
+            <div className="rounded-2xl border border-[#D1DFF2] bg-[#EDF2FA]/80 p-6 sm:p-7 flex flex-col justify-between gap-6 transition-all duration-200 hover:bg-[#EDF2FA] hover:shadow-card-hover group">
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="h-8 inline-flex items-center gap-2 rounded-full bg-white border border-[#D1DFF2] px-3.5 text-xs font-mono font-medium text-[#284A78] shadow-xs">
+                    <GitCompare className="w-3.5 h-3.5 shrink-0 text-[#284A78]" />
+                    <span className="whitespace-nowrap tracking-wide">Mode 3 · Compare Agreements</span>
+                  </div>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-stone-900 tracking-tight">
+                  Compare Two Contracts
+                </h3>
+
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+                  Upload two agreement versions to detect clause discrepancies, favorability shifts, and negotiation leverage before signing.
+                </p>
+              </div>
+
+              <Link href="/analyze/compare" className="w-full pt-2">
+                <Button
+                  size="default"
+                  className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
+                >
+                  <span>Compare Documents</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Statutory Legal Disclaimer Card placed cleanly */}
+        <LegalDisclaimerCard />
       </main>
     </div>
   );

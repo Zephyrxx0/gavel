@@ -1,34 +1,96 @@
+'use client';
+
 import React from 'react';
-import { Scale, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Scale, ShieldCheck, FileSearch, HelpCircle, GitCompare } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function Header() {
+  const pathname = usePathname() || '';
+
+  const navLinks = [
+    {
+      name: 'Document Decoder',
+      href: '/',
+      activeMatch: (p: string) => p === '/' || p.startsWith('/analyze/document'),
+      icon: FileSearch,
+    },
+    {
+      name: 'Situation Navigator',
+      href: '/analyze/situation',
+      activeMatch: (p: string) => p.startsWith('/analyze/situation'),
+      icon: HelpCircle,
+    },
+    {
+      name: 'Compare Contracts',
+      href: '/analyze/compare',
+      activeMatch: (p: string) => p.startsWith('/analyze/compare'),
+      icon: GitCompare,
+    },
+  ];
+
   return (
-    <header className="w-full border-b border-[#1E293B] bg-[#0B0F17]/80 backdrop-blur sticky top-0 z-40">
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37]">
-            <Scale className="h-5 w-5" aria-hidden="true" />
+    <header className="sticky top-3 sm:top-4 z-40 w-full px-3 sm:px-6 max-w-6xl mx-auto transition-all duration-300">
+      <div className="rounded-full border border-stone-200/90 bg-white/90 backdrop-blur-xl shadow-card-soft px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-4">
+        {/* Brand identity */}
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-full"
+        >
+          <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#EBF3EE] border border-[#D0E2D6] text-[#264D34] shadow-sm group-hover:scale-105 transition-all duration-200">
+            <Scale className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-2xl font-bold tracking-tight text-white">
+            <div className="flex items-center gap-1.5">
+              <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-stone-900 group-hover:text-stone-700 transition-colors">
                 Gavel
               </span>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
             </div>
-            <p className="text-xs font-sans tracking-wide text-slate-400">
-              Legal Intelligence Platform
+            <p className="hidden sm:block text-[10px] font-mono tracking-wider text-stone-500 uppercase">
+              Legal Intelligence
             </p>
           </div>
-        </div>
+        </Link>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 rounded-full border border-[#1E293B] bg-[#111827] px-3 py-1 text-xs text-slate-300">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#10B981]" />
-            <span className="font-mono text-[11px]">Zero-Disk Ephemeral Privacy</span>
+        {/* Desktop Navigation Modes */}
+        <nav className="hidden md:flex items-center gap-1 bg-stone-100/90 border border-stone-200/70 rounded-full p-1 text-xs">
+          {navLinks.map((link) => {
+            const isActive = link.activeMatch(pathname);
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-medium transition-all duration-150',
+                  isActive
+                    ? 'bg-white text-stone-900 shadow-sm border border-stone-200/80'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+                )}
+              >
+                <Icon className={cn('w-3.5 h-3.5', isActive ? 'text-stone-900' : 'text-stone-500')} />
+                <span>{link.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Security & Privacy Pill */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 rounded-full border border-[#D0E2D6] bg-[#EBF3EE] px-3 py-1 text-xs text-[#264D34] shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600" />
+            </span>
+            <span className="font-mono text-[10px] sm:text-[11px] font-medium tracking-wide">
+              Zero-Disk Vault
+            </span>
           </div>
         </div>
       </div>
     </header>
   );
 }
+
