@@ -74,7 +74,7 @@ export function renderWithCitations(text: string) {
         <span
           key={index}
           data-testid="citation-badge"
-          className="inline-flex items-center px-1.5 py-0.5 mx-0.5 rounded text-xs font-mono font-medium text-[#D4AF37] bg-[#D4AF37]/15 border border-[#D4AF37]/30 tracking-tight select-all"
+          className="inline-flex items-center px-1.5 py-0.5 mx-0.5 rounded text-xs font-mono font-medium text-stone-800 bg-stone-200/70 border border-stone-300 tracking-tight select-all"
         >
           {part}
         </span>
@@ -161,7 +161,7 @@ export function ChatPanel({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity"
+        className="fixed inset-0 bg-stone-900/30 backdrop-blur-sm z-40 transition-opacity"
         onClick={onClose}
         data-testid="chat-backdrop"
       />
@@ -169,31 +169,31 @@ export function ChatPanel({
       {/* Slide-over Drawer / Mobile Full Screen Sheet */}
       <div
         data-testid="chat-panel"
-        className="fixed inset-y-0 right-0 z-50 flex flex-col bg-[#0B0F17] border-l border-slate-800/80 shadow-2xl transition-transform duration-300 w-full sm:w-[460px] lg:w-[500px] h-[100dvh]"
+        className="fixed inset-y-0 right-0 z-50 flex flex-col bg-white border-l border-stone-200 shadow-2xl transition-transform duration-300 w-full sm:w-[460px] lg:w-[500px] h-[100dvh]"
       >
         {/* Persistent Compliance Banner */}
-        <div className="bg-[#181308] border-b border-[#D4AF37]/30 px-4 py-2 flex items-center gap-2">
-          <ShieldAlert className="h-4 w-4 text-[#D4AF37] shrink-0" />
-          <p className="text-[11px] text-[#F3E5AB] font-sans leading-tight">
+        <div className="bg-stone-100 border-b border-stone-200 px-4 py-2 flex items-center gap-2">
+          <ShieldAlert className="h-4 w-4 text-stone-600 shrink-0" />
+          <p className="text-[11px] text-stone-700 font-sans leading-tight">
             <span className="font-semibold">Legal Information Only</span> · Not Legal Advice ·
             Advocates Act, 1961
           </p>
         </div>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-800 bg-[#0F172A]/70 backdrop-blur">
+        <div className="flex items-center justify-between px-4 py-3.5 border-b border-stone-200 bg-white/95 backdrop-blur">
           <div className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
+            <div className="h-8 w-8 rounded-xl bg-[#EDF2FA] border border-blue-200/60 flex items-center justify-center text-blue-700">
               <Scale className="h-4 w-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-serif font-bold text-white text-base">Gavel Assistant</h3>
-                <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-300 uppercase tracking-wider">
+                <h3 className="font-serif font-bold text-stone-900 text-base">Gavel Assistant</h3>
+                <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-medium text-stone-700 uppercase tracking-wider">
                   {mode}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Contextual legal Q&A</p>
+              <p className="text-xs text-stone-500">Contextual legal Q&A</p>
             </div>
           </div>
 
@@ -202,7 +202,7 @@ export function ChatPanel({
               type="button"
               onClick={handleClear}
               title="Clear chat"
-              className="h-9 w-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+              className="h-9 w-9 rounded-lg flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-400"
               data-testid="clear-chat-button"
             >
               <RotateCcw className="h-4 w-4" />
@@ -211,7 +211,7 @@ export function ChatPanel({
               type="button"
               onClick={onClose}
               title="Close drawer"
-              className="h-9 w-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+              className="h-9 w-9 rounded-lg flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-400"
               data-testid="close-chat-button"
             >
               <X className="h-5 w-5" />
@@ -223,19 +223,19 @@ export function ChatPanel({
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-4">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-[#D4AF37]/20 to-amber-500/10 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] mb-3 shadow-lg shadow-[#D4AF37]/5">
+              <div className="h-12 w-12 rounded-2xl bg-[#FAF0EB] border border-orange-200/60 flex items-center justify-center text-orange-700 mb-3 shadow-sm">
                 <Sparkles className="h-6 w-6" />
               </div>
-              <h4 className="font-serif text-lg font-bold text-white mb-1">
+              <h4 className="font-serif text-lg font-bold text-stone-900 mb-1">
                 How can Gavel assist?
               </h4>
-              <p className="text-xs text-slate-400 max-w-xs mb-6">
+              <p className="text-xs text-stone-500 max-w-xs mb-6">
                 Ask follow-up questions grounded directly in your active {mode} analysis.
               </p>
 
               <div className="w-full space-y-2">
-                <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider text-left pl-1 mb-1.5 flex items-center gap-1.5">
-                  <MessageSquare className="h-3.5 w-3.5 text-[#D4AF37]" />
+                <div className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-left pl-1 mb-1.5 flex items-center gap-1.5">
+                  <MessageSquare className="h-3.5 h-3.5 text-stone-600" />
                   <span>Suggested Inquiries</span>
                 </div>
                 {starterChips.map((chip, idx) => (
@@ -243,11 +243,11 @@ export function ChatPanel({
                     key={idx}
                     type="button"
                     onClick={() => handleChipClick(chip)}
-                    className="w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-[#D4AF37]/40 text-xs text-slate-300 hover:text-white transition-all duration-150 flex items-center justify-between group"
+                    className="w-full text-left p-3 rounded-xl border border-stone-200 bg-stone-50/70 hover:bg-stone-100 hover:border-stone-300 text-xs text-stone-700 hover:text-stone-900 transition-all duration-150 flex items-center justify-between group"
                     data-testid="starter-chip"
                   >
                     <span>{chip}</span>
-                    <span className="text-slate-600 group-hover:text-[#D4AF37] transition-colors ml-2 shrink-0">
+                    <span className="text-stone-400 group-hover:text-stone-800 transition-colors ml-2 shrink-0">
                       →
                     </span>
                   </button>
@@ -268,12 +268,12 @@ export function ChatPanel({
                   <div
                     className={`max-w-[88%] rounded-2xl p-3.5 text-sm leading-relaxed shadow-sm ${
                       isAssistant
-                        ? 'bg-[#111827] border border-slate-800 text-slate-200 rounded-tl-sm'
-                        : 'bg-gradient-to-r from-slate-800 to-slate-750 text-white rounded-tr-sm'
+                        ? 'bg-stone-50 border border-stone-200 text-stone-800 rounded-tl-sm'
+                        : 'bg-stone-900 text-white rounded-tr-sm'
                     }`}
                   >
                     {isAssistant ? (
-                      <div className="prose prose-invert prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-li:my-0.5 text-slate-200">
+                      <div className="prose prose-stone prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-li:my-0.5 text-stone-800">
                         <ReactMarkdown
                           components={{
                             p: ({ children }) => (
@@ -298,14 +298,14 @@ export function ChatPanel({
                       <button
                         type="button"
                         onClick={() => handleCopyMessage(msg.id, textContent)}
-                        className="text-[11px] text-slate-400 hover:text-slate-200 flex items-center gap-1 transition-colors"
+                        className="text-[11px] text-stone-500 hover:text-stone-800 flex items-center gap-1 transition-colors"
                         title="Copy message"
                         data-testid="copy-message-button"
                       >
                         {copiedId === msg.id ? (
                           <>
-                            <Check className="h-3 w-3 text-emerald-400" />
-                            <span className="text-emerald-400">Copied</span>
+                            <Check className="h-3 w-3 text-emerald-600" />
+                            <span className="text-emerald-700">Copied</span>
                           </>
                         ) : (
                           <>
@@ -322,13 +322,13 @@ export function ChatPanel({
           )}
 
           {isLoading && (
-            <div className="flex items-center gap-2 text-xs text-slate-400 pl-2">
-              <span className="h-2 w-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+            <div className="flex items-center gap-2 text-xs text-stone-500 pl-2">
+              <span className="h-2 w-2 rounded-full bg-stone-700 animate-pulse"></span>
               <span>Gavel is analyzing...</span>
               <button
                 type="button"
                 onClick={stop}
-                className="ml-2 text-[11px] text-rose-400 hover:text-rose-300 flex items-center gap-1 underline underline-offset-2"
+                className="ml-2 text-[11px] text-rose-600 hover:text-rose-700 flex items-center gap-1 underline underline-offset-2"
               >
                 <StopCircle className="h-3 w-3" /> Stop
               </button>
@@ -339,7 +339,7 @@ export function ChatPanel({
         </div>
 
         {/* Input Footer */}
-        <div className="p-4 border-t border-slate-800/80 bg-[#0F172A]/90 backdrop-blur pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="p-4 border-t border-stone-200 bg-white pb-[max(1rem,env(safe-area-inset-bottom))]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -355,20 +355,20 @@ export function ChatPanel({
               maxLength={1000}
               disabled={isLoading}
               data-testid="chat-input"
-              className="w-full rounded-xl bg-slate-900 border border-slate-700/80 pl-4 pr-12 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent min-h-[44px]"
+              className="w-full rounded-xl bg-stone-50 border border-stone-200 pl-4 pr-12 py-3 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent min-h-[44px]"
             />
             <button
               type="submit"
               disabled={!inputVal.trim() || isLoading}
               aria-label="Send message"
               data-testid="chat-send-button"
-              className="absolute right-1.5 h-9 w-9 rounded-lg bg-[#D4AF37] hover:bg-[#E5C158] text-slate-950 flex items-center justify-center disabled:opacity-40 disabled:hover:bg-[#D4AF37] transition-all min-h-[36px]"
+              className="absolute right-1.5 h-9 w-9 rounded-lg bg-stone-900 hover:bg-stone-800 text-white flex items-center justify-center disabled:opacity-40 transition-all min-h-[36px]"
             >
               <Send className="h-4 w-4" />
             </button>
           </form>
 
-          <p className="text-[10px] text-slate-400 text-center mt-2 font-sans">
+          <p className="text-[10px] text-stone-400 text-center mt-2 font-sans">
             Legal information only. Not legal advice. Consult licensed counsel for specific representation.
           </p>
         </div>

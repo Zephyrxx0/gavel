@@ -102,23 +102,23 @@ export function ExportDossierCard({ mode, data, metadata, className = '' }: Expo
 
   return (
     <div
-      className={`rounded-2xl border border-slate-800 bg-[#0F172A]/70 p-6 md:p-8 backdrop-blur shadow-2xl ${className}`}
+      className={`rounded-2xl border border-stone-200/80 bg-white p-6 md:p-8 shadow-sm ${className}`}
       data-testid="export-dossier-card"
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-stone-200/80">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <ShieldCheck className="h-5 w-5 text-[#D4AF37]" />
-            <h3 className="font-serif text-xl md:text-2xl font-bold text-white tracking-wide">
+            <ShieldCheck className="h-5 w-5 text-stone-700" />
+            <h3 className="font-serif text-xl md:text-2xl font-bold text-stone-900 tracking-wide">
               Export Legal Intelligence Dossier
             </h3>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-stone-600">
             Download or copy this comprehensive legal analysis for your personal records or attorney consultation.
           </p>
         </div>
-        <div className="flex items-center gap-1.5 self-start md:self-auto rounded-full bg-slate-900/80 border border-slate-700/60 px-3 py-1 text-xs text-slate-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+        <div className="flex items-center gap-1.5 self-start md:self-auto rounded-full bg-stone-50 border border-stone-200 px-3 py-1 text-xs text-stone-700">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
           Statutory Compliance (Advocates Act, 1961)
         </div>
       </div>
@@ -127,7 +127,7 @@ export function ExportDossierCard({ mode, data, metadata, className = '' }: Expo
         <button
           type="button"
           onClick={handleCopy}
-          className="col-span-1 sm:col-span-2 lg:col-span-1 min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B38F26] px-5 py-2.5 font-sans font-semibold text-slate-950 shadow-lg shadow-[#D4AF37]/10 hover:brightness-110 active:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-slate-900"
+          className="col-span-1 sm:col-span-2 lg:col-span-1 min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-stone-900 px-5 py-2.5 font-sans font-medium text-white shadow-sm hover:bg-stone-800 active:scale-[0.98] transition-all focus:outline-none focus:ring-2 focus:ring-stone-400"
           data-testid="copy-markdown-button"
         >
           {copied ? (
@@ -146,30 +146,30 @@ export function ExportDossierCard({ mode, data, metadata, className = '' }: Expo
         <button
           type="button"
           onClick={() => handleDownload('md')}
-          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-slate-600 hover:bg-slate-800/70 px-4 py-2.5 text-sm font-medium text-slate-200 shadow transition-all focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-slate-900"
+          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-stone-50 border border-stone-200 hover:border-stone-300 hover:bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-800 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-stone-400"
           data-testid="download-markdown-button"
         >
-          <Download className="h-4 w-4 text-[#D4AF37]" />
+          <Download className="h-4 w-4 text-stone-700" />
           <span>Markdown (.md)</span>
         </button>
 
         <button
           type="button"
           onClick={() => handleDownload('txt')}
-          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-slate-600 hover:bg-slate-800/70 px-4 py-2.5 text-sm font-medium text-slate-200 shadow transition-all focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-slate-900"
+          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-stone-50 border border-stone-200 hover:border-stone-300 hover:bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-800 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-stone-400"
           data-testid="download-text-button"
         >
-          <FileText className="h-4 w-4 text-slate-400" />
+          <FileText className="h-4 w-4 text-stone-500" />
           <span>Plain Text (.txt)</span>
         </button>
 
         <button
           type="button"
           onClick={() => handleDownload('json')}
-          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-slate-600 hover:bg-slate-800/70 px-4 py-2.5 text-sm font-medium text-slate-200 shadow transition-all focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-slate-900"
+          className="min-h-[44px] flex items-center justify-center gap-2 rounded-xl bg-stone-50 border border-stone-200 hover:border-stone-300 hover:bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-800 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-stone-400"
           data-testid="download-json-button"
         >
-          <Code className="h-4 w-4 text-slate-400" />
+          <Code className="h-4 w-4 text-stone-500" />
           <span>Raw Data (.json)</span>
         </button>
       </div>
