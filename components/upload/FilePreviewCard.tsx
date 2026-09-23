@@ -32,35 +32,35 @@ export function FilePreviewCard({
   const isImg = isImage || mimeType.startsWith('image/');
 
   return (
-    <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-xl bg-[#0B0F17]/90 border border-slate-800 shadow-lg backdrop-blur-sm transition-all duration-200">
+    <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-stone-200/90 shadow-sm transition-all duration-200">
       <div className="flex items-center gap-3.5 min-w-0">
         {/* Document or Image Type Icon */}
-        <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-slate-900 border border-slate-700/60 flex items-center justify-center text-[#D4AF37]">
+        <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34]">
           {isImg ? <ImageIcon className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
         </div>
 
         {/* File Details */}
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <h4 className="text-sm font-medium text-slate-100 truncate max-w-[220px] sm:max-w-xs md:max-w-sm">
+            <h4 className="text-sm font-medium text-stone-900 truncate max-w-[220px] sm:max-w-xs md:max-w-sm">
               {fileName}
             </h4>
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-slate-400">
-            <span className="font-mono text-slate-300">
+          <div className="flex flex-wrap items-center gap-2 mt-1.5 text-xs text-stone-500">
+            <span className="font-mono text-stone-700">
               {formatFileSize(sizeBytes)}
             </span>
 
-            <span className="text-slate-600">•</span>
+            <span className="text-stone-300">•</span>
 
             {isImg ? (
-              <Badge variant="outline" className="text-[11px] font-mono border-amber-500/30 text-amber-300 bg-amber-950/20">
+              <Badge variant="outline" className="text-[11px] font-mono border-amber-200 text-amber-800 bg-amber-50">
                 Visual OCR Ready
               </Badge>
             ) : (
-              <Badge variant="outline" className="text-[11px] font-mono border-slate-700 text-slate-300">
+              <Badge variant="outline" className="text-[11px] font-mono border-stone-200 text-stone-700 bg-stone-50">
                 {wordCount.toLocaleString()} {wordCount === 1 ? 'word' : 'words'}
               </Badge>
             )}
@@ -68,7 +68,7 @@ export function FilePreviewCard({
             {compressionInfo?.wasCompressed && (
               <Badge
                 variant="outline"
-                className="text-[11px] font-mono border-emerald-500/40 text-emerald-300 bg-emerald-950/30 flex items-center gap-1"
+                className="text-[11px] font-mono border-emerald-200 text-emerald-800 bg-emerald-50 flex items-center gap-1"
               >
                 <Sparkles className="w-3 h-3" />
                 Compressed ({formatFileSize(compressionInfo.originalSize)} → {formatFileSize(compressionInfo.compressedSize)})
@@ -85,7 +85,7 @@ export function FilePreviewCard({
           variant="ghost"
           size="sm"
           onClick={onRemove}
-          className="text-slate-400 hover:text-rose-400 hover:bg-rose-950/20 border border-transparent hover:border-rose-900/50 transition-colors duration-150 h-8 px-2.5"
+          className="text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 h-8 px-2.5"
           aria-label="Remove uploaded file"
         >
           <Trash2 className="w-4 h-4 mr-1.5" />

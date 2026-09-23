@@ -84,9 +84,9 @@ export default function DocumentDecoderPage() {
     const el = document.getElementById(`clause-${clauseId}`);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      el.classList.add('ring-2', 'ring-[#D4AF37]', 'bg-[#D4AF37]/10');
+      el.classList.add('ring-2', 'ring-stone-400', 'bg-[#EBF3EE]');
       setTimeout(() => {
-        el.classList.remove('ring-2', 'ring-[#D4AF37]', 'bg-[#D4AF37]/10');
+        el.classList.remove('ring-2', 'ring-stone-400', 'bg-[#EBF3EE]');
       }, 1800);
     }
   }, []);
@@ -108,7 +108,7 @@ export default function DocumentDecoderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-legal-obsidian text-foreground flex flex-col">
+    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
       {analysisState === 'dossier' && analysisData && (
@@ -133,12 +133,15 @@ export default function DocumentDecoderPage() {
         <LegalDisclaimerCard />
 
         {analysisState === 'idle' && (
-          <div className="rounded-2xl border border-slate-800 bg-[#111827]/70 p-6 sm:p-8 backdrop-blur-sm shadow-xl space-y-6">
-            <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-white tracking-wide">
-                Document Intake & Analysis Setup
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-mono tracking-wide uppercase bg-[#EBF3EE] border border-[#D0E2D6] text-[#264D34]">
+                <span>Mode 1 · Document Decoder</span>
+              </div>
+              <h1 className="font-serif text-3xl sm:text-4xl font-normal text-stone-900 tracking-tight">
+                Contract Intake &amp; Risk Triage
+              </h1>
+              <p className="text-sm text-stone-600 font-sans max-w-2xl leading-relaxed">
                 Upload a lease, contract, or notice — or paste clause text directly for instant evaluation.
               </p>
             </div>
@@ -148,13 +151,13 @@ export default function DocumentDecoderPage() {
               onValueChange={(val) => setActiveTab(val as 'upload' | 'manual')}
               className="w-full space-y-5"
             >
-              <TabsList className="grid w-full grid-cols-2 max-w-md bg-slate-900 border-slate-800">
-                <TabsTrigger value="upload" className="flex items-center gap-2">
-                  <UploadCloud className="w-4 h-4" />
+              <TabsList className="grid w-full grid-cols-2 max-w-xs bg-stone-100 p-1 border border-stone-200/80 rounded-xl">
+                <TabsTrigger value="upload" className="flex items-center gap-2 text-xs">
+                  <UploadCloud className="w-3.5 h-3.5" />
                   Upload Document
                 </TabsTrigger>
-                <TabsTrigger value="manual" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
+                <TabsTrigger value="manual" className="flex items-center gap-2 text-xs">
+                  <FileText className="w-3.5 h-3.5" />
                   Paste Text
                 </TabsTrigger>
               </TabsList>
@@ -175,9 +178,9 @@ export default function DocumentDecoderPage() {
                       <Button
                         size="sm"
                         onClick={handleStartAnalysis}
-                        className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-9 text-xs px-4"
+                        className="bg-stone-900 hover:bg-stone-800 text-white font-medium h-10 px-5 text-xs shadow-sm flex items-center gap-2 rounded-xl"
                       >
-                        <Zap className="w-3.5 h-3.5 mr-1 text-black" />
+                        <Zap className="w-3.5 h-3.5 mr-1" />
                         Analyze Legal Document
                         <ArrowRight className="w-3.5 h-3.5 ml-1" />
                       </Button>
@@ -209,9 +212,9 @@ export default function DocumentDecoderPage() {
                     <Button
                       size="sm"
                       onClick={handleStartAnalysis}
-                      className="bg-[#D4AF37] hover:bg-[#C5A059] text-black font-semibold h-9 text-xs px-4"
+                      className="bg-stone-900 hover:bg-stone-800 text-white font-medium h-10 px-5 text-xs shadow-sm flex items-center gap-2 rounded-xl"
                     >
-                      <Zap className="w-3.5 h-3.5 mr-1 text-black" />
+                      <Zap className="w-3.5 h-3.5 mr-1" />
                       Analyze Legal Document
                       <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </Button>

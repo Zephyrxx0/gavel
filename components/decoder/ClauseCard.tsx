@@ -24,17 +24,17 @@ export function ClauseCard({ clause, defaultOpen = false }: ClauseCardProps) {
   const riskLabel = isHighRisk ? 'High Risk' : isCaution ? 'Caution' : 'Standard';
 
   const containerStyles = isHighRisk
-    ? 'border-l-4 border-red-500/80 bg-red-950/20 border-slate-800'
+    ? 'border-l-4 border-red-500/80 bg-red-950/20 bg-white border border-stone-200/90 shadow-card-soft'
     : isCaution
-    ? 'border-l-4 border-amber-500/60 bg-amber-950/15 border-slate-800'
-    : 'border-l-4 border-emerald-500/50 bg-emerald-950/10 border-slate-800';
+    ? 'border-l-4 border-amber-500/60 bg-white border border-stone-200/90 shadow-card-soft'
+    : 'border-l-4 border-emerald-500/50 bg-white border border-stone-200/90 shadow-card-soft';
 
   const obligationBadgeStyle = {
-    user: 'border-blue-500/30 bg-blue-950/30 text-blue-300',
-    counterparty: 'border-indigo-500/30 bg-indigo-950/30 text-indigo-300',
-    mutual: 'border-slate-500/40 bg-slate-800/40 text-slate-300',
-    none: 'border-slate-700/40 bg-slate-900/40 text-slate-400',
-  }[clause.obligation] || 'border-slate-700/40 bg-slate-900/40 text-slate-400';
+    user: 'border-sky-200 bg-sky-50 text-sky-800',
+    counterparty: 'border-purple-200 bg-purple-50 text-purple-800',
+    mutual: 'border-stone-200 bg-stone-100 text-stone-700',
+    none: 'border-stone-200 bg-stone-50 text-stone-500',
+  }[clause.obligation] || 'border-stone-200 bg-stone-50 text-stone-500';
 
   const obligationLabel = {
     user: 'Duty: User',
@@ -46,20 +46,20 @@ export function ClauseCard({ clause, defaultOpen = false }: ClauseCardProps) {
   return (
     <article
       id={`clause-${clause.id}`}
-      className={`scroll-mt-28 rounded-xl border p-5 transition-all duration-300 shadow-md ${containerStyles}`}
+      className={`scroll-mt-28 rounded-2xl p-5 sm:p-6 transition-all duration-300 ${containerStyles}`}
     >
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {/* Header & Badges */}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             {isHighRisk ? (
-              <ShieldAlert className="w-5 h-5 text-red-400 shrink-0" />
+              <ShieldAlert className="w-5 h-5 text-rose-600 shrink-0" />
             ) : isCaution ? (
-              <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0" />
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
             ) : (
-              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+              <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
             )}
-            <h3 className="font-sans text-base sm:text-lg font-semibold text-slate-100">
+            <h3 className="font-sans text-base sm:text-lg font-semibold text-stone-900">
               {clause.title}
             </h3>
           </div>
@@ -77,13 +77,13 @@ export function ClauseCard({ clause, defaultOpen = false }: ClauseCardProps) {
         </div>
 
         {/* Simplified Plain-English Explanation */}
-        <p className="text-sm text-slate-300 font-sans leading-relaxed">
+        <p className="text-sm text-stone-700 font-sans leading-relaxed">
           {clause.simplified}
         </p>
 
         {/* Objective Risk Rationale */}
-        <div className="rounded-lg bg-slate-900/60 border border-slate-800/80 p-3 text-xs text-slate-400">
-          <span className="font-mono uppercase text-slate-300 mr-1.5 font-medium">
+        <div className="rounded-xl bg-stone-50 border border-stone-200/80 p-3.5 text-xs text-stone-600">
+          <span className="font-mono uppercase text-stone-900 mr-2 font-medium">
             Analysis Rationale:
           </span>
           {clause.riskReason}
@@ -94,14 +94,14 @@ export function ClauseCard({ clause, defaultOpen = false }: ClauseCardProps) {
           type="single"
           collapsible
           defaultValue={defaultOpen ? 'verbatim' : undefined}
-          className="w-full pt-1 border-t border-slate-800/60"
+          className="w-full pt-1 border-t border-stone-100"
         >
           <AccordionItem value="verbatim" className="border-none">
-            <AccordionTrigger className="text-xs font-mono text-[#D4AF37] hover:text-[#C5A059] py-2 hover:no-underline">
+            <AccordionTrigger className="text-xs font-mono text-stone-600 hover:text-stone-900 py-2 hover:no-underline">
               Show verbatim source text
             </AccordionTrigger>
             <AccordionContent>
-              <div className="rounded-lg bg-slate-950 p-3 border border-slate-800 max-h-80 overflow-y-auto font-mono text-[11px] leading-relaxed text-slate-400 whitespace-pre-wrap">
+              <div className="rounded-xl bg-stone-50 p-3.5 border border-stone-200/80 max-h-80 overflow-y-auto font-mono text-[11px] leading-relaxed text-stone-700 whitespace-pre-wrap">
                 {clause.originalText}
               </div>
             </AccordionContent>

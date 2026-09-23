@@ -40,14 +40,16 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
 
   return (
     <section id="checklist-section" className="scroll-mt-28 space-y-6">
-      <div className="pb-4 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <CheckSquare className="w-5 h-5 text-[#D4AF37]" />
-          <h2 className="font-serif text-2xl font-semibold text-white tracking-wide">
+      <div className="pb-4 border-b border-stone-200/80">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34]">
+            <CheckSquare className="w-4 h-4 text-[#264D34]" />
+          </div>
+          <h2 className="font-serif text-2xl font-semibold text-stone-900 tracking-tight">
             Actionable Checklist
           </h2>
         </div>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-stone-600 mt-1">
           Chronologically ordered recommendations with interactive execution tracking
         </p>
       </div>
@@ -59,13 +61,13 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
           return (
             <div
               key={group.key}
-              className="rounded-xl border border-slate-800 bg-[#111827] p-5 sm:p-6 space-y-4 shadow-lg"
+              className="rounded-2xl border border-stone-200/90 bg-white p-5 sm:p-6 space-y-4 shadow-card-soft"
             >
-              <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
-                <h3 className="font-sans text-base font-semibold text-slate-200">
+              <div className="flex items-center justify-between gap-2 pb-3 border-b border-stone-100">
+                <h3 className="font-sans text-base font-semibold text-stone-900">
                   {group.title}
                 </h3>
-                <span className="font-mono text-[11px] text-slate-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded-full">
+                <span className="font-mono text-[11px] text-stone-600 bg-stone-50 border border-stone-200 px-2.5 py-0.5 rounded-full">
                   {`${items.length} items`}
                 </span>
               </div>
@@ -78,10 +80,10 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
                     return (
                       <div
                         key={item.id}
-                        className={`flex items-start gap-3.5 p-3 rounded-lg border transition-all ${
+                        className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all ${
                           isChecked
-                            ? 'border-slate-800/40 bg-slate-900/20 opacity-60'
-                            : 'border-slate-800 bg-slate-900/60'
+                            ? 'border-stone-200 bg-stone-50/50 opacity-60'
+                            : 'border-stone-200/80 bg-stone-50/40 hover:bg-stone-50'
                         }`}
                       >
                         <div className="pt-0.5">
@@ -102,23 +104,29 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
                               {item.actionType}
                             </span>
 
-                            {item.relatedClauseId && (
+                            {(item.relatedClauseId || item.clauseReference) && (
                               <button
-                                onClick={() => onClauseCrossReference?.(item.relatedClauseId!)}
-                                className="inline-flex items-center gap-1 font-mono text-[11px] text-[#D4AF37] hover:underline"
+                                type="button"
+                                onClick={() =>
+                                  onClauseCrossReference &&
+                                  onClauseCrossReference((item.relatedClauseId || item.clauseReference)!)
+                                }
+                                className="inline-flex items-center gap-1 font-mono text-[11px] text-stone-600 hover:text-stone-900 underline underline-offset-2 transition-colors"
                               >
-                                {`Re: ${item.relatedClauseId}`}
+                                <span>{`Re: ${item.relatedClauseId || item.clauseReference}`}</span>
                                 <ArrowUpRight className="w-3 h-3" />
                               </button>
                             )}
                           </div>
 
                           <p
-                            className={`text-xs sm:text-sm font-sans leading-relaxed ${
-                              isChecked ? 'line-through text-slate-500' : 'text-slate-300'
+                            className={`text-sm leading-relaxed ${
+                              isChecked
+                                ? 'line-through text-stone-400'
+                                : 'text-stone-800'
                             }`}
                           >
-                            {item.description}
+                            {item.description || item.instruction}
                           </p>
                         </div>
                       </div>
@@ -126,10 +134,13 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
                   })}
                 </div>
               ) : (
-                <div className="text-center py-4 text-xs text-slate-400 font-sans flex items-center justify-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-slate-400" />
-                  {`No ${group.badge.toLowerCase()} action items identified`}
-                </div>
+                <p className="text-xs text-stone-400 italic py-2">
+                  {group.key === 'before_signing'
+                    ? 'No before signing action items identified'
+                    : group.key === 'after_signing'
+                    ? 'No after signing action items identified'
+                    : 'No immediate action items identified'}
+                </p>
               )}
             </div>
           );

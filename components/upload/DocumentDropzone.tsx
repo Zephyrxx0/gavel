@@ -219,51 +219,53 @@ export function DocumentDropzone({
         onDrop={handleDrop}
         aria-label="Upload document area"
         className={cn(
-          'relative flex flex-col items-center justify-center p-8 sm:p-10 rounded-2xl border-2 border-dashed transition-all duration-150 cursor-pointer select-none text-center',
+          'relative flex flex-col items-center justify-center p-8 sm:p-12 rounded-2xl border-2 border-dashed transition-all duration-200 cursor-pointer select-none text-center',
           isDragging
-            ? 'border-[#D4AF37] bg-slate-900/90 scale-[1.01] shadow-[0_0_25px_rgba(212,175,55,0.25)]'
-            : 'border-slate-800 bg-[#0B0F17]/80 hover:border-slate-700 hover:bg-slate-900/40',
-          isShaking && 'animate-shake border-rose-500/80 shadow-[0_0_20px_rgba(239,68,68,0.25)]',
+            ? 'border-[#264D34] bg-[#EBF3EE] scale-[1.008] shadow-sm'
+            : 'border-stone-200/90 bg-white/70 hover:border-stone-400 hover:bg-[#EBF3EE]/30',
+          isShaking && 'animate-shake border-rose-500/80 shadow-[0_0_20px_rgba(239,68,68,0.15)]',
           (disabled || isProcessing) && 'cursor-not-allowed opacity-75'
         )}
       >
         {isProcessing ? (
-          <div className="flex flex-col items-center justify-center gap-3 py-4">
-            <Loader2 className="w-10 h-10 text-[#D4AF37] animate-spin" />
-            <p className="text-sm font-medium text-slate-200">{statusMessage || 'Processing file...'}</p>
-            <p className="text-xs text-slate-400 font-mono">Zero disk writes • Volatile memory parsing</p>
+          <div className="flex flex-col items-center justify-center gap-3.5 py-4">
+            <div className="w-12 h-12 rounded-full bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34]">
+              <Loader2 className="w-6 h-6 animate-spin text-[#264D34]" />
+            </div>
+            <p className="text-sm font-medium text-stone-900">{statusMessage || 'Processing file...'}</p>
+            <p className="text-xs text-stone-500 font-mono">Zero disk writes • Volatile memory parsing</p>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center gap-4">
             <div
               className={cn(
-                'w-14 h-14 rounded-2xl flex items-center justify-center border transition-transform duration-150',
+                'w-14 h-14 rounded-2xl flex items-center justify-center border transition-all duration-200',
                 isDragging
-                  ? 'bg-slate-800 border-[#D4AF37] text-[#D4AF37] scale-110'
-                  : 'bg-slate-900/90 border-slate-800 text-slate-400 group-hover:text-slate-200'
+                  ? 'bg-[#EBF3EE] border-[#264D34] text-[#264D34] scale-105'
+                  : 'bg-[#EBF3EE]/80 border-[#D0E2D6] text-[#264D34] group-hover:scale-105'
               )}
             >
-              <UploadCloud className="w-7 h-7" />
+              <UploadCloud className="w-7 h-7 stroke-[1.6]" />
             </div>
 
-            <div>
-              <p className="text-sm sm:text-base font-medium text-slate-100">
-                <span className="text-[#D4AF37] underline underline-offset-4 decoration-[#D4AF37]/50 hover:decoration-[#D4AF37]">
+            <div className="space-y-1">
+              <p className="text-sm sm:text-base font-medium text-stone-900">
+                <span className="font-semibold underline underline-offset-4 decoration-stone-300 hover:decoration-stone-800">
                   Click to upload
                 </span>{' '}
-                or drag and drop your document
+                or drag and drop your agreement
               </p>
-              <p className="text-xs text-slate-400 mt-1">
-                Supports PDF, DOCX, JPG, or PNG (up to 10MB)
+              <p className="text-xs text-stone-500 max-w-sm mx-auto">
+                PDF, DOCX, JPG, or PNG up to 10MB. Read instantly in volatile RAM.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 mt-2">
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded border border-slate-800 bg-slate-900/60 text-slate-400">
-                <FileText className="w-3 h-3 text-[#D4AF37]" /> PDF / DOCX
+            <div className="flex items-center gap-2 pt-1">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1 rounded-full border border-stone-200/90 bg-white text-stone-600 shadow-sm">
+                <FileText className="w-3.5 h-3.5 text-[#264D34]" /> PDF / DOCX
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded border border-slate-800 bg-slate-900/60 text-slate-400">
-                <ImageIcon className="w-3 h-3 text-amber-400" /> JPG / PNG
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1 rounded-full border border-stone-200/90 bg-white text-stone-600 shadow-sm">
+                <ImageIcon className="w-3.5 h-3.5 text-stone-600" /> JPG / PNG Scans
               </span>
             </div>
           </div>

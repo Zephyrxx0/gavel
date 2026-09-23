@@ -22,20 +22,20 @@ export function AnalysisProgress() {
   const currentStageIndex = elapsedSeconds < 4 ? 0 : elapsedSeconds < 8 ? 1 : 2;
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-[#111827]/90 p-8 text-center space-y-6 max-w-xl mx-auto backdrop-blur-md shadow-2xl">
+    <div className="rounded-2xl border border-stone-200/90 bg-white p-8 text-center space-y-6 max-w-xl mx-auto shadow-card-soft">
       <div className="flex justify-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] animate-pulse">
+        <div className="w-16 h-16 rounded-2xl bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34] animate-pulse">
           <Clock className="w-8 h-8 animate-spin" style={{ animationDuration: '6s' }} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="font-serif text-xl font-medium text-white tracking-wide">
+        <h3 className="font-serif text-xl font-medium text-stone-900 tracking-tight">
           Analyzing Legal Document
         </h3>
-        <p className="text-xs text-slate-400 font-mono">
+        <p className="text-xs text-stone-500 font-mono">
           {`Elapsed time: `}
-          <span className="text-[#D4AF37] font-semibold">{`${elapsedSeconds}s`}</span>
+          <span className="text-[#264D34] font-semibold">{`${elapsedSeconds}s`}</span>
           {` (typically completes in 10–15s)`}
         </p>
       </div>
@@ -49,21 +49,21 @@ export function AnalysisProgress() {
           return (
             <div
               key={stage.id}
-              className={`flex items-center gap-3 p-3 rounded-lg border text-xs transition-all duration-300 ${
+              className={`flex items-center gap-3 p-3.5 rounded-xl border text-xs transition-all duration-300 ${
                 isCurrent
-                  ? 'border-[#D4AF37]/40 bg-[#D4AF37]/5 text-white font-medium'
+                  ? 'border-[#D0E2D6] bg-[#EBF3EE] text-stone-900 font-medium shadow-sm'
                   : isDone
-                  ? 'border-slate-800/60 bg-slate-900/30 text-slate-400'
-                  : 'border-transparent text-slate-600'
+                  ? 'border-stone-200/80 bg-stone-50 text-stone-700'
+                  : 'border-transparent text-stone-400'
               }`}
             >
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                   isCurrent
-                    ? 'bg-[#D4AF37] text-black font-bold'
+                    ? 'bg-[#264D34] text-white font-bold'
                     : isDone
-                    ? 'bg-emerald-500/20 text-emerald-400'
-                    : 'bg-slate-800 text-slate-500'
+                    ? 'bg-emerald-100 text-emerald-800'
+                    : 'bg-stone-200 text-stone-500'
                 }`}
               >
                 {isDone ? '✓' : idx + 1}
@@ -75,8 +75,8 @@ export function AnalysisProgress() {
         })}
       </div>
 
-      <div className="pt-2 border-t border-slate-800/80 flex items-center justify-center gap-2 text-[11px] text-slate-400 font-mono">
-        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+      <div className="pt-2 border-t border-stone-100 flex items-center justify-center gap-2 text-[11px] text-stone-500 font-mono">
+        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
         Zero-retention volatile processing in progress
       </div>
     </div>
