@@ -73,10 +73,10 @@ export function ComparisonPresetCards({ onSelectPreset }: ComparisonPresetCardsP
   return (
     <div className="w-full mb-6">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-[#D4AF37]">
+        <span className="text-xs font-semibold uppercase tracking-wider text-stone-700 font-mono">
           Quick-Start Comparison Presets
         </span>
-        <span className="text-xs text-slate-400">Click to pre-fill both zones</span>
+        <span className="text-xs text-stone-500">Click to pre-fill both zones</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {COMPARISON_PRESETS.map((preset) => {
@@ -93,18 +93,18 @@ export function ComparisonPresetCards({ onSelectPreset }: ComparisonPresetCardsP
                   labelB: preset.labelB,
                 })
               }
-              className="group text-left rounded-lg border border-[#1E293B] bg-[#111827] p-4 transition-all duration-200 hover:border-[#D4AF37]/50 hover:bg-[#111827]/90 hover:shadow-lg focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+              className="group text-left rounded-2xl border border-stone-200/80 bg-white p-4 transition-all duration-200 hover:border-blue-300 hover:shadow-md hover:bg-stone-50/50 focus:outline-none focus:ring-2 focus:ring-stone-400"
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="w-8 h-8 rounded-md bg-[#0B0F17] border border-[#1E293B] flex items-center justify-center text-[#D4AF37] group-hover:border-[#D4AF37]/40 transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-[#EDF2FA] border border-blue-200/60 flex items-center justify-center text-blue-700 group-hover:border-blue-300 transition-colors">
                   <Icon className="w-4 h-4" />
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-stone-800 group-hover:translate-x-0.5 transition-all" />
               </div>
-              <h4 className="text-sm font-semibold text-white group-hover:text-[#D4AF37] transition-colors line-clamp-1">
+              <h4 className="text-sm font-semibold text-stone-900 group-hover:text-blue-900 transition-colors line-clamp-1">
                 {preset.title}
               </h4>
-              <p className="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-2">
+              <p className="text-xs text-stone-500 mt-1 leading-relaxed line-clamp-2">
                 {preset.description}
               </p>
             </button>

@@ -42,7 +42,7 @@ export function NegotiationGuide({
       title: 'Push Back On',
       items: negotiationGuide.pushBack,
       icon: XCircle,
-      headerClass: 'text-red-400 border-red-500/30 bg-red-950/20',
+      headerClass: 'text-red-700 border-red-200 bg-red-50/70',
       emptyText: 'No terms in this category.',
     },
     {
@@ -50,7 +50,7 @@ export function NegotiationGuide({
       title: 'Accept As-Is',
       items: negotiationGuide.acceptAsIs,
       icon: CheckCircle2,
-      headerClass: 'text-emerald-400 border-emerald-500/30 bg-emerald-950/20',
+      headerClass: 'text-emerald-800 border-emerald-200 bg-emerald-50/70',
       emptyText: 'No terms in this category.',
     },
     {
@@ -58,7 +58,7 @@ export function NegotiationGuide({
       title: 'Flag for Lawyer',
       items: negotiationGuide.flagForLawyer,
       icon: Scale,
-      headerClass: 'text-[#D4AF37] border-[#D4AF37]/30 bg-[#D4AF37]/10',
+      headerClass: 'text-amber-800 border-amber-200 bg-amber-50/70',
       emptyText: 'No terms in this category.',
     },
   ];
@@ -66,19 +66,19 @@ export function NegotiationGuide({
   return (
     <section
       id="negotiation-section"
-      className="scroll-mt-28 mb-8 rounded-2xl border border-[#1E293B] bg-[#111827] p-6 sm:p-8 shadow-xl backdrop-blur-sm"
+      className="scroll-mt-28 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
     >
       {/* Section Header */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#1E293B]">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0B0F17] border border-[#1E293B] flex items-center justify-center text-[#D4AF37]">
+          <div className="w-10 h-10 rounded-xl bg-[#EDF2FA] border border-blue-200/60 flex items-center justify-center text-blue-700">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs uppercase tracking-wider font-mono text-slate-400">
+            <span className="text-xs uppercase tracking-wider font-mono text-stone-500">
               Strategy & Leverage
             </span>
-            <h2 className="font-serif text-2xl text-white">Actionable Negotiation Guide</h2>
+            <h2 className="font-serif text-2xl text-stone-900">Actionable Negotiation Guide</h2>
           </div>
         </div>
       </div>
@@ -90,12 +90,12 @@ export function NegotiationGuide({
           return (
             <div
               key={bucket.id}
-              className="rounded-xl border border-[#1E293B] bg-[#0B0F17]/80 p-4 flex flex-col"
+              className="rounded-2xl border border-stone-200/80 bg-stone-50/50 p-4 flex flex-col"
             >
               {/* Bucket Header */}
               <div
                 className={cn(
-                  'flex items-center justify-between px-3 py-2 rounded-lg border mb-3',
+                  'flex items-center justify-between px-3 py-2 rounded-xl border mb-3',
                   bucket.headerClass
                 )}
               >
@@ -109,7 +109,7 @@ export function NegotiationGuide({
               {/* Bucket Content */}
               <div className="space-y-3 flex-1">
                 {bucket.items.length === 0 ? (
-                  <p className="text-xs text-slate-500 font-mono italic text-center py-6">
+                  <p className="text-xs text-stone-400 font-mono italic text-center py-6">
                     {bucket.emptyText}
                   </p>
                 ) : (
@@ -122,8 +122,8 @@ export function NegotiationGuide({
                       <div
                         key={cardKey}
                         className={cn(
-                          'p-3.5 rounded-lg border border-[#1E293B] bg-[#111827] transition-all duration-200',
-                          isChecked ? 'opacity-40 line-through' : 'hover:border-slate-700'
+                          'p-3.5 rounded-xl border border-stone-200/80 bg-white shadow-sm transition-all duration-200',
+                          isChecked ? 'opacity-40 line-through' : 'hover:border-stone-300'
                         )}
                       >
                         <div className="flex items-start gap-2.5">
@@ -131,22 +131,22 @@ export function NegotiationGuide({
                             id={cardKey}
                             checked={isChecked}
                             onCheckedChange={() => toggleCheck(cardKey)}
-                            className="mt-1 border-slate-600 data-[state=checked]:bg-[#D4AF37] data-[state=checked]:text-[#0B0F17]"
+                            className="mt-1 border-stone-400 data-[state=checked]:bg-stone-900 data-[state=checked]:text-white"
                           />
                           <div className="flex-1 min-w-0">
                             <label
                               htmlFor={cardKey}
-                              className="text-xs font-semibold text-white cursor-pointer block"
+                              className="text-xs font-semibold text-stone-900 cursor-pointer block"
                             >
                               {card.clauseTitle}
                             </label>
-                            <p className="text-xs text-slate-300 mt-1.5 leading-relaxed font-sans">
+                            <p className="text-xs text-stone-600 mt-1.5 leading-relaxed font-sans">
                               {card.rationale}
                             </p>
 
                             {card.suggestedAlternative && (
-                              <div className="mt-2.5 pl-2.5 border-l-2 border-[#D4AF37]/50 text-xs text-slate-400 font-mono italic">
-                                <span className="text-[10px] uppercase font-bold text-[#D4AF37] block not-italic mb-0.5">
+                              <div className="mt-2.5 pl-2.5 border-l-2 border-stone-400 text-xs text-stone-600 font-mono italic">
+                                <span className="text-[10px] uppercase font-bold text-stone-800 block not-italic mb-0.5">
                                   Counter-Proposal Draft:
                                 </span>
                                 &ldquo;{card.suggestedAlternative}&rdquo;
@@ -158,12 +158,12 @@ export function NegotiationGuide({
                               <button
                                 type="button"
                                 onClick={() => handleCopy(cardKey, card.rationale)}
-                                className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-400 hover:text-[#D4AF37] transition-colors py-0.5 px-1.5 rounded bg-[#0B0F17] border border-[#1E293B]"
+                                className="inline-flex items-center gap-1 text-[11px] font-mono text-stone-500 hover:text-stone-900 transition-colors py-0.5 px-2 rounded-lg bg-stone-50 border border-stone-200"
                               >
                                 {isCopied ? (
                                   <>
-                                    <Check className="w-3 h-3 text-emerald-400" />
-                                    <span>Copied!</span>
+                                    <Check className="w-3 h-3 text-emerald-600" />
+                                    <span className="text-emerald-700">Copied!</span>
                                   </>
                                 ) : (
                                   <>
@@ -187,11 +187,11 @@ export function NegotiationGuide({
 
       {/* Strategic Synthesis Footer */}
       {negotiationGuide.recommendation && (
-        <div className="mt-6 p-4 rounded-xl border border-[#1E293B] bg-[#0B0F17]/90">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#D4AF37] block mb-1.5 font-mono">
+        <div className="mt-6 p-4 rounded-xl border border-stone-200/80 bg-stone-50/60">
+          <span className="text-xs font-semibold uppercase tracking-wider text-stone-700 block mb-1.5 font-mono">
             Overall Strategic Synthesis
           </span>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
             {negotiationGuide.recommendation}
           </p>
         </div>

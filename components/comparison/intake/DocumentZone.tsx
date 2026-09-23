@@ -58,18 +58,18 @@ export function DocumentZone({
   return (
     <div
       className={cn(
-        'relative rounded-xl border bg-[#111827]/50 p-4 sm:p-5 transition-all duration-200 flex flex-col',
+        'relative rounded-2xl border p-5 sm:p-6 transition-all duration-200 flex flex-col',
         errorMessage
-          ? 'border-red-500/50 bg-red-950/10'
+          ? 'border-red-300 bg-red-50/30'
           : hasContent
-          ? 'border-[#D4AF37]/35 shadow-md shadow-[#D4AF37]/5'
-          : 'border-[#1E293B] hover:border-slate-700'
+          ? 'border-blue-200 bg-white shadow-sm'
+          : 'border-stone-200/80 bg-white hover:border-stone-300'
       )}
     >
       {/* Zone Header: Custom Label + Stats */}
-      <div className="flex items-center justify-between gap-3 mb-3">
+      <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+          <div className="w-2 h-2 rounded-full bg-blue-600" />
           {isEditingLabel ? (
             <div className="flex items-center gap-1.5">
               <input
@@ -83,13 +83,13 @@ export function DocumentZone({
                     setTempLabel(label);
                   }
                 }}
-                className="bg-[#0B0F17] border border-[#D4AF37]/50 text-sm font-semibold text-white px-2 py-0.5 rounded focus:outline-none focus:ring-1 focus:ring-[#D4AF37] max-w-[180px]"
+                className="bg-stone-50 border border-stone-300 text-sm font-semibold text-stone-900 px-2 py-0.5 rounded focus:outline-none focus:ring-1 focus:ring-stone-500 max-w-[180px]"
                 autoFocus
               />
               <button
                 type="button"
                 onClick={handleSaveLabel}
-                className="text-[#D4AF37] hover:text-[#C5A059] p-1"
+                className="text-stone-700 hover:text-stone-900 p-1"
                 aria-label="Save label"
               >
                 <Check className="w-3.5 h-3.5" />
@@ -97,7 +97,7 @@ export function DocumentZone({
             </div>
           ) : (
             <div className="flex items-center gap-1.5 min-w-0">
-              <span className="text-sm font-semibold text-[#D4AF37] uppercase tracking-wider truncate">
+              <span className="text-sm font-semibold text-stone-900 uppercase tracking-wider truncate">
                 {label || defaultLabel}
               </span>
               {onLabelChange && (
@@ -107,7 +107,7 @@ export function DocumentZone({
                     setTempLabel(label || defaultLabel);
                     setIsEditingLabel(true);
                   }}
-                  className="text-slate-500 hover:text-[#D4AF37] p-1 transition-colors"
+                  className="text-stone-400 hover:text-stone-700 p-1 transition-colors"
                   aria-label="Edit label"
                 >
                   <Edit2 className="w-3 h-3" />
@@ -119,8 +119,8 @@ export function DocumentZone({
 
         {/* Word Count / Status Badge */}
         {hasContent && (
-          <span className="inline-flex items-center gap-1 rounded-full border border-slate-700/60 bg-[#0B0F17] px-2.5 py-0.5 text-xs font-mono text-slate-300">
-            <FileText className="w-3 h-3 text-[#D4AF37]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-2.5 py-0.5 text-xs font-mono text-stone-700">
+            <FileText className="w-3 h-3 text-stone-500" />
             {wordCount} words
           </span>
         )}
@@ -145,16 +145,16 @@ export function DocumentZone({
             onValueChange={(val) => setActiveTab(val as 'upload' | 'paste')}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-2 mb-3 bg-[#0B0F17] border border-[#1E293B]">
+            <TabsList className="grid w-full grid-cols-2 mb-3 bg-stone-100/80 border border-stone-200/70 p-1 rounded-xl">
               <TabsTrigger
                 value="upload"
-                className="text-xs data-[state=active]:bg-[#111827] data-[state=active]:text-[#D4AF37]"
+                className="text-xs rounded-lg text-stone-600 data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm"
               >
                 Upload File (PDF/DOCX/Scan)
               </TabsTrigger>
               <TabsTrigger
                 value="paste"
-                className="text-xs data-[state=active]:bg-[#111827] data-[state=active]:text-[#D4AF37]"
+                className="text-xs rounded-lg text-stone-600 data-[state=active]:bg-white data-[state=active]:text-stone-900 data-[state=active]:shadow-sm"
               >
                 Paste Text
               </TabsTrigger>
@@ -182,7 +182,7 @@ export function DocumentZone({
 
       {/* Error Message */}
       {errorMessage && (
-        <p className="mt-2 text-xs text-red-400 font-medium">
+        <p className="mt-2 text-xs text-rose-600 font-medium">
           {errorMessage}
         </p>
       )}

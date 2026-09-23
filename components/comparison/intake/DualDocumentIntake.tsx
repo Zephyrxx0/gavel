@@ -162,7 +162,7 @@ export function DualDocumentIntake({
           onClick={handleSubmit}
           disabled={!isReady}
           size="lg"
-          className="min-w-[240px] h-12 bg-[#D4AF37] hover:bg-[#C5A059] text-[#0B0F17] font-semibold text-sm shadow-xl shadow-[#D4AF37]/10 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="min-w-[240px] h-12 bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm rounded-xl shadow-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
           {isComparing ? (
             'Analyzing Contract Discrepancies…'
@@ -178,11 +178,11 @@ export function DualDocumentIntake({
         {/* Dynamic Character Count & Two-Pass Notification */}
         {hasContentA && hasContentB && (
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-400 font-mono">
+            <span className="text-stone-500 font-mono">
               Combined: {combinedChars.toLocaleString()} characters
             </span>
             {isLargePair && (
-              <span className="text-amber-400 font-medium inline-flex items-center gap-1">
+              <span className="text-amber-700 font-medium inline-flex items-center gap-1">
                 • ⚠ Large documents detected (&gt;60k chars) — two-pass analysis will activate
               </span>
             )}

@@ -14,15 +14,15 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
     return (
       <section
         id="inconsistencies-section"
-        className="scroll-mt-28 mb-8 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 p-6 sm:p-8 backdrop-blur-sm"
+        className="scroll-mt-28 mb-8 rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 sm:p-8 shadow-sm"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0B0F17] border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-serif text-white">No Inconsistencies Detected</h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <h3 className="text-lg font-serif text-stone-900">No Inconsistencies Detected</h3>
+            <p className="text-xs text-stone-600 mt-0.5">
               Both documents appear internally consistent with no contradictory provisions or conflicting obligations.
             </p>
           </div>
@@ -39,22 +39,22 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
     {
       title: 'Critical Inconsistencies',
       items: criticalItems,
-      badgeClass: 'border-red-500/50 bg-red-950/30 text-red-400',
-      borderClass: 'border-red-500/60 bg-red-950/15',
+      badgeClass: 'border-red-200 bg-red-50 text-red-700',
+      borderClass: 'border-red-200 bg-red-50/30',
       icon: AlertOctagon,
     },
     {
       title: 'Notable Variations & Ambiguities',
       items: notableItems,
-      badgeClass: 'border-amber-500/50 bg-amber-950/30 text-amber-400',
-      borderClass: 'border-amber-500/50 bg-amber-950/10',
+      badgeClass: 'border-amber-200 bg-amber-50 text-amber-800',
+      borderClass: 'border-amber-200 bg-amber-50/30',
       icon: AlertTriangle,
     },
     {
       title: 'Minor Discrepancies & Clerical Differences',
       items: minorItems,
-      badgeClass: 'border-slate-600/50 bg-slate-800/40 text-slate-400',
-      borderClass: 'border-slate-700/50 bg-[#111827]',
+      badgeClass: 'border-stone-200 bg-stone-100 text-stone-700',
+      borderClass: 'border-stone-200 bg-stone-50/50',
       icon: Info,
     },
   ];
@@ -62,21 +62,21 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
   return (
     <section
       id="inconsistencies-section"
-      className="scroll-mt-28 mb-8 rounded-2xl border border-[#1E293B] bg-[#111827] p-6 sm:p-8 shadow-xl backdrop-blur-sm"
+      className="scroll-mt-28 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
     >
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#1E293B]">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0B0F17] border border-[#1E293B] flex items-center justify-center text-amber-400">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs uppercase tracking-wider font-mono text-slate-400">
+            <span className="text-xs uppercase tracking-wider font-mono text-stone-500">
               Risk Audit
             </span>
-            <h2 className="font-serif text-2xl text-white">Discrepancies & Contradictions</h2>
+            <h2 className="font-serif text-2xl text-stone-900">Discrepancies & Contradictions</h2>
           </div>
         </div>
-        <span className="inline-flex items-center rounded-full border border-slate-700/60 bg-[#0B0F17] px-3 py-1 text-xs font-mono text-slate-300">
+        <span className="inline-flex items-center rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-xs font-mono text-stone-700">
           {inconsistencies.length} issues flagged
         </span>
       </div>
@@ -88,10 +88,10 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
 
           return (
             <div key={group.title} className="space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-stone-600 flex items-center gap-2">
                 <GroupIcon className="w-3.5 h-3.5" />
                 <span>{group.title}</span>
-                <span className="text-[11px] font-mono text-slate-500">({group.items.length})</span>
+                <span className="text-[11px] font-mono text-stone-400">({group.items.length})</span>
               </h4>
 
               <div className="space-y-2.5">
@@ -104,7 +104,7 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
                     )}
                   >
                     <div className="flex items-center justify-between gap-3 mb-1.5">
-                      <h5 className="text-sm font-semibold text-white">{item.clauseTitle}</h5>
+                      <h5 className="text-sm font-semibold text-stone-900">{item.clauseTitle}</h5>
                       <span
                         className={cn(
                           'px-2 py-0.5 rounded text-[11px] font-mono uppercase font-semibold border',
@@ -114,7 +114,7 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
                         {item.severity}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+                    <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
                       {item.description}
                     </p>
                   </div>
