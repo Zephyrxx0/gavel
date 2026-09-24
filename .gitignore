@@ -34,3 +34,6 @@ prd.html
 
 *.env
 !.env.example
+
+# test documents
+/doc/
