@@ -107,7 +107,7 @@ describe('Situation Intake Experience & Progress Loader (Plan 03-02)', () => {
     it('clicking preset card triggers onSelectScenario callback with full description and category', () => {
       const onSelectScenario = vi.fn();
       const element = React.createElement(QuickStartCards, { onSelectScenario });
-      const tree = element.type(element.props);
+      const tree = element.type(element.props) as any;
 
       // Verify the onClick callback for each preset
       PRESETS.forEach((preset, idx) => {
@@ -162,7 +162,7 @@ describe('Situation Intake Experience & Progress Loader (Plan 03-02)', () => {
         selectedCategory: 'auto',
         onSelectCategory,
       });
-      const tree = element.type(element.props);
+      const tree = element.type(element.props) as any;
       const buttons = tree.props.children[1].props.children;
 
       // Click consumer chip (index 3: auto, tenancy, employment, consumer)

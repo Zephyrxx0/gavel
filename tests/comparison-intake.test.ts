@@ -51,6 +51,8 @@ describe('DocumentZone Component', () => {
     const mockUpload = {
       fileName: 'service-contract.pdf',
       fileSize: 45000,
+      sizeBytes: 45000,
+      isImage: false,
       wordCount: 1250,
       mimeType: 'application/pdf',
       text: 'Sample contract text...',

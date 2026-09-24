@@ -363,7 +363,7 @@ describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => 
         onAdjustDescription,
       });
 
-      const tree = element.type(element.props);
+      const tree = element.type(element.props) as any;
       // tree.props.children[1] is the actions container
       const actionButtons = tree.props.children[1].props.children;
       const adjustBtn = actionButtons[0];
