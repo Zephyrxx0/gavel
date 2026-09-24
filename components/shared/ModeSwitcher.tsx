@@ -61,4 +61,3 @@ export function ModeSwitcher({ className }: { className?: string }) {
     </div>
   );
 }
-
