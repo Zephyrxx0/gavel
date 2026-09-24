@@ -46,7 +46,7 @@ export function ModeSwitcher({ className }: { className?: string }) {
               key={mode.href}
               href={mode.href}
               className={cn(
-                'flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-medium transition-all duration-150 whitespace-nowrap',
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-full font-medium transition-all duration-150 whitespace-nowrap',
                 mode.isActive
                   ? 'bg-white text-stone-900 shadow-sm border border-stone-200/80 font-semibold'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
@@ -61,3 +61,4 @@ export function ModeSwitcher({ className }: { className?: string }) {
     </div>
   );
 }
+

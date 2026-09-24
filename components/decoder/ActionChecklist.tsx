@@ -104,16 +104,16 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
                               {item.actionType}
                             </span>
 
-                            {(item.relatedClauseId || item.clauseReference) && (
+                            {item.relatedClauseId && (
                               <button
                                 type="button"
                                 onClick={() =>
                                   onClauseCrossReference &&
-                                  onClauseCrossReference((item.relatedClauseId || item.clauseReference)!)
+                                  onClauseCrossReference(item.relatedClauseId!)
                                 }
                                 className="inline-flex items-center gap-1 font-mono text-[11px] text-stone-600 hover:text-stone-900 underline underline-offset-2 transition-colors"
                               >
-                                <span>{`Re: ${item.relatedClauseId || item.clauseReference}`}</span>
+                                <span>{`Re: ${item.relatedClauseId}`}</span>
                                 <ArrowUpRight className="w-3 h-3" />
                               </button>
                             )}
@@ -126,7 +126,7 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
                                 : 'text-stone-800'
                             }`}
                           >
-                            {item.description || item.instruction}
+                            {item.description}
                           </p>
                         </div>
                       </div>
