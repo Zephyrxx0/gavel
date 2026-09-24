@@ -21,7 +21,6 @@ export function Header() {
               <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-stone-900 group-hover:text-stone-700 transition-colors">
                 Gavel
               </span>
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
             </div>
             <p className="hidden sm:block text-[10px] font-mono tracking-wider text-stone-500 uppercase">
               Legal Intelligence
