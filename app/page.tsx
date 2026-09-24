@@ -38,7 +38,7 @@ export default function HomePage() {
             </span>
             <span className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-full px-3.5 py-1 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-stone-600" />
-              Claude 3.5 Sonnet Reasoning
+              Gemini 2.5 Flash Reasoning
             </span>
             <span className="flex items-center gap-1.5 bg-white border border-stone-200/80 rounded-full px-3.5 py-1 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />

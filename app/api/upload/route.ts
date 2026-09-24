@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 422 });
       }
     }
-    // 3. Image Conversion (JPG / PNG for Claude Vision)
+    // 3. Image Conversion (JPG / PNG for Multimodal Vision)
     else if (isJpg || isPng) {
       isImage = true;
       rawBase64 = buffer.toString('base64');
