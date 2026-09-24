@@ -19,6 +19,16 @@ import { CounselTriggersCard } from '@/components/situation/CounselTriggersCard'
 import { ChatPanel } from '@/components/chat/ChatPanel';
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
 import { ExportDossierCard } from '@/components/export/ExportDossierCard';
+import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
+
+const SITUATION_SECTIONS = [
+  'deadline-section',
+  'summary-section',
+  'rights-section',
+  'roadmap-section',
+  'evidence-section',
+  'counsel-section',
+];
 
 type AnalysisState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
@@ -28,7 +38,11 @@ export default function SituationNavigatorPage() {
   const [submittedDescription, setSubmittedDescription] = useState<string>('');
   const [submittedCategory, setSubmittedCategory] = useState<DisputeCategory | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [activeSection, setActiveSection] = useState<string>('summary-section');
+  const [activeSection, setActiveSection] = useScrollSpy(
+    SITUATION_SECTIONS,
+    120,
+    analysisState === 'dossier'
+  );
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleAnalyze = useCallback(async (description: string, category?: DisputeCategory) => {
@@ -89,50 +103,6 @@ export default function SituationNavigatorPage() {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
-  // Scroll-spy observer for dossier sections
-  useEffect(() => {
-    if (analysisState !== 'dossier') return;
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const sectionIds = [
-      'deadline-section',
-      'summary-section',
-      'rights-section',
-      'roadmap-section',
-      'evidence-section',
-      'counsel-section',
-    ];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const intersecting = entries.filter((e) => e.isIntersecting);
-        if (intersecting.length > 0) {
-          // Find the intersecting section closest to top offset (e.g. 112px scroll-mt)
-          const topEntry = intersecting.reduce((prev, curr) =>
-            Math.abs(curr.boundingClientRect.top - 120) < Math.abs(prev.boundingClientRect.top - 120)
-              ? curr
-              : prev
-          );
-          setActiveSection(topEntry.target.id);
-        }
-      },
-      {
-        root: null,
-        rootMargin: '-100px 0px -50% 0px',
-        threshold: [0, 0.2, 0.5, 0.8],
-      }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [analysisState, analysisData]);
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">

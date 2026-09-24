@@ -18,6 +18,14 @@ import { Button } from '@/components/ui/button';
 import { ChatPanel } from '@/components/chat/ChatPanel';
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
 import { ExportDossierCard } from '@/components/export/ExportDossierCard';
+import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
+
+const COMPARISON_SECTIONS = [
+  'verdict-section',
+  'differences-section',
+  'inconsistencies-section',
+  'negotiation-section',
+];
 
 export type ComparisonPageState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
@@ -30,7 +38,11 @@ export default function ComparePage() {
 
   const [labelA, setLabelA] = useState('Original Document');
   const [labelB, setLabelB] = useState('Revised Document');
-  const [activeSection, setActiveSection] = useState('verdict-section');
+  const [activeSection, setActiveSection] = useScrollSpy(
+    COMPARISON_SECTIONS,
+    120,
+    pageState === 'dossier'
+  );
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleStartComparison = async (payload: ComparisonPayload) => {
@@ -85,47 +97,6 @@ export default function ComparePage() {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
-  // Scroll-spy observer for dossier sections
-  useEffect(() => {
-    if (pageState !== 'dossier') return;
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const sectionIds = [
-      'verdict-section',
-      'differences-section',
-      'inconsistencies-section',
-      'negotiation-section',
-    ];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const intersecting = entries.filter((e) => e.isIntersecting);
-        if (intersecting.length > 0) {
-          const topEntry = intersecting.reduce((prev, curr) =>
-            Math.abs(curr.boundingClientRect.top - 120) < Math.abs(prev.boundingClientRect.top - 120)
-              ? curr
-              : prev
-          );
-          setActiveSection(topEntry.target.id);
-        }
-      },
-      {
-        root: null,
-        rootMargin: '-100px 0px -50% 0px',
-        threshold: [0, 0.2, 0.5, 0.8],
-      }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [pageState, comparisonResult]);
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col pb-20">
