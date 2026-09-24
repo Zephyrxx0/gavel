@@ -27,7 +27,7 @@ const COMPARISON_SECTIONS = [
   'negotiation-section',
 ];
 
-export type ComparisonPageState = 'idle' | 'analyzing' | 'dossier' | 'error';
+type ComparisonPageState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
 export default function ComparePage() {
   const [pageState, setPageState] = useState<ComparisonPageState>('idle');

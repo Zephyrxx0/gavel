@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  "ignoreDependencies": [
+    "@ai-sdk/anthropic",
+    "agentation-mcp",
+    "postcss-load-config"
+  ],
+  "ignoreExports": [
+    {
+      "file": "components/ui/**",
+      "exports": ["*"]
+    },
+    {
+      "file": "lib/schemas/**",
+      "exports": ["*"]
+    }
+  ],
+  "rules": {
+    "test-only-dependencies": "off"
+  }
+}

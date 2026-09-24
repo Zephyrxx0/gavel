@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { FileSearch, HelpCircle, GitCompare } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export const ANALYSIS_MODES = [
+const ANALYSIS_MODES = [
   {
     name: 'Document Decoder',
     href: '/analyze/document',

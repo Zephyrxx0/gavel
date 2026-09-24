@@ -28,7 +28,7 @@ export interface SituationSummaryCardProps {
   isReanalyzing?: boolean;
 }
 
-export const CATEGORY_METADATA: Record<
+const CATEGORY_METADATA: Record<
   DisputeCategory,
   { label: string; icon: React.ComponentType<{ className?: string }> }
 > = {
