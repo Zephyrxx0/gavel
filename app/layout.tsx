@@ -3,6 +3,7 @@ import { DM_Serif_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { LegalDisclaimerBanner } from '@/components/shared/LegalDisclaimer';
+import { Agentation } from 'agentation';
 
 const dmSerif = DM_Serif_Display({
   weight: '400',
@@ -43,6 +44,9 @@ export default function RootLayout({
         <div className="flex-1 pb-16">{children}</div>
         <LegalDisclaimerBanner />
         <Toaster />
+        {process.env.NODE_ENV === 'development' && (
+          <Agentation endpoint="http://localhost:4747" />
+        )}
       </body>
     </html>
   );
