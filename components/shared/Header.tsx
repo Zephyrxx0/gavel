@@ -2,34 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Scale, ShieldCheck, FileSearch, HelpCircle, GitCompare } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Scale } from 'lucide-react';
 
 export function Header() {
-  const pathname = usePathname() || '';
-
-  const navLinks = [
-    {
-      name: 'Document Decoder',
-      href: '/',
-      activeMatch: (p: string) => p === '/' || p.startsWith('/analyze/document'),
-      icon: FileSearch,
-    },
-    {
-      name: 'Situation Navigator',
-      href: '/analyze/situation',
-      activeMatch: (p: string) => p.startsWith('/analyze/situation'),
-      icon: HelpCircle,
-    },
-    {
-      name: 'Compare Contracts',
-      href: '/analyze/compare',
-      activeMatch: (p: string) => p.startsWith('/analyze/compare'),
-      icon: GitCompare,
-    },
-  ];
-
   return (
     <header className="sticky top-3 sm:top-4 z-40 w-full px-3 sm:px-6 max-w-6xl mx-auto transition-all duration-300">
       <div className="rounded-full border border-stone-200/90 bg-white/90 backdrop-blur-xl shadow-card-soft px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-4">
@@ -53,29 +28,6 @@ export function Header() {
             </p>
           </div>
         </Link>
-
-        {/* Desktop Navigation Modes */}
-        <nav className="hidden md:flex items-center gap-1 bg-stone-100/90 border border-stone-200/70 rounded-full p-1 text-xs">
-          {navLinks.map((link) => {
-            const isActive = link.activeMatch(pathname);
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  'flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-medium transition-all duration-150',
-                  isActive
-                    ? 'bg-white text-stone-900 shadow-sm border border-stone-200/80'
-                    : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
-                )}
-              >
-                <Icon className={cn('w-3.5 h-3.5', isActive ? 'text-stone-900' : 'text-stone-500')} />
-                <span>{link.name}</span>
-              </Link>
-            );
-          })}
-        </nav>
 
         {/* Security & Privacy Pill */}
         <div className="flex items-center gap-2">

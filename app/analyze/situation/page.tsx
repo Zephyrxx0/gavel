@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { Header } from '@/components/shared/Header';
+import { ModeSwitcher } from '@/components/shared/ModeSwitcher';
 import { LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
 import { SituationAnalysis, DisputeCategory } from '@/lib/schemas/situation';
 
@@ -158,6 +159,7 @@ export default function SituationNavigatorPage() {
       )}
 
       <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+        <ModeSwitcher />
         {/* Prominent Statutory Legal Disclaimer Card placed directly above viewports */}
         <LegalDisclaimerCard />
 

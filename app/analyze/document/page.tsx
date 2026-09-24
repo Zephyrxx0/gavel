@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Header } from '@/components/shared/Header';
+import { ModeSwitcher } from '@/components/shared/ModeSwitcher';
 import { LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
 import { DocumentDropzone } from '@/components/upload/DocumentDropzone';
 import { ManualPasteArea } from '@/components/upload/ManualPasteArea';
@@ -130,6 +131,7 @@ export default function DocumentDecoderPage() {
       )}
 
       <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+        <ModeSwitcher />
         <LegalDisclaimerCard />
 
         {analysisState === 'idle' && (

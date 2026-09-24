@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/shared/Header';
+import { ModeSwitcher } from '@/components/shared/ModeSwitcher';
 import { LegalDisclaimerBanner, LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
 import { DualDocumentIntake, ComparisonPayload } from '@/components/comparison/intake/DualDocumentIntake';
 import { ComparisonProgress } from '@/components/comparison/ComparisonProgress';
@@ -131,6 +132,7 @@ export default function ComparePage() {
       <Header />
 
       <main className="flex-1 container mx-auto max-w-7xl px-4 sm:px-6 py-8">
+        <ModeSwitcher className="w-full mb-6" />
         {/* State: IDLE */}
         {pageState === 'idle' && (
           <div className="flex flex-col items-center">
