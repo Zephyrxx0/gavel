@@ -158,7 +158,7 @@ export default function SituationNavigatorPage() {
         />
       )}
 
-      <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
+      <main className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 space-y-8 flex-1">
         <ModeSwitcher />
         {/* Prominent Statutory Legal Disclaimer Card placed directly above viewports */}
         <LegalDisclaimerCard />
