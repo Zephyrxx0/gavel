@@ -71,6 +71,9 @@ export function DocumentDropzone({
   const processAndUploadFile = useCallback(
     async (rawFile: File) => {
       if (!validateFilePreFlight(rawFile)) {
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
         return;
       }
 
@@ -113,7 +116,7 @@ export function DocumentDropzone({
           if (errorCode === 'EMPTY_TEXT') {
             toast.error('Extracted text is too short or document is scanned.');
             onFallbackToManual(
-              'The document yielded fewer than 50 characters of readable text. Scanned or photo documents can be pasted manually below.'
+              'The document yielded fewer than 30 characters of readable text. Scanned or photo documents can be pasted manually below.'
             );
           } else if (errorCode === 'PASSWORD_PROTECTED') {
             toast.error('The document is password-protected.');
@@ -201,7 +204,7 @@ export function DocumentDropzone({
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.docx,.jpg,.jpeg,.png,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png"
+        accept=".pdf,.docx,.jpg,.jpeg,.png,application/pdf,image/*"
         className="hidden"
         onChange={handleFileInputChange}
         disabled={disabled || isProcessing}

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-// @ts-expect-error - Direct lib import bypasses debug runner in pdf-parse/index.js
-import pdfParse from 'pdf-parse/lib/pdf-parse.js';
+import pdfParse from 'pdf-parse';
 import mammoth from 'mammoth';
 import { cleanText, countWords } from '@/lib/text-utils';
 import { UploadResponseSchema } from '@/lib/schemas/upload';
@@ -55,6 +54,7 @@ export async function POST(req: NextRequest) {
         const parsed = await pdfParse(buffer);
         extractedText = parsed.text || '';
       } catch (err: unknown) {
+        console.error('[/api/upload] PDF parse failure:', err);
         const errorMsg = (err instanceof Error ? err.message : String(err)).toLowerCase();
         if (errorMsg.includes('password') || errorMsg.includes('encrypted')) {
           const errorPayload = {
@@ -77,7 +77,8 @@ export async function POST(req: NextRequest) {
       try {
         const result = await mammoth.extractRawText({ buffer });
         extractedText = result.value || '';
-      } catch {
+      } catch (err: unknown) {
+        console.error('[/api/upload] DOCX parse failure:', err);
         const errorPayload = {
           success: false,
           error: 'CORRUPT_FILE' as const,
@@ -104,11 +105,11 @@ export async function POST(req: NextRequest) {
     // For text formats (PDF/DOCX), clean and validate minimum length
     if (!isImage) {
       const sanitized = cleanText(extractedText);
-      if (sanitized.length < 50) {
+      if (sanitized.length < 30) {
         const errorPayload = {
           success: false,
           error: 'EMPTY_TEXT' as const,
-          message: 'Document yielded fewer than 50 characters of readable text. The document may be scanned or empty.',
+          message: 'Document yielded fewer than 30 characters of readable text. The document may be scanned or empty.',
         };
         return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 422 });
       }

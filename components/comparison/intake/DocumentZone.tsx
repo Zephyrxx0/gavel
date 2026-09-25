@@ -42,6 +42,15 @@ export function DocumentZone({
   const [isEditingLabel, setIsEditingLabel] = useState(false);
   const [tempLabel, setTempLabel] = useState(label);
   const [activeTab, setActiveTab] = useState<'upload' | 'paste'>(manualText ? 'paste' : 'upload');
+  const [fileObjectUrl, setFileObjectUrl] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (fileObjectUrl) {
+        URL.revokeObjectURL(fileObjectUrl);
+      }
+    };
+  }, [fileObjectUrl]);
 
   const wordCount = uploadedDoc ? uploadedDoc.wordCount : countWords(manualText);
   const hasContent = Boolean(uploadedDoc || manualText.trim().length >= 30);
@@ -136,7 +145,16 @@ export function DocumentZone({
               wordCount={uploadedDoc.wordCount}
               mimeType={uploadedDoc.mimeType}
               isImage={uploadedDoc.isImage}
-              onRemove={onRemove}
+              rawBase64={uploadedDoc.rawBase64}
+              text={uploadedDoc.text}
+              fileObjectUrl={fileObjectUrl}
+              onRemove={() => {
+                if (fileObjectUrl) {
+                  URL.revokeObjectURL(fileObjectUrl);
+                  setFileObjectUrl(null);
+                }
+                onRemove();
+              }}
             />
           </div>
         ) : (
@@ -162,7 +180,15 @@ export function DocumentZone({
 
             <TabsContent value="upload" className="mt-0 focus-visible:outline-none">
               <DocumentDropzone
-                onUploadSuccess={onUploadSuccess}
+                onUploadSuccess={(data, _comp, rawFile) => {
+                  if (rawFile) {
+                    if (fileObjectUrl) {
+                      URL.revokeObjectURL(fileObjectUrl);
+                    }
+                    setFileObjectUrl(URL.createObjectURL(rawFile));
+                  }
+                  onUploadSuccess(data);
+                }}
                 onFallbackToManual={onFallbackToManual}
                 disabled={disabled}
               />

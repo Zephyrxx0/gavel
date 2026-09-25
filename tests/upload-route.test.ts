@@ -3,8 +3,11 @@ import { NextRequest } from 'next/server';
 import { POST } from '@/app/api/upload/route';
 import { UploadResponseSchema } from '@/lib/schemas/upload';
 
-// Mock pdf-parse/lib/pdf-parse.js
+// Mock pdf-parse
 const mockPdfParse = vi.fn();
+vi.mock('pdf-parse', () => ({
+  default: (...args: unknown[]) => mockPdfParse(...args),
+}));
 vi.mock('pdf-parse/lib/pdf-parse.js', () => ({
   default: (...args: unknown[]) => mockPdfParse(...args),
 }));
