@@ -7,18 +7,45 @@ import { LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
 import { SituationAnalysis, DisputeCategory } from '@/lib/schemas/situation';
 
 import { SituationIntakeForm, DRAFT_STORAGE_KEY } from '@/components/situation/SituationIntakeForm';
-import { SituationProgress } from '@/components/situation/SituationProgress';
-import { SituationErrorCard } from '@/components/situation/SituationErrorCard';
-import { SituationStickyNav } from '@/components/situation/SituationStickyNav';
-import { DeadlineAlertBanner } from '@/components/situation/DeadlineAlertBanner';
-import { SituationSummaryCard } from '@/components/situation/SituationSummaryCard';
-import { RightsAccordion } from '@/components/situation/RightsAccordion';
-import { NextStepsRoadmap } from '@/components/situation/NextStepsRoadmap';
-import { EvidenceChecklist } from '@/components/situation/EvidenceChecklist';
-import { CounselTriggersCard } from '@/components/situation/CounselTriggersCard';
-import { ChatPanel } from '@/components/chat/ChatPanel';
+import dynamic from 'next/dynamic';
+
+const SituationProgress = dynamic(
+  () => import('@/components/situation/SituationProgress').then((m) => m.SituationProgress)
+);
+const SituationErrorCard = dynamic(
+  () => import('@/components/situation/SituationErrorCard').then((m) => m.SituationErrorCard)
+);
+const SituationStickyNav = dynamic(
+  () => import('@/components/situation/SituationStickyNav').then((m) => m.SituationStickyNav),
+  { ssr: false }
+);
+const DeadlineAlertBanner = dynamic(
+  () => import('@/components/situation/DeadlineAlertBanner').then((m) => m.DeadlineAlertBanner)
+);
+const SituationSummaryCard = dynamic(
+  () => import('@/components/situation/SituationSummaryCard').then((m) => m.SituationSummaryCard)
+);
+const RightsAccordion = dynamic(
+  () => import('@/components/situation/RightsAccordion').then((m) => m.RightsAccordion)
+);
+const NextStepsRoadmap = dynamic(
+  () => import('@/components/situation/NextStepsRoadmap').then((m) => m.NextStepsRoadmap)
+);
+const EvidenceChecklist = dynamic(
+  () => import('@/components/situation/EvidenceChecklist').then((m) => m.EvidenceChecklist)
+);
+const CounselTriggersCard = dynamic(
+  () => import('@/components/situation/CounselTriggersCard').then((m) => m.CounselTriggersCard)
+);
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
-import { ExportDossierCard } from '@/components/export/ExportDossierCard';
+const ChatPanel = dynamic(
+  () => import('@/components/chat/ChatPanel').then((m) => m.ChatPanel),
+  { ssr: false }
+);
+const ExportDossierCard = dynamic(
+  () => import('@/components/export/ExportDossierCard').then((m) => m.ExportDossierCard),
+  { ssr: false }
+);
 import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
 
 import {

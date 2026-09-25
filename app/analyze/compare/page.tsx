@@ -5,19 +5,42 @@ import { Header } from '@/components/shared/Header';
 import { ModeSwitcher } from '@/components/shared/ModeSwitcher';
 import { LegalDisclaimerBanner, LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
 import { DualDocumentIntake, ComparisonPayload } from '@/components/comparison/intake/DualDocumentIntake';
-import { ComparisonProgress } from '@/components/comparison/ComparisonProgress';
-import { ComparisonStickyNav } from '@/components/comparison/ComparisonStickyNav';
-import { FavorabilityVerdictCard } from '@/components/comparison/FavorabilityVerdictCard';
-import { ClauseComparisonTable } from '@/components/comparison/ClauseComparisonTable';
-import { InconsistenciesSection } from '@/components/comparison/InconsistenciesSection';
-import { NegotiationGuide } from '@/components/comparison/NegotiationGuide';
-import { ComparisonErrorCard } from '@/components/comparison/ComparisonErrorCard';
+import dynamic from 'next/dynamic';
+
+const ComparisonProgress = dynamic(
+  () => import('@/components/comparison/ComparisonProgress').then((m) => m.ComparisonProgress)
+);
+const ComparisonStickyNav = dynamic(
+  () => import('@/components/comparison/ComparisonStickyNav').then((m) => m.ComparisonStickyNav),
+  { ssr: false }
+);
+const FavorabilityVerdictCard = dynamic(
+  () => import('@/components/comparison/FavorabilityVerdictCard').then((m) => m.FavorabilityVerdictCard)
+);
+const ClauseComparisonTable = dynamic(
+  () => import('@/components/comparison/ClauseComparisonTable').then((m) => m.ClauseComparisonTable)
+);
+const InconsistenciesSection = dynamic(
+  () => import('@/components/comparison/InconsistenciesSection').then((m) => m.InconsistenciesSection)
+);
+const NegotiationGuide = dynamic(
+  () => import('@/components/comparison/NegotiationGuide').then((m) => m.NegotiationGuide)
+);
+const ComparisonErrorCard = dynamic(
+  () => import('@/components/comparison/ComparisonErrorCard').then((m) => m.ComparisonErrorCard)
+);
 import { Comparison } from '@/lib/schemas/comparison';
 import { AlertTriangle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ChatPanel } from '@/components/chat/ChatPanel';
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
-import { ExportDossierCard } from '@/components/export/ExportDossierCard';
+const ChatPanel = dynamic(
+  () => import('@/components/chat/ChatPanel').then((m) => m.ChatPanel),
+  { ssr: false }
+);
+const ExportDossierCard = dynamic(
+  () => import('@/components/export/ExportDossierCard').then((m) => m.ExportDossierCard),
+  { ssr: false }
+);
 import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
 import {
   SESSION_KEYS,

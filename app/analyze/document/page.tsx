@@ -20,17 +20,42 @@ import {
   clearSessionAnalysis,
 } from '@/lib/session-vault';
 
-import { StickyNav } from '@/components/decoder/StickyNav';
-import { UploadedDocumentCard } from '@/components/decoder/UploadedDocumentCard';
-import { ExecutiveSummaryCard } from '@/components/decoder/ExecutiveSummaryCard';
-import { RiskScorecard } from '@/components/decoder/RiskScorecard';
-import { ActionChecklist } from '@/components/decoder/ActionChecklist';
-import { LawyerPrepGuide } from '@/components/decoder/LawyerPrepGuide';
-import { AnalysisProgress } from '@/components/decoder/AnalysisProgress';
-import { AnalysisErrorCard } from '@/components/decoder/AnalysisErrorCard';
-import { ChatPanel } from '@/components/chat/ChatPanel';
+import dynamic from 'next/dynamic';
+
+const StickyNav = dynamic(
+  () => import('@/components/decoder/StickyNav').then((m) => m.StickyNav),
+  { ssr: false }
+);
+const UploadedDocumentCard = dynamic(
+  () => import('@/components/decoder/UploadedDocumentCard').then((m) => m.UploadedDocumentCard)
+);
+const ExecutiveSummaryCard = dynamic(
+  () => import('@/components/decoder/ExecutiveSummaryCard').then((m) => m.ExecutiveSummaryCard)
+);
+const RiskScorecard = dynamic(
+  () => import('@/components/decoder/RiskScorecard').then((m) => m.RiskScorecard)
+);
+const ActionChecklist = dynamic(
+  () => import('@/components/decoder/ActionChecklist').then((m) => m.ActionChecklist)
+);
+const LawyerPrepGuide = dynamic(
+  () => import('@/components/decoder/LawyerPrepGuide').then((m) => m.LawyerPrepGuide)
+);
+const AnalysisProgress = dynamic(
+  () => import('@/components/decoder/AnalysisProgress').then((m) => m.AnalysisProgress)
+);
+const AnalysisErrorCard = dynamic(
+  () => import('@/components/decoder/AnalysisErrorCard').then((m) => m.AnalysisErrorCard)
+);
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
-import { ExportDossierCard } from '@/components/export/ExportDossierCard';
+const ChatPanel = dynamic(
+  () => import('@/components/chat/ChatPanel').then((m) => m.ChatPanel),
+  { ssr: false }
+);
+const ExportDossierCard = dynamic(
+  () => import('@/components/export/ExportDossierCard').then((m) => m.ExportDossierCard),
+  { ssr: false }
+);
 
 type AnalysisState = 'idle' | 'analyzing' | 'dossier' | 'error';
 

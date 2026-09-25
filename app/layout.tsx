@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { DM_Serif_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import dynamic from 'next/dynamic';
 import { Toaster } from '@/components/ui/sonner';
 import { LegalDisclaimerBanner } from '@/components/shared/LegalDisclaimer';
-import { Agentation } from 'agentation';
+
+const Agentation = dynamic(
+  () => import('agentation').then((m) => m.Agentation),
+  { ssr: false }
+);
 
 const dmSerif = DM_Serif_Display({
   weight: '400',
