@@ -19,6 +19,12 @@ import { ChatPanel } from '@/components/chat/ChatPanel';
 import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
 import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
+import {
+  SESSION_KEYS,
+  saveSessionAnalysis,
+  loadSessionAnalysis,
+  clearSessionAnalysis,
+} from '@/lib/session-vault';
 
 const COMPARISON_SECTIONS = [
   'verdict-section',
@@ -45,7 +51,29 @@ export default function ComparePage() {
   );
   const [isChatOpen, setIsChatOpen] = useState(false);
 
+  // Restore active review session when switching between ModeSwitcher tabs
+  useEffect(() => {
+    const saved = loadSessionAnalysis<{
+      comparisonResult: Comparison;
+      isLargeDoc: boolean;
+      labelA: string;
+      labelB: string;
+      lastPayload: ComparisonPayload | null;
+    }>(SESSION_KEYS.COMPARE);
+
+    if (saved && saved.comparisonResult) {
+      setComparisonResult(saved.comparisonResult);
+      setIsLargeDoc(Boolean(saved.isLargeDoc));
+      setLabelA(saved.labelA || 'Original Document');
+      setLabelB(saved.labelB || 'Revised Document');
+      setLastPayload(saved.lastPayload || null);
+      setPageState('dossier');
+    }
+  }, []);
+
   const handleStartComparison = async (payload: ComparisonPayload) => {
+    // Purge previous review session when user initiates a new review
+    clearSessionAnalysis(SESSION_KEYS.COMPARE);
     setLastPayload(payload);
     setLabelA(payload.labelA || 'Original Document');
     setLabelB(payload.labelB || 'Revised Document');
@@ -68,6 +96,15 @@ export default function ComparePage() {
       setComparisonResult(data.data);
       setIsLargeDoc(Boolean(data.isLargeDoc));
       setPageState('dossier');
+
+      // Persist completed review in session storage so it survives ModeSwitcher tab switches
+      saveSessionAnalysis(SESSION_KEYS.COMPARE, {
+        comparisonResult: data.data,
+        isLargeDoc: Boolean(data.isLargeDoc),
+        labelA: payload.labelA || 'Original Document',
+        labelB: payload.labelB || 'Revised Document',
+        lastPayload: payload,
+      });
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : 'Failed to analyze documents.');
       setPageState('error');
@@ -83,6 +120,8 @@ export default function ComparePage() {
   };
 
   const handleReset = () => {
+    // Purge session when user deletes/resets the review
+    clearSessionAnalysis(SESSION_KEYS.COMPARE);
     setPageState('idle');
     setComparisonResult(null);
     setIsLargeDoc(false);

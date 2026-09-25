@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Header } from '@/components/shared/Header';
 import { ModeSwitcher } from '@/components/shared/ModeSwitcher';
 import { LegalDisclaimerCard } from '@/components/shared/LegalDisclaimer';
@@ -13,6 +13,12 @@ import { UploadCloud, FileText, Zap, ArrowRight } from 'lucide-react';
 import { UploadData } from '@/lib/schemas/upload';
 import { DocumentAnalysis } from '@/lib/schemas/document';
 import { DownsampleResult } from '@/lib/image-utils';
+import {
+  SESSION_KEYS,
+  saveSessionAnalysis,
+  loadSessionAnalysis,
+  clearSessionAnalysis,
+} from '@/lib/session-vault';
 
 import { StickyNav } from '@/components/decoder/StickyNav';
 import { UploadedDocumentCard } from '@/components/decoder/UploadedDocumentCard';
@@ -41,7 +47,25 @@ export default function DocumentDecoderPage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [fileObjectUrl, setFileObjectUrl] = useState<string | null>(null);
 
+  // Restore active review session when switching between ModeSwitcher tabs
+  useEffect(() => {
+    const saved = loadSessionAnalysis<{
+      analysisData: DocumentAnalysis;
+      uploadedDoc: UploadData | null;
+      manualText: string;
+    }>(SESSION_KEYS.DOCUMENT);
+
+    if (saved && saved.analysisData) {
+      setAnalysisData(saved.analysisData);
+      setUploadedDoc(saved.uploadedDoc);
+      setManualText(saved.manualText || '');
+      setAnalysisState('dossier');
+    }
+  }, []);
+
   const handleStartAnalysis = useCallback(async () => {
+    // Purge previous review session when user initiates a new review
+    clearSessionAnalysis(SESSION_KEYS.DOCUMENT);
     setAnalysisState('analyzing');
     setErrorMessage('');
 
@@ -77,6 +101,13 @@ export default function DocumentDecoderPage() {
 
       setAnalysisData(json.data);
       setAnalysisState('dossier');
+
+      // Persist completed review in session storage so it survives ModeSwitcher tab switches
+      saveSessionAnalysis(SESSION_KEYS.DOCUMENT, {
+        analysisData: json.data,
+        uploadedDoc,
+        manualText,
+      });
     } catch (err: unknown) {
       setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
       setAnalysisState('error');
@@ -95,6 +126,8 @@ export default function DocumentDecoderPage() {
   }, []);
 
   const handleReset = useCallback(() => {
+    // Purge session when user deletes/resets the review
+    clearSessionAnalysis(SESSION_KEYS.DOCUMENT);
     if (fileObjectUrl) {
       URL.revokeObjectURL(fileObjectUrl);
     }

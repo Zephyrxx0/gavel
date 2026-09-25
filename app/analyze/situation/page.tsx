@@ -21,6 +21,13 @@ import { ChatTriggerButton } from '@/components/chat/ChatTriggerButton';
 import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 import { useScrollSpy } from '@/lib/hooks/useScrollSpy';
 
+import {
+  SESSION_KEYS,
+  saveSessionAnalysis,
+  loadSessionAnalysis,
+  clearSessionAnalysis,
+} from '@/lib/session-vault';
+
 const SITUATION_SECTIONS = [
   'deadline-section',
   'summary-section',
@@ -45,7 +52,25 @@ export default function SituationNavigatorPage() {
   );
   const [isChatOpen, setIsChatOpen] = useState(false);
 
+  // Restore active review session when switching between ModeSwitcher tabs
+  useEffect(() => {
+    const saved = loadSessionAnalysis<{
+      analysisData: SituationAnalysis;
+      submittedDescription: string;
+      submittedCategory?: DisputeCategory;
+    }>(SESSION_KEYS.SITUATION);
+
+    if (saved && saved.analysisData) {
+      setAnalysisData(saved.analysisData);
+      setSubmittedDescription(saved.submittedDescription || '');
+      setSubmittedCategory(saved.submittedCategory);
+      setAnalysisState('dossier');
+    }
+  }, []);
+
   const handleAnalyze = useCallback(async (description: string, category?: DisputeCategory) => {
+    // Purge previous review session when user initiates a new review
+    clearSessionAnalysis(SESSION_KEYS.SITUATION);
     setAnalysisState('analyzing');
     setErrorMessage('');
     setSubmittedDescription(description);
@@ -65,6 +90,13 @@ export default function SituationNavigatorPage() {
 
       setAnalysisData(json.data);
       setAnalysisState('dossier');
+
+      // Persist completed review in session storage so it survives ModeSwitcher tab switches
+      saveSessionAnalysis(SESSION_KEYS.SITUATION, {
+        analysisData: json.data,
+        submittedDescription: description,
+        submittedCategory: category,
+      });
     } catch (err: unknown) {
       setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
       setAnalysisState('error');
@@ -81,6 +113,8 @@ export default function SituationNavigatorPage() {
   );
 
   const handleReset = useCallback(() => {
+    // Purge session when user deletes/resets the review
+    clearSessionAnalysis(SESSION_KEYS.SITUATION);
     setAnalysisData(null);
     setSubmittedDescription('');
     setSubmittedCategory(undefined);
