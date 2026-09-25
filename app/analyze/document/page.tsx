@@ -179,6 +179,9 @@ export default function DocumentDecoderPage() {
                       wordCount={uploadedDoc.wordCount}
                       mimeType={uploadedDoc.mimeType}
                       isImage={uploadedDoc.isImage}
+                      rawBase64={uploadedDoc.rawBase64}
+                      text={uploadedDoc.text}
+                      fileObjectUrl={fileObjectUrl}
                       compressionInfo={compressionInfo}
                       onRemove={() => {
                         if (fileObjectUrl) {
