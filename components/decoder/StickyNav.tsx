@@ -26,8 +26,8 @@ export function StickyNav({ activeSection, onNavigate, onReset, onOpenChat, onEx
   ];
 
   return (
-    <nav className="sticky top-20 z-[35] w-full border-b border-stone-200/90 bg-[#FAF9F6]/95 backdrop-blur shadow-sm">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
+    <nav className="w-full border border-stone-200/90 bg-white/90 backdrop-blur rounded-2xl shadow-sm overflow-hidden">
+      <div className="px-4 sm:px-5 h-12 flex items-center justify-between gap-4">
         <div
           className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-nowrap py-1"
           style={{ WebkitOverflowScrolling: 'touch' }}
