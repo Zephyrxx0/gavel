@@ -77,15 +77,6 @@ export function FilePreviewCard({
               alt={fileName}
               className="w-full h-full object-cover"
             />
-          ) : isPdf && fileObjectUrl ? (
-            <div className="w-full h-full relative overflow-hidden bg-stone-50">
-              <iframe
-                src={`${fileObjectUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
-                title="Preview"
-                className="w-full h-full pointer-events-none border-0 absolute inset-0"
-              />
-              <div className="absolute top-0 left-0 right-0 h-1 bg-rose-600" />
-            </div>
           ) : (
             <div className="w-full h-full p-1.5 flex flex-col justify-between bg-[#FAF9F5] text-stone-800 text-[5px] font-mono leading-none select-none">
               <div>

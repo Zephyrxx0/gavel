@@ -26,15 +26,15 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
   const getActionBadgeClass = (type: string) => {
     switch (type) {
       case 'negotiate':
-        return 'border-purple-500/40 bg-purple-950/30 text-purple-300';
+        return 'border-purple-500/40 bg-purple-100/80 text-purple-900 font-semibold';
       case 'verify':
-        return 'border-amber-500/40 bg-amber-950/30 text-amber-300';
+        return 'border-amber-500/40 bg-amber-100/80 text-amber-900 font-semibold';
       case 'refuse':
-        return 'border-red-500/40 bg-red-950/30 text-red-300';
+        return 'border-red-500/40 bg-rose-100/80 text-rose-900 font-semibold';
       case 'accept':
-        return 'border-emerald-500/40 bg-emerald-950/30 text-emerald-300';
+        return 'border-emerald-500/40 bg-emerald-100/80 text-emerald-900 font-semibold';
       default:
-        return 'border-slate-700 bg-slate-800 text-slate-300';
+        return 'border-stone-300 bg-stone-100 text-stone-800 font-semibold';
     }
   };
 

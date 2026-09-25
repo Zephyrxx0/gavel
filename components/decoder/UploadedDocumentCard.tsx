@@ -195,19 +195,8 @@ export function UploadedDocumentCard({
                 alt={fileName}
                 className="w-full h-full object-cover"
               />
-            ) : isPdf && fileObjectUrl ? (
-              /* 2. PDF with native browser embed preview */
-              <div className="w-full h-full relative overflow-hidden bg-stone-50">
-                <iframe
-                  src={`${fileObjectUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
-                  title="PDF Preview"
-                  className="w-full h-full pointer-events-none border-0 absolute inset-0"
-                />
-                {/* Visual decorative sheet overlay to ensure legal styling */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-rose-600/90" />
-              </div>
             ) : (
-              /* 3. Styled Paper Sheet Mockup (DOCX, PDF fallback, or Pasted Text) */
+              /* 2. Styled Paper Sheet Thumbnail (PDF, DOCX, or Pasted Text) */
               <div className="w-full h-full p-2.5 flex flex-col justify-between bg-[#FAF9F5] text-stone-800 text-[6px] sm:text-[7px] font-mono leading-tight select-none">
                 <div>
                   <div
