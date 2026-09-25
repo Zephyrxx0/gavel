@@ -66,7 +66,7 @@ export function NegotiationGuide({
   return (
     <section
       id="negotiation-section"
-      className="scroll-mt-28 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
+      className="scroll-mt-36 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
     >
       {/* Section Header */}
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200/80">

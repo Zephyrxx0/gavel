@@ -16,7 +16,7 @@ export function ExecutiveSummaryCard({
   return (
     <section
       id="summary-section"
-      className="scroll-mt-28 rounded-2xl border border-stone-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-card-soft"
+      className="scroll-mt-36 rounded-2xl border border-stone-200/90 bg-white p-6 sm:p-8 space-y-6 shadow-card-soft"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-stone-100">
         <div className="flex items-center gap-3.5">

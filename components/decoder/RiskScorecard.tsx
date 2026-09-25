@@ -37,7 +37,7 @@ export function RiskScorecard({ clauses }: RiskScorecardProps) {
   }, [sortedClauses, filterTier]);
 
   return (
-    <section id="risks-section" className="scroll-mt-28 space-y-6">
+    <section id="risks-section" className="scroll-mt-36 space-y-6">
       {/* Header & Filter Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-stone-200/80">
         <div>

@@ -68,7 +68,7 @@ export function SituationSummaryCard({
   return (
     <section
       id="summary-section"
-      className="scroll-mt-28 border border-stone-200/90 bg-white rounded-2xl p-6 sm:p-8 shadow-card-soft space-y-5"
+      className="scroll-mt-36 border border-stone-200/90 bg-white rounded-2xl p-6 sm:p-8 shadow-card-soft space-y-5"
     >
       {/* Header & Verification Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">

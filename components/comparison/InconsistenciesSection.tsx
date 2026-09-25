@@ -14,7 +14,7 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
     return (
       <section
         id="inconsistencies-section"
-        className="scroll-mt-28 mb-8 rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 sm:p-8 shadow-sm"
+        className="scroll-mt-36 mb-8 rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 sm:p-8 shadow-sm"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-emerald-700">
@@ -62,7 +62,7 @@ export function InconsistenciesSection({ inconsistencies }: InconsistenciesSecti
   return (
     <section
       id="inconsistencies-section"
-      className="scroll-mt-28 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
+      className="scroll-mt-36 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
     >
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-3">

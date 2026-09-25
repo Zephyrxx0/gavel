@@ -56,7 +56,7 @@ export function ComparisonStickyNav({
   return (
     <>
       {/* Mobile & Tablet Sticky Top Bar (<1024px) */}
-      <nav className="lg:hidden sticky top-16 z-30 w-full border-b border-stone-200/80 bg-[#FAF9F6]/95 backdrop-blur shadow-sm">
+      <nav className="lg:hidden sticky top-20 z-[35] w-full border-b border-stone-200/80 bg-[#FAF9F6]/95 backdrop-blur shadow-sm">
         <div className="container mx-auto px-2 sm:px-4 h-12 flex items-center justify-between gap-2">
           <div
             className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-nowrap py-1"

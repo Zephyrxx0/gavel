@@ -50,7 +50,7 @@ export function FavorabilityVerdictCard({
     <section
       id="verdict-section"
       className={cn(
-        'relative rounded-2xl border bg-white p-6 sm:p-8 shadow-sm scroll-mt-28 mb-8 transition-all',
+        'relative rounded-2xl border bg-white p-6 sm:p-8 shadow-sm scroll-mt-36 mb-8 transition-all',
         verdictConfig.haloClass
       )}
     >

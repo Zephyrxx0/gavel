@@ -23,7 +23,7 @@ export function ClauseComparisonTable({
     return (
       <section
         id="differences-section"
-        className="scroll-mt-28 mb-8 rounded-2xl border border-[#1E293B] bg-[#111827] p-8 text-center"
+        className="scroll-mt-36 mb-8 rounded-2xl border border-[#1E293B] bg-[#111827] p-8 text-center"
       >
         <p className="text-sm text-slate-400">No substantive clause differences identified.</p>
       </section>
@@ -50,7 +50,7 @@ export function ClauseComparisonTable({
   return (
     <section
       id="differences-section"
-      className="scroll-mt-28 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
+      className="scroll-mt-36 mb-8 rounded-2xl border border-stone-200/80 bg-white p-6 sm:p-8 shadow-sm"
     >
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4 mb-6 pb-4 border-b border-stone-200/80">

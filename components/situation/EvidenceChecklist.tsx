@@ -22,7 +22,7 @@ export function EvidenceChecklist({ documentsToGather }: EvidenceChecklistProps)
 
   if (!documentsToGather || documentsToGather.length === 0) {
     return (
-      <section id="evidence-section" className="scroll-mt-28 space-y-4">
+      <section id="evidence-section" className="scroll-mt-36 space-y-4">
         <div className="pb-4 border-b border-slate-800">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
@@ -48,7 +48,7 @@ export function EvidenceChecklist({ documentsToGather }: EvidenceChecklistProps)
   }
 
   return (
-    <section id="evidence-section" className="scroll-mt-28 space-y-4">
+    <section id="evidence-section" className="scroll-mt-36 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-[#FAF0EB] border border-[#F2D8CD] flex items-center justify-center text-[#7D432D] shrink-0">

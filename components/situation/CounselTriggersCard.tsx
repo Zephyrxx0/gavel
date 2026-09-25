@@ -13,7 +13,7 @@ export function CounselTriggersCard({ whenToCallLawyer }: CounselTriggersCardPro
   }
 
   return (
-    <section id="counsel-section" className="scroll-mt-28 space-y-4">
+    <section id="counsel-section" className="scroll-mt-36 space-y-4">
       <div className="pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-[#FAF0EB] border border-[#F2D8CD] flex items-center justify-center text-[#7D432D] shrink-0">

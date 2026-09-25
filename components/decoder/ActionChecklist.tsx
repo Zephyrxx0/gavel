@@ -39,7 +39,7 @@ export function ActionChecklist({ checklist, onClauseCrossReference }: ActionChe
   };
 
   return (
-    <section id="checklist-section" className="scroll-mt-28 space-y-6">
+    <section id="checklist-section" className="scroll-mt-36 space-y-6">
       <div className="pb-4 border-b border-stone-200/80">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34]">
