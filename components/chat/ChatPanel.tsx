@@ -158,19 +158,10 @@ export function ChatPanel({
   const starterChips = STARTER_PROMPTS[mode] || STARTER_PROMPTS.document;
 
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-stone-900/30 backdrop-blur-sm z-40 transition-opacity"
-        onClick={onClose}
-        data-testid="chat-backdrop"
-      />
-
-      {/* Slide-over Drawer / Mobile Full Screen Sheet */}
-      <div
-        data-testid="chat-panel"
-        className="fixed inset-y-0 right-0 z-50 flex flex-col bg-white border-l border-stone-200 shadow-2xl transition-transform duration-300 w-full sm:w-[460px] lg:w-[500px] h-[100dvh]"
-      >
+    <div
+      data-testid="chat-panel"
+      className="fixed top-0 right-0 bottom-9 sm:bottom-10 z-40 flex flex-col bg-white border-l border-b border-stone-200 shadow-2xl transition-transform duration-300 w-full sm:w-[460px] lg:w-[500px]"
+    >
         {/* Persistent Compliance Banner */}
         <div className="bg-stone-100 border-b border-stone-200 px-4 py-2 flex items-center gap-2">
           <ShieldAlert className="h-4 w-4 text-stone-600 shrink-0" />
@@ -373,6 +364,5 @@ export function ChatPanel({
           </p>
         </div>
       </div>
-    </>
   );
 }

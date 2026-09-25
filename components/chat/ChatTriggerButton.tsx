@@ -16,6 +16,8 @@ export function ChatTriggerButton({
   unreadCount,
   className = '',
 }: ChatTriggerButtonProps) {
+  if (isOpen) return null;
+
   return (
     <button
       type="button"
