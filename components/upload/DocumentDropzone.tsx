@@ -17,7 +17,11 @@ const ALLOWED_MIME_TYPES = [
 ];
 
 export interface DocumentDropzoneProps {
-  onUploadSuccess: (data: UploadData, compressionInfo?: DownsampleResult | null) => void;
+  onUploadSuccess: (
+    data: UploadData,
+    compressionInfo?: DownsampleResult | null,
+    rawFile?: File
+  ) => void;
   onFallbackToManual: (reason: string) => void;
   disabled?: boolean;
 }
@@ -129,7 +133,7 @@ export function DocumentDropzone({
         }
 
         toast.success(`Successfully parsed ${uploadFile.name}`);
-        onUploadSuccess(result.data, compressionResult);
+        onUploadSuccess(result.data, compressionResult, uploadFile);
       } catch (err: unknown) {
         console.error('Upload failed:', err);
         const errorMsg = 'A network error occurred while uploading the file.';

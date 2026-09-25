@@ -40,7 +40,7 @@ describe('Chat and Export Components Test Suite', () => {
       expect(html).toContain('Ask Gavel');
       expect(html).toContain('aria-label="Open Gavel Legal Assistant"');
       expect(html).toContain('data-testid="chat-trigger-button"');
-      expect(html).toContain('fixed bottom-6 right-6');
+      expect(html).toContain('fixed bottom-[3.75rem] right-6');
     });
 
     it('renders unread badge when unreadCount is provided and > 0', () => {

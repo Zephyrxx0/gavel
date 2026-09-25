@@ -9,12 +9,13 @@ import { ManualPasteArea } from '@/components/upload/ManualPasteArea';
 import { FilePreviewCard } from '@/components/upload/FilePreviewCard';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { UploadCloud, FileText, Zap, ArrowRight, AlignLeft } from 'lucide-react';
+import { UploadCloud, FileText, Zap, ArrowRight } from 'lucide-react';
 import { UploadData } from '@/lib/schemas/upload';
 import { DocumentAnalysis } from '@/lib/schemas/document';
-import { DownsampleResult, formatFileSize } from '@/lib/image-utils';
+import { DownsampleResult } from '@/lib/image-utils';
 
 import { StickyNav } from '@/components/decoder/StickyNav';
+import { UploadedDocumentCard } from '@/components/decoder/UploadedDocumentCard';
 import { ExecutiveSummaryCard } from '@/components/decoder/ExecutiveSummaryCard';
 import { RiskScorecard } from '@/components/decoder/RiskScorecard';
 import { ActionChecklist } from '@/components/decoder/ActionChecklist';
@@ -27,67 +28,6 @@ import { ExportDossierCard } from '@/components/export/ExportDossierCard';
 
 type AnalysisState = 'idle' | 'analyzing' | 'dossier' | 'error';
 
-/** Compact banner showing which document is active in the current analysis session. */
-function DocumentSourceChip({
-  uploadedDoc,
-  manualText,
-}: {
-  uploadedDoc: UploadData | null;
-  manualText: string;
-}) {
-  const isImage = uploadedDoc?.isImage;
-  const fileName = uploadedDoc?.fileName ?? 'Pasted text';
-  const isManual = !uploadedDoc;
-
-  return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border border-stone-200/90 bg-white/80 shadow-sm">
-      {/* Thumbnail / icon */}
-      {isImage && uploadedDoc?.rawBase64 ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={`data:${uploadedDoc.mimeType};base64,${uploadedDoc.rawBase64}`}
-          alt={fileName}
-          className="h-12 w-12 rounded-xl object-cover border border-stone-200 shrink-0 shadow-sm"
-        />
-      ) : (
-        <div className="h-12 w-12 rounded-xl bg-[#EBF3EE] border border-[#D0E2D6] flex items-center justify-center text-[#264D34] shrink-0">
-          {isManual ? (
-            <AlignLeft className="w-5 h-5" />
-          ) : (
-            <FileText className="w-5 h-5" />
-          )}
-        </div>
-      )}
-
-      {/* File details */}
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <p className="text-sm font-medium text-stone-900 truncate">{fileName}</p>
-          <span className="shrink-0 text-[10px] font-mono uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-0.5">
-            Analyzed
-          </span>
-        </div>
-        <p className="text-xs text-stone-500 mt-0.5 font-mono">
-          {isManual
-            ? `${manualText.trim().split(/\s+/).length.toLocaleString()} words · Pasted text`
-            : uploadedDoc
-              ? `${formatFileSize(uploadedDoc.sizeBytes)} · ${isImage ? 'Image · Visual analysis' : `${uploadedDoc.wordCount.toLocaleString()} words`}`
-              : ''}
-        </p>
-      </div>
-
-      {/* Preview hint for non-images — shows a snippet */}
-      {!isImage && uploadedDoc?.text && (
-        <p className="hidden md:block max-w-xs text-[11px] text-stone-400 truncate font-mono border-l border-stone-200 pl-3 ml-1 shrink-0">
-          {uploadedDoc.text.slice(0, 120).replace(/\s+/g, ' ')}…
-        </p>
-      )}
-    </div>
-  );
-}
-
-
-
 export default function DocumentDecoderPage() {
   const [analysisState, setAnalysisState] = useState<AnalysisState>('idle');
   const [activeTab, setActiveTab] = useState<'upload' | 'manual'>('upload');
@@ -99,6 +39,7 @@ export default function DocumentDecoderPage() {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [activeSection, setActiveSection] = useState<string>('summary-section');
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [fileObjectUrl, setFileObjectUrl] = useState<string | null>(null);
 
   const handleStartAnalysis = useCallback(async () => {
     setAnalysisState('analyzing');
@@ -154,12 +95,16 @@ export default function DocumentDecoderPage() {
   }, []);
 
   const handleReset = useCallback(() => {
+    if (fileObjectUrl) {
+      URL.revokeObjectURL(fileObjectUrl);
+    }
+    setFileObjectUrl(null);
     setAnalysisData(null);
     setUploadedDoc(null);
     setCompressionInfo(null);
     setManualText('');
     setAnalysisState('idle');
-  }, []);
+  }, [fileObjectUrl]);
 
   const handleNavigateSection = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -173,8 +118,7 @@ export default function DocumentDecoderPage() {
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
-      <main className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 space-y-5 flex-1">
-        {/* Analysis nav bar — shown above mode switcher when in dossier state */}
+      <main className="container mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1">
         {analysisState === 'dossier' && analysisData && (
           <StickyNav
             activeSection={activeSection}
@@ -194,17 +138,7 @@ export default function DocumentDecoderPage() {
         )}
 
         <ModeSwitcher />
-
-        {/* Attached document chip — shown in dossier state below mode switcher */}
-        {analysisState === 'dossier' && (uploadedDoc || manualText) && (
-          <DocumentSourceChip
-            uploadedDoc={uploadedDoc}
-            manualText={manualText}
-          />
-        )}
-
         <LegalDisclaimerCard />
-
 
         {analysisState === 'idle' && (
           <div className="space-y-6">
@@ -246,7 +180,13 @@ export default function DocumentDecoderPage() {
                       mimeType={uploadedDoc.mimeType}
                       isImage={uploadedDoc.isImage}
                       compressionInfo={compressionInfo}
-                      onRemove={() => setUploadedDoc(null)}
+                      onRemove={() => {
+                        if (fileObjectUrl) {
+                          URL.revokeObjectURL(fileObjectUrl);
+                          setFileObjectUrl(null);
+                        }
+                        setUploadedDoc(null);
+                      }}
                     />
                     <div className="flex justify-end">
                       <Button
@@ -262,9 +202,15 @@ export default function DocumentDecoderPage() {
                   </div>
                 ) : (
                   <DocumentDropzone
-                    onUploadSuccess={(data, comp) => {
+                    onUploadSuccess={(data, comp, rawFile) => {
                       setUploadedDoc(data);
                       setCompressionInfo(comp || null);
+                      if (rawFile) {
+                        if (fileObjectUrl) {
+                          URL.revokeObjectURL(fileObjectUrl);
+                        }
+                        setFileObjectUrl(URL.createObjectURL(rawFile));
+                      }
                     }}
                     onFallbackToManual={(reason) => {
                       setFallbackNotice(reason);
@@ -310,7 +256,13 @@ export default function DocumentDecoderPage() {
         )}
 
         {analysisState === 'dossier' && analysisData && (
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-10">
+            <UploadedDocumentCard
+              uploadedDoc={uploadedDoc}
+              manualText={manualText}
+              fileObjectUrl={fileObjectUrl}
+            />
+
             <ExecutiveSummaryCard
               documentType={analysisData.documentType}
               parties={analysisData.parties}

@@ -367,4 +367,45 @@ describe('Decoder Components Test Suite (Wave 2: DECODE-02..05)', () => {
       expect(html).toContain('Retry Analysis');
     });
   });
+
+  describe('UploadedDocumentCard', () => {
+    it('renders document details, thumbnail elements, and action buttons for PDF', async () => {
+      const { UploadedDocumentCard } = await import('@/components/decoder/UploadedDocumentCard');
+      const html = renderToString(
+        React.createElement(UploadedDocumentCard, {
+          uploadedDoc: {
+            fileName: 'residential-lease-agreement.pdf',
+            sizeBytes: 1048576,
+            wordCount: 1500,
+            mimeType: 'application/pdf',
+            isImage: false,
+            text: 'This Residential Lease Agreement is entered into on January 1, 2025 between Landlord and Tenant.',
+          },
+          fileObjectUrl: 'blob:http://localhost:3000/test-pdf-uuid',
+        })
+      );
+
+      expect(html).toContain('residential-lease-agreement.pdf');
+      expect(html).toContain('Source Agreement');
+      expect(html).toContain('Zero-Disk Vault');
+      expect(html).toContain('PDF Document');
+      expect(html).toContain('words');
+      expect(html).toContain('Open Document');
+      expect(html).toContain('Read Text');
+    });
+
+    it('renders document thumbnail and details for manual text', async () => {
+      const { UploadedDocumentCard } = await import('@/components/decoder/UploadedDocumentCard');
+      const html = renderToString(
+        React.createElement(UploadedDocumentCard, {
+          uploadedDoc: null,
+          manualText: 'The Contractor shall deliver the deliverables within 30 days of signing this agreement.',
+        })
+      );
+
+      expect(html).toContain('Pasted Legal Text');
+      expect(html).toContain('Manual Paste');
+      expect(html).toContain('Open Document');
+    });
+  });
 });
