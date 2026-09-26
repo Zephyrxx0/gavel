@@ -208,7 +208,7 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
   });
 
   it('handles AI inference errors gracefully (500 ANALYSIS_FAILED)', async () => {
-    vi.mocked(generateObject).mockRejectedValueOnce(new Error('Anthropic rate limit exceeded'));
+    vi.mocked(generateObject).mockRejectedValueOnce(new Error('Gemini rate limit exceeded'));
 
     const req = createAnalyzeRequest({
       text: 'This is a sufficiently long legal document text that triggers an AI inference exception.',
@@ -218,7 +218,7 @@ describe('Analyze Document Route Handler (/api/analyze/document)', () => {
 
     expect(res.status).toBe(500);
     expect(body.error).toBe('ANALYSIS_FAILED');
-    expect(body.message).toContain('Anthropic rate limit exceeded');
+    expect(body.message).toContain('Gemini rate limit exceeded');
   });
 });
 

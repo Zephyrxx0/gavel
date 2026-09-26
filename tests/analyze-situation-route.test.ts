@@ -193,7 +193,7 @@ describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
   });
 
   it('handles AI inference errors gracefully (500 ANALYSIS_FAILED)', async () => {
-    vi.mocked(generateObject).mockRejectedValueOnce(new Error('Anthropic rate limit exceeded'));
+    vi.mocked(generateObject).mockRejectedValueOnce(new Error('Gemini rate limit exceeded'));
 
     const disputeText =
       'I moved out of my apartment 30 days ago after giving proper 30-day written notice and leaving the unit in clean condition. My landlord has withheld my entire $2,400 security deposit without any itemized deductions.';
@@ -204,6 +204,6 @@ describe('Analyze Situation Route Handler (/api/analyze/situation)', () => {
 
     expect(res.status).toBe(500);
     expect(body.error).toBe('ANALYSIS_FAILED');
-    expect(body.message).toContain('Anthropic rate limit exceeded');
+    expect(body.message).toContain('Gemini rate limit exceeded');
   });
 });

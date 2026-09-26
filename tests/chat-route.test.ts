@@ -140,7 +140,7 @@ describe('Streaming Chat Route Handler (/api/chat)', () => {
 
   it('handles runtime failure in streamText gracefully (500 CHAT_FAILED)', async () => {
     (streamText as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
-      throw new Error('Anthropic rate limit exceeded');
+      throw new Error('Gemini rate limit exceeded');
     });
 
     const req = createChatRequest({
@@ -152,6 +152,6 @@ describe('Streaming Chat Route Handler (/api/chat)', () => {
 
     expect(res.status).toBe(500);
     expect(body.error).toBe('CHAT_FAILED');
-    expect(body.message).toContain('Anthropic rate limit exceeded');
+    expect(body.message).toContain('Gemini rate limit exceeded');
   });
 });

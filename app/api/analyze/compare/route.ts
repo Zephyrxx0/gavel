@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
 import { ComparisonSchema, Pass1ExtractionSchema } from '@/lib/schemas/comparison';
 import {
   COMPARISON_SYSTEM_PROMPT,
@@ -15,14 +15,121 @@ export const maxDuration = 60;
 
 const TWO_PASS_THRESHOLD = 80_000;
 
+type ContentPart =
+  | { type: 'text'; text: string }
+  | { type: 'image'; image: string };
+
+interface MultimodalCompareParams {
+  docA?: unknown;
+  docB?: unknown;
+  labelA: string;
+  labelB: string;
+  imageA?: unknown;
+  mimeTypeA?: unknown;
+  imageB?: unknown;
+  mimeTypeB?: unknown;
+}
+
+// 1. Two-pass extraction pipeline for massive contracts
+async function compareTwoPass(
+  model: Parameters<typeof generateObject>[0]['model'],
+  docA: string,
+  docB: string,
+  labelA: string,
+  labelB: string
+) {
+  const [extractA, extractB] = await Promise.all([
+    generateObject({
+      model,
+      schema: Pass1ExtractionSchema,
+      system: PASS1_SYSTEM_PROMPT,
+      prompt: buildPass1UserPrompt(docA, labelA),
+    }),
+    generateObject({
+      model,
+      schema: Pass1ExtractionSchema,
+      system: PASS1_SYSTEM_PROMPT,
+      prompt: buildPass1UserPrompt(docB, labelB),
+    }),
+  ]);
+
+  const formattedA = extractA.object.clauses
+    .map((c) => `[${c.category}]: ${c.excerpt}`)
+    .join('\n\n');
+  const formattedB = extractB.object.clauses
+    .map((c) => `[${c.category}]: ${c.excerpt}`)
+    .join('\n\n');
+
+  return generateObject({
+    model,
+    schema: ComparisonSchema,
+    system: COMPARISON_SYSTEM_PROMPT,
+    prompt: buildComparisonPrompt(formattedA, formattedB, labelA, labelB),
+  });
+}
+
+// 2. Single-pass text extraction for standard agreements
+async function compareSinglePass(
+  model: Parameters<typeof generateObject>[0]['model'],
+  docA: string,
+  docB: string,
+  labelA: string,
+  labelB: string
+) {
+  return generateObject({
+    model,
+    schema: ComparisonSchema,
+    system: COMPARISON_SYSTEM_PROMPT,
+    prompt: buildComparisonPrompt(docA, docB, labelA, labelB),
+  });
+}
+
+// 3. Multimodal image pair or hybrid text+image extraction
+async function compareMultimodal(
+  model: Parameters<typeof generateObject>[0]['model'],
+  params: MultimodalCompareParams
+) {
+  const { docA, docB, labelA, labelB, imageA, mimeTypeA, imageB, mimeTypeB } = params;
+  const contentParts: ContentPart[] = [
+    {
+      type: 'text',
+      text: `Compare the following two legal documents (${labelA} vs ${labelB}):`,
+    },
+  ];
+
+  if (typeof imageA === 'string' && imageA.length > 0) {
+    const mimeA = typeof mimeTypeA === 'string' && mimeTypeA ? mimeTypeA : 'image/jpeg';
+    contentParts.push(
+      { type: 'text', text: `=== ${labelA} (Image) ===` },
+      { type: 'image', image: `data:${mimeA};base64,${imageA}` }
+    );
+  } else if (typeof docA === 'string') {
+    contentParts.push({ type: 'text', text: `<doc_a_to_compare label="${labelA}">\n${docA}\n</doc_a_to_compare>` });
+  }
+
+  if (typeof imageB === 'string' && imageB.length > 0) {
+    const mimeB = typeof mimeTypeB === 'string' && mimeTypeB ? mimeTypeB : 'image/jpeg';
+    contentParts.push(
+      { type: 'text', text: `=== ${labelB} (Image) ===` },
+      { type: 'image', image: `data:${mimeB};base64,${imageB}` }
+    );
+  } else if (typeof docB === 'string') {
+    contentParts.push({ type: 'text', text: `<doc_b_to_compare label="${labelB}">\n${docB}\n</doc_b_to_compare>` });
+  }
+
+  return generateObject({
+    model,
+    schema: ComparisonSchema,
+    system: COMPARISON_SYSTEM_PROMPT,
+    messages: [{ role: 'user', content: contentParts }],
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
-        { status: 500 }
-      );
+    const model = getGeminiModel();
+    if (!model) {
+      return createConfigErrorResponse();
     }
 
     let body: {
@@ -86,8 +193,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const google = createGoogleGenerativeAI({ apiKey });
-    const model = google('gemini-2.5-flash');
     const isTextPair = typeof docA === 'string' && typeof docB === 'string';
     const combinedLength = isTextPair ? docA.length + docB.length : 0;
     const isLargeDoc = isTextPair && combinedLength > TWO_PASS_THRESHOLD;
@@ -95,79 +200,19 @@ export async function POST(req: NextRequest) {
     let comparisonResult;
 
     if (isLargeDoc) {
-      // TWO-PASS EXTRACTION PIPELINE
-      // Pass 1: Concurrently extract key clauses in 7 core domains
-      const [extractA, extractB] = await Promise.all([
-        generateObject({
-          model,
-          schema: Pass1ExtractionSchema,
-          system: PASS1_SYSTEM_PROMPT,
-          prompt: buildPass1UserPrompt(docA as string, labelA),
-        }),
-        generateObject({
-          model,
-          schema: Pass1ExtractionSchema,
-          system: PASS1_SYSTEM_PROMPT,
-          prompt: buildPass1UserPrompt(docB as string, labelB),
-        }),
-      ]);
-
-      const formattedA = extractA.object.clauses
-        .map((c) => `[${c.category}]: ${c.excerpt}`)
-        .join('\n\n');
-      const formattedB = extractB.object.clauses
-        .map((c) => `[${c.category}]: ${c.excerpt}`)
-        .join('\n\n');
-
-      // Pass 2: Synthesize structured comparison from extracted domain clauses
-      comparisonResult = await generateObject({
-        model,
-        schema: ComparisonSchema,
-        system: COMPARISON_SYSTEM_PROMPT,
-        prompt: buildComparisonPrompt(formattedA, formattedB, labelA, labelB),
-      });
+      comparisonResult = await compareTwoPass(model, docA as string, docB as string, labelA, labelB);
     } else if (isTextPair) {
-      // SINGLE-PASS TEXT EXTRACTION
-      comparisonResult = await generateObject({
-        model,
-        schema: ComparisonSchema,
-        system: COMPARISON_SYSTEM_PROMPT,
-        prompt: buildComparisonPrompt(docA as string, docB as string, labelA, labelB),
-      });
+      comparisonResult = await compareSinglePass(model, docA as string, docB as string, labelA, labelB);
     } else {
-      // MULTIMODAL IMAGE PAIR OR HYBRID EXTRACTION
-      const contentParts: any[] = [
-        {
-          type: 'text',
-          text: `Compare the following two legal documents (${labelA} vs ${labelB}):`,
-        },
-      ];
-
-      if (typeof imageA === 'string' && imageA.length > 0) {
-        const mimeA = typeof mimeTypeA === 'string' && mimeTypeA ? mimeTypeA : 'image/jpeg';
-        contentParts.push(
-          { type: 'text', text: `=== ${labelA} (Image) ===` },
-          { type: 'image', image: `data:${mimeA};base64,${imageA}` }
-        );
-      } else if (typeof docA === 'string') {
-        contentParts.push({ type: 'text', text: `<doc_a_to_compare label="${labelA}">\n${docA}\n</doc_a_to_compare>` });
-      }
-
-      if (typeof imageB === 'string' && imageB.length > 0) {
-        const mimeB = typeof mimeTypeB === 'string' && mimeTypeB ? mimeTypeB : 'image/jpeg';
-        contentParts.push(
-          { type: 'text', text: `=== ${labelB} (Image) ===` },
-          { type: 'image', image: `data:${mimeB};base64,${imageB}` }
-        );
-      } else if (typeof docB === 'string') {
-        contentParts.push({ type: 'text', text: `<doc_b_to_compare label="${labelB}">\n${docB}\n</doc_b_to_compare>` });
-      }
-
-      comparisonResult = await generateObject({
-        model,
-        schema: ComparisonSchema,
-        system: COMPARISON_SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: contentParts }],
+      comparisonResult = await compareMultimodal(model, {
+        docA,
+        docB,
+        labelA,
+        labelB,
+        imageA,
+        mimeTypeA,
+        imageB,
+        mimeTypeB,
       });
     }
 
@@ -186,4 +231,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

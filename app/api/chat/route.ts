@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { streamText, convertToModelMessages, type UIMessage } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
 import { buildChatSystemPrompt, type ChatPromptOptions } from '@/lib/prompts/chat';
 
 export const runtime = 'nodejs';
@@ -17,12 +17,9 @@ interface ChatContextPayload {
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
-        { status: 500 }
-      );
+    const model = getGeminiModel();
+    if (!model) {
+      return createConfigErrorResponse();
     }
 
     let body: { messages?: UIMessage[]; context?: ChatContextPayload };
@@ -54,7 +51,7 @@ export async function POST(req: NextRequest) {
       analysisJson =
         typeof context.analysis === 'string'
           ? context.analysis
-          : JSON.stringify(context.analysis, null, 2);
+          : JSON.stringify(context.analysis);
     }
 
     const promptOptions: ChatPromptOptions = {
@@ -67,9 +64,6 @@ export async function POST(req: NextRequest) {
 
     const systemPrompt = buildChatSystemPrompt(promptOptions);
     const modelMessages = await convertToModelMessages(messages);
-
-    const google = createGoogleGenerativeAI({ apiKey });
-    const model = google('gemini-2.5-flash');
 
     const result = streamText({
       model,

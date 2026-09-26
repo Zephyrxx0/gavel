@@ -339,7 +339,7 @@ describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => 
       const onAdjustDescription = vi.fn();
       const html = renderToString(
         React.createElement(SituationErrorCard, {
-          errorMessage: 'Anthropic rate limit exceeded',
+          errorMessage: 'Gemini rate limit exceeded',
           onRetry,
           onAdjustDescription,
         })
@@ -348,7 +348,7 @@ describe('Situation Navigator Component Test Suite (Wave 2: SIT-02..07)', () => 
       expect(html).toContain('data-testid="situation-error-card"');
       expect(html).toContain('Analysis Encountered an Issue');
       expect(html).toContain(
-        'Gavel could not complete situation analysis: Anthropic rate limit exceeded. Your dispute narrative was processed ephemerally and has been cleared from volatile server memory.'
+        'Gavel could not complete situation analysis: Gemini rate limit exceeded. Your dispute narrative was processed ephemerally and has been cleared from volatile server memory.'
       );
       expect(html).toContain('Adjust Dispute Description');
       expect(html).toContain('Retry Analysis');

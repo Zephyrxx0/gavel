@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
 import { SituationAnalysisSchema } from '@/lib/schemas/situation';
 import { SITUATION_SYSTEM_PROMPT, buildSituationUserPrompt } from '@/lib/prompts/situation';
 
@@ -14,12 +14,9 @@ function countWords(str: string): number {
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: 'CONFIG_ERROR', message: 'Gemini API key is not configured.' },
-        { status: 500 }
-      );
+    const model = getGeminiModel();
+    if (!model) {
+      return createConfigErrorResponse();
     }
 
     let body: { description?: unknown; category?: unknown };
@@ -52,8 +49,6 @@ export async function POST(req: NextRequest) {
     }
 
     const categoryHint = typeof category === 'string' && category ? category : undefined;
-    const google = createGoogleGenerativeAI({ apiKey });
-    const model = google('gemini-2.5-flash');
 
     const analysisResult = await generateObject({
       model,

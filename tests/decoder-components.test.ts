@@ -354,14 +354,14 @@ describe('Decoder Components Test Suite (Wave 2: DECODE-02..05)', () => {
     it('renders error message, retry trigger, and adjust input trigger', () => {
       const html = renderToString(
         React.createElement(AnalysisErrorCard, {
-          errorMessage: 'Anthropic rate limit reached',
+          errorMessage: 'Gemini rate limit reached',
           onRetry: vi.fn(),
           onAdjustInput: vi.fn(),
         })
       );
 
       expect(html).toContain('Analysis Encountered an Issue');
-      expect(html).toContain('Anthropic rate limit reached');
+      expect(html).toContain('Gemini rate limit reached');
       expect(html).toContain('Your document was processed ephemerally and has been cleared from volatile memory.');
       expect(html).toContain('Adjust Input Text');
       expect(html).toContain('Retry Analysis');
