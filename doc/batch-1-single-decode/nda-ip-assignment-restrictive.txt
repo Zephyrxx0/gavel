@@ -1,0 +1,21 @@
+CONFIDENTIALITY AND INTELLECTUAL PROPERTY ASSIGNMENT AGREEMENT
+
+This Agreement is entered into as of January 15, 2025, between CyberPulse Technologies Inc. ("Company") and Alex Mercer ("Employee").
+
+1. DUTY OF CONFIDENTIALITY
+Employee acknowledges that during employment, Employee will create and access proprietary trade secrets, unreleased algorithms, client directories, customer pricing structures, and technical roadmaps ("Confidential Information"). Employee agrees to hold all such information in strict confidence indefinitely, surviving any termination of employment forever.
+
+2. COMPREHENSIVE IP ASSIGNMENT
+Employee hereby irrevocably grants, assigns, and transfers to Company all worldwide rights, titles, and interests in any invention, software, concept, trademark, trade secret, or patentable concept authored, conceived, or reduced to practice by Employee—whether during regular working hours, off-hours, using Company equipment or personal devices, and whether or not related to Company’s current or prospective business lines.
+
+3. POST-TERMINATION NON-COMPETITION
+For a period of twenty-four (24) months following termination of employment for any reason, Employee shall not directly or indirectly engage in, advise, consult with, finance, or be employed by any entity operating in the software development, artificial intelligence, cloud analytics, or cybersecurity industries within the United States or the European Union.
+
+4. NON-SOLICITATION OF CLIENTS AND PERSONNEL
+For thirty-six (36) months post-termination, Employee shall not solicit, recruit, or entice any employee, contractor, vendor, or customer of the Company to diminish, terminate, or alter their commercial relationship with Company.
+
+5. LIQUIDATED DAMAGES & INJUNCTIVE RELIEF
+In the event of Employee's breach of Sections 2, 3, or 4, Employee acknowledges that monetary damages are inadequate, but nonetheless agrees to pay liquidated damages of $100,000.00 per occurrence, plus all legal fees incurred by Company to enforce injunctive remedies.
+
+6. CHOICE OF FORUM & GOVERNING LAW
+This agreement is governed by the laws of California. Any disputes shall be submitted exclusively to the federal or state courts situated in Santa Clara County, California.

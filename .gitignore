@@ -36,5 +36,5 @@ prd.html
 !.env.example
 
 # test documents
-/doc/
+# /doc/
 .vercel

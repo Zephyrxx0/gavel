@@ -1,0 +1,24 @@
+MASTER SOFTWARE SERVICES AGREEMENT (REVISED NEGOTIATED DRAFT)
+
+This Agreement is made on February 10, 2025, between CloudMatrix Solutions LLC ("Vendor") and Client Corp ("Client").
+
+1. SCOPE OF SERVICES
+Vendor shall provide cloud-based API integrations and custom database infrastructure as outlined in individual Statements of Work ("SOW"). Deliverables must satisfy Client's written acceptance criteria within a 14-day review period.
+
+2. PAYMENT & INVOICING
+Client shall pay undisputed invoices within Net 45 days of receipt. Interest on validated overdue amounts shall be limited to 1.0% per month. Vendor must provide at least thirty (30) calendar days prior written notice before exercising any service suspension remedies.
+
+3. IP OWNERSHIP & LICENSING
+All custom software, deliverables, and modifications developed specifically for Client under any SOW shall be deemed "work made for hire" and shall become the sole property of Client upon payment. Vendor retains ownership of its pre-existing core background libraries and grants Client a perpetual, irrevocable, worldwide, royalty-free license to use, modify, and host such code.
+
+4. LIMITATION OF LIABILITY
+Each party’s aggregate liability under this Agreement shall be capped at the total fees paid or payable by Client in the preceding twelve (12) months. Neither party shall be liable for indirect or consequential damages, except for breaches of confidentiality, gross negligence, or indemnification obligations.
+
+5. MUTUAL INDEMNIFICATION
+Vendor shall defend, indemnify, and hold harmless Client from any third-party intellectual property infringement claims arising from Vendor's code. Client shall indemnify Vendor from claims arising from Client's unauthorized alterations or misuse of deliverables.
+
+6. TERM AND TERMINATION
+Either party may terminate for convenience upon thirty (30) days advance written notice. In the event of early termination, Vendor shall provide full transition assistance and export all Client data within five (5) business days at no extra charge.
+
+7. GOVERNING LAW & JURISDICTION
+This Agreement is governed by the laws of Delaware. Any disputes shall be litigated in the Court of Chancery of the State of Delaware.

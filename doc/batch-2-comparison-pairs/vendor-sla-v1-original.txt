@@ -1,0 +1,24 @@
+MASTER SOFTWARE SERVICES AGREEMENT (STANDARD VENDOR FORM)
+
+This Agreement is made on February 1, 2025, between CloudMatrix Solutions LLC ("Vendor") and Client Corp ("Client").
+
+1. SCOPE OF SERVICES
+Vendor shall provide cloud-based API integrations and custom database infrastructure as outlined in individual Statements of Work ("SOW").
+
+2. PAYMENT & INVOICING
+Client shall pay invoices within Net 15 days of receipt. Late payments will accrue interest at the maximum statutory rate of 2.5% per month. Vendor reserves the right to suspend all hosting and API connectivity if payment is late by more than 5 business days.
+
+3. IP OWNERSHIP & LICENSING
+Vendor retains sole and exclusive ownership of all source code, system architectures, database schemas, and custom deliverables created in connection with this agreement. Vendor grants Client a revocable, non-exclusive, non-transferable license to use deliverables solely during the active term of this Agreement.
+
+4. LIMITATION OF LIABILITY
+Vendor’s total aggregate liability arising out of or related to this Agreement or any SOW, whether under contract, tort, or warranty, shall in no event exceed the total amounts actually paid by Client to Vendor in the preceding one (1) month. Under no circumstances shall Vendor be liable for loss of profits, data corruption, downtime, or incidental damages.
+
+5. UNILATERAL INDEMNIFICATION BY CLIENT
+Client agrees to defend, indemnify, and hold Vendor harmless against any third-party claim arising out of Client's use of the software, regulatory violations, data breaches, or patent infringement claims related to Client specifications. Vendor provides zero indemnity to Client.
+
+6. TERM AND TERMINATION
+Either party may terminate upon sixty (60) days advance written notice. Vendor may terminate immediately without penalty upon Client's material breach.
+
+7. GOVERNING LAW & JURISDICTION
+This Agreement is governed by the laws of New York without regard to conflict of laws principles.
