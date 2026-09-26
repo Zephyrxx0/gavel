@@ -162,7 +162,70 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🧪 Testing & Verification
+## 🔍 How to Test the 3 Analysis Modes in the App
+
+The repository includes curated mock legal test documents in the [`doc/`](file:///home/zeph/Code/gavel/doc/) folder across `.pdf` and `.docx` formats designed to exercise all AI reasoning pipelines:
+
+### Mode 1: Document Decoder (`/analyze/document`)
+**Goal:** Test structured risk triage, traffic-light scoring, action checklists, and the in-memory document reader.
+
+1. Navigate to **Document Decoder** from the top mode switcher or home page.
+2. Ingest a document using one of three methods:
+   - **File Upload:** Drag & drop [`doc/batch-1-single-decode/residential-lease-onerous.pdf`](file:///home/zeph/Code/gavel/doc/batch-1-single-decode/residential-lease-onerous.pdf) (or `.docx`).
+   - **Visual OCR Scan:** Upload a camera photo or scan of a contract (`.png` / `.jpg`).
+   - **Manual Text:** Switch to the *Paste Text* tab and paste any contract snippet.
+3. Click **Analyze Document**.
+4. **What to Verify in Output:**
+   - **Executive Summary:** Document classification (*Residential Lease Agreement*) and identified parties.
+   - **Risk Scorecard:** Clauses triaged into 🔴 *High Risk* (15% rent escalation, non-refundable deposit), 🟡 *Caution*, and 🟢 *Standard*.
+   - **Document Preview & Reader:** Click **Open Document** to inspect the interactive paper thumbnail or **Read Text** to open the accessible modal reader with real-time keyword search.
+   - **Checklist & Counsel Prep:** Prioritized action items and targeted questions to ask an attorney.
+
+---
+
+### Mode 2: Situation Navigator (`/analyze/situation`)
+**Goal:** Test plain-language conversational dispute triage, statutory rights detection, and deadline alerts.
+
+1. Navigate to **Situation Navigator**.
+2. Provide a dispute narrative using either:
+   - **Quick Presets:** Click any pre-configured chip (*Tenancy*, *Employment*, *Freelance*, *Consumer Fraud*, or *Small Business*).
+   - **Custom Description:** Enter a real dispute in everyday English, for example:
+     > *"My landlord withheld my security deposit of $2,400 after I moved out 30 days ago. They haven't sent an itemized list of deductions or returned any funds, and are now ignoring my phone calls and emails."*
+3. Click **Navigate Situation**.
+4. **What to Verify in Output:**
+   - **Urgent Deadline Alert Banner:** Highlights time-sensitive statutory clocks (e.g., 21-day deposit return statutes).
+   - **Rights & Protections Accordion:** Plain-English breakdown of tenant statutory protections and statutory penalties.
+   - **Evidence Checklist:** Specific documents to gather (move-in inspection photos, communications log, bank statements).
+   - **Next-Steps Roadmap:** Step-by-step actionable sequence (Demand Letter → Small Claims Filing).
+   - **Counsel Intake Triggers:** Explicit criteria for when professional representation is recommended.
+
+---
+
+### Mode 3: Contract Comparison Engine (`/analyze/compare`)
+**Goal:** Test side-by-side contract diffing, favorability shifts, and negotiation leverage guidance.
+
+1. Navigate to **Contract Comparison**.
+2. Load contract versions using either:
+   - **1-Click Presets:** Click the *Vendor SLA Diff* or *Executive Employment Offer* preset card to load sample agreements.
+   - **Custom Uploads:**
+     - **Document A (Original):** Upload [`doc/batch-2-comparison-pairs/vendor-sla-v1-original.pdf`](file:///home/zeph/Code/gavel/doc/batch-2-comparison-pairs/vendor-sla-v1-original.pdf) (vendor-favored SLA).
+     - **Document B (Revised):** Upload [`doc/batch-2-comparison-pairs/vendor-sla-v2-revised.pdf`](file:///home/zeph/Code/gavel/doc/batch-2-comparison-pairs/vendor-sla-v2-revised.pdf) (client-negotiated revision).
+3. Click **Compare Contracts**.
+4. **What to Verify in Output:**
+   - **Favorability Verdict:** Shows whether Document A or B is more advantageous and quantifies leverage shift.
+   - **Clause Comparison Table:** Clear side-by-side alignment categorizing shifts (*Added*, *Removed*, *Modified*, *Critical Shift*).
+   - **Inconsistencies & Conflict Flags:** Detects conflicting definitions or contradictory terms between drafts.
+   - **Negotiation Guide:** Tactical guidance for resolving lingering contested clauses.
+
+---
+
+### Testing Universal Interactive Features (Modes 1, 2 & 3)
+- **Interactive Q&A ("Ask Gavel"):** Click the floating green chat badge or the *Ask Gavel* button in the sticky navigation bar. Ask a natural question (e.g., *"What is my exposure under the indemnity clause?"*). The response streams progressively with citations back to the source text.
+- **Dossier Export:** Click *Export Dossier* to compile and copy or download a clean, structured Markdown brief formatted for legal counsel or client records.
+
+---
+
+## 🧪 Automated Testing & Verification
 
 Gavel includes a comprehensive test suite of **22 test suites and 221 tests** covering schema integrity, API error responses, component rendering, accessibility attributes, image downsampling, and security guardrails:
 
