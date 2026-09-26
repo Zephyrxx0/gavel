@@ -43,6 +43,7 @@ export function ModeSwitcher({ className }: { className?: string }) {
             <Link
               key={mode.href}
               href={mode.href}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
                 'flex items-center gap-1.5 px-3 py-1.5 rounded-full font-medium transition-all duration-150 whitespace-nowrap',
                 isActive

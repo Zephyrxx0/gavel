@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
-      <main className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 space-y-14 flex-1">
+      <main id="main-content" tabIndex={-1} className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 pb-20 space-y-14 flex-1 focus:outline-none">
         {/* Editorial Hero Section */}
         <section className="pt-6 sm:pt-12 pb-2 text-center space-y-5 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-xs font-mono tracking-wide uppercase bg-stone-100 border border-stone-200/80 text-stone-700">
@@ -76,15 +76,18 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <Link href="/analyze/document" className="w-full pt-2">
+              <div className="w-full pt-2">
                 <Button
+                  asChild
                   size="default"
                   className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
                 >
-                  <span>Decode Document</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <Link href="/analyze/document">
+                    <span>Decode Document</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </Button>
-              </Link>
+              </div>
             </div>
 
             {/* Mode 2: Situation Navigator */}
@@ -106,15 +109,18 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <Link href="/analyze/situation" className="w-full pt-2">
+              <div className="w-full pt-2">
                 <Button
+                  asChild
                   size="default"
                   className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
                 >
-                  <span>Situation Navigator</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <Link href="/analyze/situation">
+                    <span>Situation Navigator</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </Button>
-              </Link>
+              </div>
             </div>
 
             {/* Mode 3: Compare Agreements */}
@@ -136,15 +142,18 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <Link href="/analyze/compare" className="w-full pt-2">
+              <div className="w-full pt-2">
                 <Button
+                  asChild
                   size="default"
                   className="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium h-11 px-4 text-xs shadow-sm flex items-center justify-between group rounded-xl"
                 >
-                  <span>Compare Documents</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <Link href="/analyze/compare">
+                    <span>Compare Documents</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
         </section>

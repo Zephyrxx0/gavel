@@ -160,6 +160,9 @@ export function ChatPanel({
   return (
     <div
       data-testid="chat-panel"
+      role="dialog"
+      aria-label="Gavel Legal Assistant"
+      aria-modal="true"
       className="fixed top-0 right-0 bottom-9 sm:bottom-10 z-40 flex flex-col bg-white border-l border-b border-stone-200 shadow-2xl transition-transform duration-300 w-full sm:w-[460px] lg:w-[500px]"
     >
         {/* Persistent Compliance Banner */}
@@ -193,6 +196,7 @@ export function ChatPanel({
               type="button"
               onClick={handleClear}
               title="Clear chat"
+              aria-label="Clear conversation history"
               className="h-9 w-9 rounded-lg flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-400"
               data-testid="clear-chat-button"
             >
@@ -202,6 +206,7 @@ export function ChatPanel({
               type="button"
               onClick={onClose}
               title="Close drawer"
+              aria-label="Close legal assistant drawer"
               className="h-9 w-9 rounded-lg flex items-center justify-center text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors focus:outline-none focus:ring-2 focus:ring-stone-400"
               data-testid="close-chat-button"
             >
@@ -211,7 +216,7 @@ export function ChatPanel({
         </div>
 
         {/* Message Feed / Empty State */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div role="log" aria-live="polite" className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-4">
               <div className="h-12 w-12 rounded-2xl bg-[#FAF0EB] border border-orange-200/60 flex items-center justify-center text-orange-700 mb-3 shadow-sm">
@@ -291,6 +296,7 @@ export function ChatPanel({
                         onClick={() => handleCopyMessage(msg.id, textContent)}
                         className="text-[11px] text-stone-500 hover:text-stone-800 flex items-center gap-1 transition-colors"
                         title="Copy message"
+                        aria-label="Copy response to clipboard"
                         data-testid="copy-message-button"
                       >
                         {copiedId === msg.id ? (
@@ -343,6 +349,7 @@ export function ChatPanel({
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               placeholder="Ask a question about this analysis..."
+              aria-label="Ask a question about this analysis"
               maxLength={1000}
               disabled={isLoading}
               data-testid="chat-input"

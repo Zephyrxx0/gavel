@@ -84,6 +84,7 @@ export function DocumentZone({
               <input
                 type="text"
                 value={tempLabel}
+                aria-label="Document label"
                 onChange={(e) => setTempLabel(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') handleSaveLabel();

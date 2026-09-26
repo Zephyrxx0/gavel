@@ -46,6 +46,12 @@ export default function RootLayout({
       className={`${dmSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-background text-foreground font-sans min-h-screen flex flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 rounded-lg bg-stone-900 text-white px-4 py-2 text-xs font-medium shadow-lg ring-2 ring-stone-400 focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <div className="flex-1 pb-16">{children}</div>
         <LegalDisclaimerBanner />
         <Toaster />
