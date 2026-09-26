@@ -164,7 +164,7 @@ export default function ComparePage() {
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col pb-20">
       <Header />
 
-      <main className="flex-1 container mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <main id="main-content" tabIndex={-1} className="flex-1 container mx-auto max-w-7xl px-4 sm:px-6 py-8 focus:outline-none">
         <ModeSwitcher className="w-full mb-6" />
         {/* State: IDLE */}
         {pageState === 'idle' && (

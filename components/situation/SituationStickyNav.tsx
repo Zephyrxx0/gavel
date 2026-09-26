@@ -50,8 +50,11 @@ export function SituationStickyNav({
   ];
 
   return (
-    <nav className="sticky top-20 z-[35] w-full border-b border-stone-200/90 bg-[#FAF9F6]/95 backdrop-blur shadow-sm">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
+    <nav
+      data-testid="situation-sticky-nav"
+      className="w-full rounded-2xl border border-stone-200/90 bg-white/95 backdrop-blur shadow-sm p-1.5 sm:p-2"
+    >
+      <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div
           className="flex items-center gap-2 overflow-x-auto no-scrollbar flex-nowrap py-1"
           style={{ WebkitOverflowScrolling: 'touch' }}

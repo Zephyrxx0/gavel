@@ -169,28 +169,29 @@ export default function SituationNavigatorPage() {
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
-      {analysisState === 'dossier' && analysisData && (
-        <SituationStickyNav
-          activeSection={activeSection}
-          onNavigate={handleNavigateSection}
-          onReset={handleReset}
-          onOpenChat={() => setIsChatOpen(true)}
-          onExport={() => {
-            const el = document.getElementById('export-dossier-section');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }}
-          hasDeadlines={Boolean(analysisData.deadlineFlags && analysisData.deadlineFlags.length > 0)}
-          counts={{
-            rights: analysisData.rights.length,
-            roadmap: analysisData.roadmap.length,
-            evidence: analysisData.documentsToGather.length,
-            counselTriggers: analysisData.whenToCallLawyer.length,
-          }}
-        />
-      )}
-
-      <main className="container mx-auto max-w-7xl px-4 sm:px-6 py-8 space-y-8 flex-1">
+      <main id="main-content" tabIndex={-1} className="container mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1 focus:outline-none">
         <ModeSwitcher />
+
+        {analysisState === 'dossier' && analysisData && (
+          <SituationStickyNav
+            activeSection={activeSection}
+            onNavigate={handleNavigateSection}
+            onReset={handleReset}
+            onOpenChat={() => setIsChatOpen(true)}
+            onExport={() => {
+              const el = document.getElementById('export-dossier-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            hasDeadlines={Boolean(analysisData.deadlineFlags && analysisData.deadlineFlags.length > 0)}
+            counts={{
+              rights: analysisData.rights.length,
+              roadmap: analysisData.roadmap.length,
+              evidence: analysisData.documentsToGather.length,
+              counselTriggers: analysisData.whenToCallLawyer.length,
+            }}
+          />
+        )}
+
         {/* Prominent Statutory Legal Disclaimer Card placed directly above viewports */}
         <LegalDisclaimerCard />
 

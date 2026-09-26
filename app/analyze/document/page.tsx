@@ -176,7 +176,9 @@ export default function DocumentDecoderPage() {
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col selection:bg-stone-200">
       <Header />
 
-      <main className="container mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1">
+      <main id="main-content" tabIndex={-1} className="container mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 flex-1 focus:outline-none">
+        <ModeSwitcher />
+
         {analysisState === 'dossier' && analysisData && (
           <StickyNav
             activeSection={activeSection}
@@ -195,7 +197,6 @@ export default function DocumentDecoderPage() {
           />
         )}
 
-        <ModeSwitcher />
         <LegalDisclaimerCard />
 
         {analysisState === 'idle' && (
