@@ -5,6 +5,7 @@ import { FileText, Image as ImageIcon, Trash2, CheckCircle2, Sparkles } from 'lu
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { formatFileSize } from '@/lib/image-utils';
+import { openDocumentPreview } from '@/lib/safe-preview';
 
 export interface FilePreviewCardProps {
   fileName: string;
@@ -40,25 +41,13 @@ export function FilePreviewCard({
   const isDocx = mimeType.includes('wordprocessingml') || fileName.toLowerCase().endsWith('.docx');
 
   const handleOpen = () => {
-    if (fileObjectUrl) {
-      window.open(fileObjectUrl, '_blank');
-      return;
-    }
-    if (isImg && rawBase64) {
-      const imgWindow = window.open('');
-      if (imgWindow) {
-        imgWindow.document.write(
-          `<html><head><title>${fileName}</title></head><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;"><img src="data:${mimeType};base64,${rawBase64}" style="max-width:100%;max-height:100vh;object-fit:contain;" /></body></html>`
-        );
-      }
-      return;
-    }
-    if (text) {
-      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-      const blobUrl = URL.createObjectURL(blob);
-      window.open(blobUrl, '_blank');
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-    }
+    openDocumentPreview({
+      fileObjectUrl,
+      isImage: isImg,
+      rawBase64,
+      mimeType,
+      text,
+    });
   };
 
   return (
