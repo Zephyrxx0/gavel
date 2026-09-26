@@ -1,3 +1,13 @@
+/**
+ * @file route.ts
+ * @description API Route Handler for interactive conversational Q&A on active legal contexts.
+ *
+ * Streams token-by-token responses using Gemini via Vercel AI SDK `streamText`.
+ * Injects contextually grounded system prompts referencing the active document,
+ * dispute situation, or comparison scorecards with strict legal compliance boundaries
+ * (prohibiting prescriptive legal advice while offering objective informational guidance).
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { streamText, convertToModelMessages, type UIMessage } from 'ai';
 import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';

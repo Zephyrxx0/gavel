@@ -1,3 +1,15 @@
+/**
+ * @file route.ts
+ * @description API Route Handler for dual-contract diffing and comparative legal intelligence.
+ *
+ * Implements adaptive comparison strategies:
+ * 1. Two-pass extraction pipeline for massive contracts (>80,000 characters) to avoid context bloat.
+ * 2. Single-pass atomic comparison for standard textual agreements (<80,000 characters).
+ * 3. Multimodal vision comparison for scanned or photographed document versions.
+ *
+ * Enforces structured output conformity using Gemini via Vercel AI SDK `generateObject`.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
 import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
@@ -13,6 +25,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
+/** Character count threshold triggering two-pass clause summarization */
 const TWO_PASS_THRESHOLD = 80_000;
 
 type ContentPart =
@@ -30,7 +43,10 @@ interface MultimodalCompareParams {
   mimeTypeB?: unknown;
 }
 
-// 1. Two-pass extraction pipeline for massive contracts
+/**
+ * Two-pass extraction pipeline for massive contracts (>80k chars).
+ * Extracts key legal clauses concurrently in Pass 1, then performs structured diffing in Pass 2.
+ */
 async function compareTwoPass(
   model: Parameters<typeof generateObject>[0]['model'],
   docA: string,

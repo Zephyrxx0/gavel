@@ -1,3 +1,13 @@
+/**
+ * @file route.ts
+ * @description API Route Handler for single legal document analysis and risk decoding.
+ *
+ * Accepts either extracted plain text or base64-encoded scanned document images.
+ * Uses Gemini (gemini-2.5-flash) via Vercel AI SDK `generateObject` with strict Zod schema validation
+ * (`DocumentAnalysisSchema`) to extract plain-English summaries, traffic-light risk ratings,
+ * action checklists, and counsel questions in a single atomic inference step.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
 import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
@@ -8,6 +18,10 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
+/**
+ * Handles POST requests to analyze a legal document.
+ * Supports both plain text contracts and multimodal image scans.
+ */
 export async function POST(req: NextRequest) {
   try {
     const model = getGeminiModel();
@@ -36,6 +50,7 @@ export async function POST(req: NextRequest) {
 
     let analysisResult;
 
+    // Multimodal Vision Inference for scanned/camera document images
     if (typeof imageBase64 === 'string' && imageBase64.length > 0) {
       const mime = typeof mimeType === 'string' && mimeType ? mimeType : 'image/jpeg';
       analysisResult = await generateObject({
@@ -59,6 +74,7 @@ export async function POST(req: NextRequest) {
         ],
       });
     } else {
+      // Plain text inference for parsed PDF or DOCX content
       if (typeof text !== 'string' || text.trim().length < 30) {
         return NextResponse.json(
           { error: 'EMPTY_TEXT', message: 'Document text must be at least 30 characters.' },
@@ -89,4 +105,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

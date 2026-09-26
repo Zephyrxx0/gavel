@@ -1,3 +1,14 @@
+/**
+ * @file route.ts
+ * @description API Route Handler for active legal dispute triage and situation navigation.
+ *
+ * Accepts plain-English conversational descriptions of legal disputes (e.g. landlord-tenant,
+ * employment severance, freelance wage theft, consumer fraud).
+ * Uses Gemini (gemini-2.5-flash) via Vercel AI SDK `generateObject` with strict Zod validation
+ * (`SituationAnalysisSchema`) to generate categorized rights breakdowns, urgent deadline alerts,
+ * evidence checklists, and counsel intake dossiers.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { generateObject } from 'ai';
 import { getGeminiModel, createConfigErrorResponse } from '@/lib/ai';
@@ -8,10 +19,16 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
+/**
+ * Counts whitespace-delimited tokens in a string to enforce length thresholds.
+ */
 function countWords(str: string): number {
   return str.trim() ? str.trim().split(/\s+/).filter(Boolean).length : 0;
 }
 
+/**
+ * Handles POST requests to analyze a legal situation or dispute narrative.
+ */
 export async function POST(req: NextRequest) {
   try {
     const model = getGeminiModel();
@@ -41,6 +58,7 @@ export async function POST(req: NextRequest) {
     const trimmed = description.trim();
     const words = countWords(trimmed);
 
+    // Validate minimum contextual depth for reliable legal triage
     if (words < 20 && trimmed.length < 50) {
       return NextResponse.json(
         { error: 'EMPTY_TEXT', message: 'Dispute description must be at least 20 words or 50 characters.' },
@@ -66,7 +84,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         error: 'ANALYSIS_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to complete AI situation analysis.',
+        message: error instanceof Error ? error.message : 'Failed to complete dispute triage analysis.',
       },
       { status: 500 }
     );

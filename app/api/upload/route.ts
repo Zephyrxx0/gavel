@@ -4,17 +4,78 @@ import mammoth from 'mammoth';
 import { cleanText, countWords } from '@/lib/text-utils';
 import { UploadResponseSchema } from '@/lib/schemas/upload';
 
-// Enforce Node.js runtime for volatile Buffer operations
+/**
+ * Enforce Node.js runtime for volatile Buffer operations.
+ * Next.js edge runtime lacks Buffer and stream implementations required by pdf-parse.
+ */
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+/** Maximum file size ceiling: 10MB across all formats */
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
+type ParseResult =
+  | { success: true; text: string }
+  | { success: false; error: 'PASSWORD_PROTECTED' | 'CORRUPT_FILE'; message: string };
+
+/**
+ * Extracts raw textual content from an in-memory PDF Buffer.
+ * Detects password protection, encryption, and structural corruption.
+ */
+async function extractPdfText(buffer: Buffer): Promise<ParseResult> {
+  try {
+    const parsed = await pdfParse(buffer);
+    return { success: true, text: parsed.text || '' };
+  } catch (err: unknown) {
+    console.error('[/api/upload] PDF parse failure:', err);
+    const errorMsg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+    if (errorMsg.includes('password') || errorMsg.includes('encrypted')) {
+      return {
+        success: false,
+        error: 'PASSWORD_PROTECTED',
+        message: 'The PDF document is encrypted or password-protected.',
+      };
+    }
+    return {
+      success: false,
+      error: 'CORRUPT_FILE',
+      message: 'Unable to parse PDF content. The file may be corrupt.',
+    };
+  }
+}
+
+/**
+ * Extracts raw text from an in-memory DOCX Buffer using mammoth.
+ * Strips XML and style artifacts while preserving paragraph structure.
+ */
+async function extractDocxText(buffer: Buffer): Promise<ParseResult> {
+  try {
+    const result = await mammoth.extractRawText({ buffer });
+    return { success: true, text: result.value || '' };
+  } catch (err: unknown) {
+    console.error('[/api/upload] DOCX parse failure:', err);
+    return {
+      success: false,
+      error: 'CORRUPT_FILE',
+      message: 'Unable to parse DOCX content. The file may be corrupt.',
+    };
+  }
+}
+
+/**
+ * Document Intake API Route (/api/upload)
+ * 
+ * Ephemeral document ingestion endpoint:
+ * - Processes PDF, DOCX, JPG, and PNG files entirely in volatile RAM (zero disk writes).
+ * - Enforces 10MB upload ceiling.
+ * - Cleans and normalizes text for downstream Gemini LLM reasoning.
+ */
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get('file');
 
+    // 1. Validate payload presence and type
     if (!file || !(file instanceof File)) {
       const errorPayload = {
         success: false,
@@ -24,6 +85,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 400 });
     }
 
+    // 2. Enforce strict size threshold (10MB)
     if (file.size > MAX_FILE_SIZE) {
       const errorPayload = {
         success: false,
@@ -48,52 +110,23 @@ export async function POST(req: NextRequest) {
     const isJpg = mimeType === 'image/jpeg' || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
     const isPng = mimeType === 'image/png' || fileName.endsWith('.png');
 
-    // 1. PDF Extraction
+    // 3. Dispatch format-specific in-memory extraction
     if (isPdf) {
-      try {
-        const parsed = await pdfParse(buffer);
-        extractedText = parsed.text || '';
-      } catch (err: unknown) {
-        console.error('[/api/upload] PDF parse failure:', err);
-        const errorMsg = (err instanceof Error ? err.message : String(err)).toLowerCase();
-        if (errorMsg.includes('password') || errorMsg.includes('encrypted')) {
-          const errorPayload = {
-            success: false,
-            error: 'PASSWORD_PROTECTED' as const,
-            message: 'The PDF document is encrypted or password-protected.',
-          };
-          return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 422 });
-        }
-        const errorPayload = {
-          success: false,
-          error: 'CORRUPT_FILE' as const,
-          message: 'Unable to parse PDF content. The file may be corrupt.',
-        };
-        return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 422 });
+      const result = await extractPdfText(buffer);
+      if (!result.success) {
+        return NextResponse.json(UploadResponseSchema.parse(result), { status: 422 });
       }
-    }
-    // 2. DOCX Extraction
-    else if (isDocx) {
-      try {
-        const result = await mammoth.extractRawText({ buffer });
-        extractedText = result.value || '';
-      } catch (err: unknown) {
-        console.error('[/api/upload] DOCX parse failure:', err);
-        const errorPayload = {
-          success: false,
-          error: 'CORRUPT_FILE' as const,
-          message: 'Unable to parse DOCX content. The file may be corrupt.',
-        };
-        return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 422 });
+      extractedText = result.text;
+    } else if (isDocx) {
+      const result = await extractDocxText(buffer);
+      if (!result.success) {
+        return NextResponse.json(UploadResponseSchema.parse(result), { status: 422 });
       }
-    }
-    // 3. Image Conversion (JPG / PNG for Multimodal Vision)
-    else if (isJpg || isPng) {
+      extractedText = result.text;
+    } else if (isJpg || isPng) {
       isImage = true;
       rawBase64 = buffer.toString('base64');
-    }
-    // 4. Unsupported Format
-    else {
+    } else {
       const errorPayload = {
         success: false,
         error: 'UNSUPPORTED_TYPE' as const,
@@ -102,7 +135,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(UploadResponseSchema.parse(errorPayload), { status: 415 });
     }
 
-    // For text formats (PDF/DOCX), clean and validate minimum length
+    // 4. Validate textual content threshold (PDF / DOCX)
     if (!isImage) {
       const sanitized = cleanText(extractedText);
       if (sanitized.length < 30) {
@@ -129,7 +162,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(UploadResponseSchema.parse(responsePayload));
     }
 
-    // Image payload response
+    // 5. Image payload response for multimodal vision reasoning
     const imagePayload = {
       success: true,
       data: {
