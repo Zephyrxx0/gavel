@@ -155,7 +155,7 @@ export default function SituationNavigatorPage() {
       }
     }
     setAnalysisState('idle');
-  }, []);
+  }, [setActiveSection]);
 
   const handleNavigateSection = (sectionId: string) => {
     setActiveSection(sectionId);

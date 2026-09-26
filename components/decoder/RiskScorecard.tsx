@@ -12,13 +12,13 @@ export interface RiskScorecardProps {
 
 type FilterTier = 'all' | 'high' | 'caution' | 'standard';
 
+const RISK_ORDER: Record<string, number> = { high: 0, caution: 1, standard: 2 };
+
 export function RiskScorecard({ clauses }: RiskScorecardProps) {
   const [filterTier, setFilterTier] = useState<FilterTier>('all');
 
-  const riskOrder: Record<string, number> = { high: 0, caution: 1, standard: 2 };
-
   const sortedClauses = useMemo(() => {
-    return [...clauses].sort((a, b) => (riskOrder[a.risk] ?? 3) - (riskOrder[b.risk] ?? 3));
+    return [...clauses].sort((a, b) => (RISK_ORDER[a.risk] ?? 3) - (RISK_ORDER[b.risk] ?? 3));
   }, [clauses]);
 
   const counts = useMemo(
@@ -112,7 +112,7 @@ export function RiskScorecard({ clauses }: RiskScorecardProps) {
             No clauses match the selected risk tier
           </p>
           <p className="text-xs text-stone-600">
-            Switch filter to 'All Clauses' to review all analyzed sections of this document.
+            Switch filter to &apos;All Clauses&apos; to review all analyzed sections of this document.
           </p>
           <Button
             variant="outline"
